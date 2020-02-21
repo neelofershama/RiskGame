@@ -2,7 +2,6 @@ package src.main.java.Controller;
 
 import java.util.ArrayList;
 
-import Board.Board;
 import src.main.java.Model.Players.Player;
 
 /**
@@ -31,7 +30,6 @@ public class Driver {
 
 
 	private static void startGame() {
-		Board boards = new Board();
 		Player player=new Player();
 		
 	}
@@ -40,13 +38,11 @@ public class Driver {
 		int num_players = num;
 		if(!(num_players < 2 && num_players > 6))
 		{
-			 players = new ArrayList<>(num_players);
-			 for(int i=0;i<num_players;i++) {
-				 players.add(new Player())
+			 players = new ArrayList<>(num_players);	 
 			 }
-			 
+		else
+			System.out.println("Invalid Number of players, Please select between 2 to 6 player");
 		}
 		
-	}
 
 }
