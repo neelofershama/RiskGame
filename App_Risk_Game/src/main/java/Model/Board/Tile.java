@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 
-public class Tile{
+public class Tile {
 	/**
 	 * Stores the name of the tile
 	 */
@@ -29,7 +29,7 @@ public class Tile{
 	/**
 	 * Stores the neighboring tiles of the tile
 	 */
-	private ArrayList<TileUpdated> neighbour_tile;
+	private ArrayList<Tile> neighbour_tile;
 	/**
 	 * Stores the unit that will be on the tile
 	 */
@@ -48,9 +48,9 @@ public class Tile{
 	 * @param tile_name
 	 * Update the tile name
 	 */
-	protected TileUpdated(String tile_name) {
+	protected Tile(String tile_name) {
 		this.tile_name = tile_name;
-		neighbour_tile = new ArrayList<TileUpdated>();
+		neighbour_tile = new ArrayList<Tile>();
 		unit = new ArrayList<Unit>();
 	}
 	
@@ -110,9 +110,9 @@ public class Tile{
 	 * @param neighbourTile
 	 * Associate neighboring tiles to the tile
 	 */
-	protected void setNeighbourTile(ArrayList<TileUpdated> neighbourTile) {
+	protected void setNeighbourTile(ArrayList<Tile> neighbourTile) {
 		for(int i=0; i<neighbourTile.size(); i++) {
-			TileUpdated tile = neighbourTile.get(i);
+			Tile tile = neighbourTile.get(i);
 			neighbourTile.add(tile);
 		}
 	}
@@ -120,7 +120,7 @@ public class Tile{
 	 * 
 	 * @return List of neighboring tiles to the tile
 	 */
-	protected ArrayList<TileUpdated> getNeighbourTile(){
+	protected ArrayList<Tile> getNeighbourTile(){
 		return neighbour_tile;
 	}
 	/**
