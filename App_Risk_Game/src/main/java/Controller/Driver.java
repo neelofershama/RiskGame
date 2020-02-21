@@ -17,31 +17,51 @@ public class Driver {
 	 */
 	private static ArrayList<Player> players= null;
 	
+	/**
+	 * stores the number of players
+	 */
+	private static int num_players;
+	
+	/**
+	 * Setter method to store the number of player
+	 * @param num
+	 */
+	public void setNum(int num) {
+		this.num_players=num;
+	}
+	
 	
 	/**
 	 * Game driver to start game 
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Player player=new Player();
 		startGame();
-		getPlayers(3);
+		getPlayers(num);
 				
 	}
 
 
 	private static void startGame() {
-		Player player=new Player();
+	//initial setup
 	}
 	
-	private static void getPlayers(int num) {
-		int num_players = num;
+	private static void getPlayers() {
 		if(!(num_players < 2 && num_players > 6))
 		{
-			 players = new ArrayList<>(num_players);	 
+			 players = new ArrayList<>(num_players);
+			 getPlayerDetails();
 			 }
 		else
 			System.out.println("Invalid Number of players, Please select between 2 to 6 player");
 		}
+
+
+	private static void getPlayerDetails() {
+		// TODO Auto-generated method stub
+		
+	}
 		
 
 }
