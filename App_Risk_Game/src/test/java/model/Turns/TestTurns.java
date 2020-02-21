@@ -1,4 +1,4 @@
-package Model.Turns;
+package src.test.java.model.Turns;
 import org.junit.Assert.*;				
 import org.junit.Test;
 

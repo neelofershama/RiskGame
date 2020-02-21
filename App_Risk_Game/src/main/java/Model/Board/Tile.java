@@ -1,7 +1,9 @@
-package Board;
+package src.main.java.Model.Board;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import src.main.java.Model.Units.Unit;
 
 /**
  * Represent tile of a board
