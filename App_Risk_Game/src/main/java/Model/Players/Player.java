@@ -1,4 +1,4 @@
-package main.java.Model.player;
+package src.main.java.Model.Players;
 
 import java.util.List;
 import java.util.Map;
@@ -55,11 +55,14 @@ public class Player {
 	    }
 	    
 	    /**
-	     * Creates a player with a specific Id
+	     * Creates a player with a specific name and Id
+	     * @param name A string to set the name of the player
 	     * @param id A Unique Integer used as for identifying a player
 	     */
-	    public Player(int id) {
-	        this.player_id = id;
+	    public Player(String name,int id) {
+	        this.player_name=name;
+	    	this.player_id = id;
+	        
 	    }
 
 	    /**
@@ -68,6 +71,14 @@ public class Player {
 	     */
 	    public int getId() {
 	        return player_id;
+	    }
+	    /**
+	     * sets the player Id
+	     * @param id A integer for a player Id
+	     * @return player Id
+	     */
+	    public void setId(int id) {
+	    	this.player_id=id;
 	    }
 	    
 	    /**
