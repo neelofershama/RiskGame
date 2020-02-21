@@ -10,6 +10,10 @@ import org.junit.Test;
 
 import java.util.*;
 
+/**
+ * Test CardsCollection class
+ */
+
     public class CardsCollectionTest {
         Random r = new Random();
 
@@ -20,7 +24,10 @@ import java.util.*;
 
         }
 
-        @Test
+    /**
+     * Test creation of cards is equal to the number of locations provided and the associate a value with each card
+     */
+    @Test
         public void initializeCards_shouldInitializeCardsWithLocationAndValue()
         {
             //Arrange
@@ -30,7 +37,7 @@ import java.util.*;
             locations.add("Russia");
             locations.add("China");
             locations.add("Australia");
-            locations.add("Quebec");
+            locations.add("Canada");
             locations.add("England");
             locations.add("California");
             List<Card> cards = new ArrayList<Card>();
@@ -57,8 +64,12 @@ import java.util.*;
             });
 
         }
-        @Test
-        public void distributeCards_shouldAssignEqualNoOfCardsToPlayers(){
+
+    /**
+     * Test equal distribution of cards to each player when no of cards is a multiple of no of players
+     */
+    @Test
+    public void distributeCards_shouldAssignEqualNoOfCardsToPlayers(){
             //Arrange
             int min =0;
             int value = 2 ; //r.nextInt(max - min) + min;
@@ -88,7 +99,10 @@ import java.util.*;
             Assert.assertEquals(playerDetails.get("Player3").size() , locations.size()/players.size());
         }
 
-        @Test
+    /**
+     * Test equal distribution of cards to players when no of locations is not a multiple of no of players and keep track of extra cards
+     */
+    @Test
         public void distributeCards_shouldAssignCardsToPlayers_whenNoOfLocationsIsNotMultipleOfNoOfPlayers(){
             //Arrange
             int min =0;
@@ -97,7 +111,7 @@ import java.util.*;
             locations.add("Russia");
             locations.add("China");
             locations.add("Australia");
-            locations.add("Quebec");
+            locations.add("Canada");
             locations.add("England");
             locations.add("California");
             List<Card> cards = new ArrayList<Card>();
@@ -121,7 +135,10 @@ import java.util.*;
             Assert.assertEquals(CardsCollection.remainingCardsCount,locations.size()%players.size());
         }
 
-        @Test
+    /**
+     * Test rebundle operation removes any association of cards with players and pushes all the cards to a stack
+     */
+    @Test
         public void rebundleCards_shouldUnAssignCardsToPlayers(){
             int min =0;
             int value = 2 ; //r.nextInt(max - min) + min;
@@ -129,7 +146,7 @@ import java.util.*;
             locations.add("Russia");
             locations.add("China");
             locations.add("Australia");
-            locations.add("Quebec");
+            locations.add("Canada");
             locations.add("England");
             locations.add("California");
             List<Card> cards = new ArrayList<Card>();
@@ -161,7 +178,10 @@ import java.util.*;
             Assert.assertTrue(resultLocations.containsAll(locations));
         }
 
-        @Test
+    /**
+     * Test creation of a new card, assign this card to a player and listing the cards of the player includes the newest card
+     */
+    @Test
         public void assignCardToPlayer_shouldAddGivenCardToPlayerCardsList(){
             int min =0;
             int value = 2 ; //r.nextInt(max - min) + min;
@@ -169,7 +189,7 @@ import java.util.*;
             locations.add("Russia");
             locations.add("China");
             locations.add("Australia");
-            locations.add("Quebec");
+            locations.add("Canada");
             locations.add("England");
             locations.add("California");
             List<Card> cards = new ArrayList<Card>();
