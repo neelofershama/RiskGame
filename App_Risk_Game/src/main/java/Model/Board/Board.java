@@ -1,0 +1,242 @@
+package Board;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Board class representing the board and its properties
+ * 
+ * @author pavankrishna
+ * @ version 1.0
+ *
+ */
+public class Board{
+	
+	/**
+	 * Store the tiles of the board
+	 */
+	private HashMap<String, TileUpdated> tiles;
+	/**
+	 * Store the width of the board
+	 */
+	private int width;
+	/**
+	 * Store the height of the board
+	 */
+	private int height;
+	/**
+	 * Store the tiles along with location on board
+	 */
+	private List<ArrayList<TileUpdated>> board;
+	
+	/**
+	 * 
+	 * @param width
+	 * @param height
+	 * Creates board and fill each location with tile 
+	 */
+	public BoardUpdated(int width, int height) {
+		this.width = width;
+		this.height = height;
+		board = new ArrayList<ArrayList<TileUpdated>>(width);
+		for(int w=0; w<width; w++) {
+			board.add(w, new ArrayList<TileUpdated>(height));
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param tile_name
+	 * @param x
+	 * @param y
+	 * 
+	 * Creates tile with name and position associated with it, in the board
+	 */
+	public void createTile(String tile_name, int x, int y) {
+		if(!tiles.containsKey(tile_name)) {
+			TileUpdated tile = new TileUpdated(tile_name);
+			board.get(x).add(y, tile);
+			tile.setXCoordinate(x);
+			tile.setYCoordinate(y);
+			tiles.put(tile_name, tile);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param tile_name
+	 * Used to remove the tile from the board
+	 */
+	public void removeTile(String tile_name) {
+		if(tiles.containsKey(tile_name)) {
+			tiles.remove(tile_name);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param player_owned
+	 * @param tileName
+	 * Associates a player with a tile
+	 */
+	public void setPlayer(String player_owned, String tileName) {
+		if(tiles.containsKey(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			tile.setPlayer(player_owned);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param tileName
+	 * @return Player associated with a tile
+	 */
+	public String getPlayer(String tileName) {
+		if(tiles.containsKey(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			return tile.getPlayer();
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param tileName
+	 * @return coordinates of a tile
+	 */
+	public ArrayList<Integer> getCoordinates(String tileName) {
+		ArrayList<Integer> coordinates = new ArrayList<Integer>();
+		if(tiles.containsKey(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			coordinates.add(tile.getXCoordinate());
+			coordinates.add(tile.getYCoordinate());
+			return coordinates;
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param neighbour_tile
+	 * @param tile_name
+	 * Associates a list of neighboring tiles to the tile
+	 */
+	public void setNeighbourTile(List<String> neighbour_tile, String tile_name) {
+		List<TileUpdated> tile_list = new ArrayList<TileUpdated>(); //Tile Neighbors
+		List<TileUpdated> t_list = new ArrayList<TileUpdated>(); // Neighbor neighbor update 
+		TileUpdated tile = tiles.get(tile_name);
+		for(int i=0; i<neighbour_tile.size(); i++) {
+			TileUpdated t = tiles.get(neighbour_tile.get(i));
+			t_list.add(tiles.get(tile_name));
+			t.setNeighbourTile((ArrayList<TileUpdated>) t_list);
+			tile_list.add(tiles.get(neighbour_tile.get(i)));
+		}
+		tile.setNeighbourTile((ArrayList<TileUpdated>) tile_list);
+	}
+	
+	/**
+	 * 
+	 * @param tileName
+	 * @return List of neighbors surrounding the tile
+	 */
+	public List<TileUpdated> getNeighbourTile(String tileName) {
+		if(tileName.contains(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			return tile.getNeighbourTile();
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param u
+	 * @param tileName
+	 * Associates unit to the tile
+	 */
+	public void addUnit(Unit u, String tileName) {
+		if(tileName.contains(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			tile.addUnit(u);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param u
+	 * @param tileName
+	 * Removes unit associated to the tile
+	 */
+	public void removeUnit(Unit u, String tileName) {
+		if(tileName.contains(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			tile.removeUnit(u);
+		}
+	}
+	
+	/**
+	 * List of units associated with the tile
+	 */
+	public ArrayList<Unit> getAllUnits(String tileName) {
+		if(tileName.contains(tileName)) {
+			TileUpdated tile = tiles.get(tileName);
+			return (ArrayList<Unit>) tile.getAllUnits();
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @param tile_name
+	 * Used to associate a type (land, water, etc..) to the tile
+	 */
+	public void setTileType(String type, String tile_name) {
+		if(tile_name.contains(tile_name)) {
+			TileUpdated tile = tiles.get(tile_name);
+			tile.setTileType(type);
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param tile_name
+	 * @return Type of the tile
+	 */
+	public String getTileType(String tile_name) {
+		if(tile_name.contains(tile_name)) {
+			TileUpdated tile = tiles.get(tile_name);
+			tile.getTileType();
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param tile_value
+	 * @param tile_name
+	 * Associates a value to the tile
+	 */
+	public void setTileValue(int tile_value, String tile_name) {
+		if(tile_name.contains(tile_name)) {
+			TileUpdated tile = tiles.get(tile_name);
+			tile.setTileValue(tile_value);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param tile_name
+	 * @return Value associated with the tile
+	 */
+	public int getTileValue(String tile_name) {
+		if(tile_name.contains(tile_name)) {
+			TileUpdated tile = tiles.get(tile_name);
+			return tile.getTileValue();
+		}
+		return 0;
+	}
+}
+ 
