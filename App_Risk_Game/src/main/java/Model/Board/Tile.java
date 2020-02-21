@@ -1,4 +1,4 @@
-package Board;
+package Model.Board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,18 +110,28 @@ public class Tile {
 	 * @param neighbourTile
 	 * Associate neighboring tiles to the tile
 	 */
-	protected void setNeighbourTile(ArrayList<Tile> neighbourTile) {
-		for(int i=0; i<neighbourTile.size(); i++) {
-			Tile tile = neighbourTile.get(i);
-			neighbourTile.add(tile);
+	protected void setNeighbourTile(ArrayList<Tile> neighbour_tile) {
+		for(int i=0; i<neighbour_tile.size(); i++) {
+			Tile tile = neighbour_tile.get(i);
+			if(! this.neighbour_tile.contains(tile))
+				 this.neighbour_tile.add(tile);
 		}
 	}
 	/**
 	 * 
 	 * @return List of neighboring tiles to the tile
 	 */
-	protected ArrayList<Tile> getNeighbourTile(){
-		return neighbour_tile;
+	protected ArrayList<String> getNeighbourTile(){
+		ArrayList<String> neighbour = new ArrayList<String>();
+		for(int i=0; i<neighbour_tile.size(); i++) {
+			Tile tile = neighbour_tile.get(i);
+			neighbour.add(tile.tile_name);
+		}
+		if(neighbour.isEmpty()) {
+			return null;
+		}
+		else
+			return neighbour;
 	}
 	/**
 	 * 
