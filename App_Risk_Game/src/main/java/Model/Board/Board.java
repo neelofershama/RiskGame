@@ -1,4 +1,4 @@
-package Board;
+package Model.Board;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +40,7 @@ public class Board {
 		this.width = width;
 		this.height = height;
 		board = new ArrayList<ArrayList<Tile>>(width);
+		tiles = new HashMap<String, Tile>();
 		for(int w=0; w<width; w++) {
 			board.add(w, new ArrayList<Tile>(height));
 		}
@@ -55,13 +56,20 @@ public class Board {
 	 * Creates tile with name and position associated with it, in the board
 	 */
 	public void createTile(String tile_name, int x, int y) {
-		if(!tiles.containsKey(tile_name)) {
+
+	if(!tiles.containsKey(tile_name)) {
 			Tile tile = new Tile(tile_name);
-			board.get(x).add(y, tile);
 			tile.setXCoordinate(x);
 			tile.setYCoordinate(y);
 			tiles.put(tile_name, tile);
 		}
+	}
+	
+	private Tile getTile(String tile_name) {
+		if(tiles.containsKey(tile_name)) {
+			return tiles.get(tile_name);
+		}
+		return null;
 	}
 	
 	/**
@@ -81,9 +89,9 @@ public class Board {
 	 * @param tileName
 	 * Associates a player with a tile
 	 */
-	public void setPlayer(String player_owned, String tileName) {
-		if(tiles.containsKey(tileName)) {
-			Tile tile = tiles.get(tileName);
+	public void setPlayer(String player_owned, String tile_name) {
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			tile.setPlayer(player_owned);
 		}
 	}
@@ -93,9 +101,9 @@ public class Board {
 	 * @param tileName
 	 * @return Player associated with a tile
 	 */
-	public String getPlayer(String tileName) {
-		if(tiles.containsKey(tileName)) {
-			Tile tile = tiles.get(tileName);
+	public String getPlayer(String tile_name) {
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			return tile.getPlayer();
 		}
 		return null;
@@ -106,10 +114,10 @@ public class Board {
 	 * @param tileName
 	 * @return coordinates of a tile
 	 */
-	public ArrayList<Integer> getCoordinates(String tileName) {
+	public ArrayList<Integer> getCoordinates(String tile_name) {
 		ArrayList<Integer> coordinates = new ArrayList<Integer>();
-		if(tiles.containsKey(tileName)) {
-			Tile tile = tiles.get(tileName);
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			coordinates.add(tile.getXCoordinate());
 			coordinates.add(tile.getYCoordinate());
 			return coordinates;
@@ -124,16 +132,21 @@ public class Board {
 	 * Associates a list of neighboring tiles to the tile
 	 */
 	public void setNeighbourTile(List<String> neighbour_tile, String tile_name) {
-		List<Tile> tile_list = new ArrayList<Tile>(); //Tile Neighbors
-		List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update 
-		Tile tile = tiles.get(tile_name);
-		for(int i=0; i<neighbour_tile.size(); i++) {
-			Tile t = tiles.get(neighbour_tile.get(i));
-			t_list.add(tiles.get(tile_name));
-			t.setNeighbourTile((ArrayList<Tile>) t_list);
-			tile_list.add(tiles.get(neighbour_tile.get(i)));
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
+			List<Tile> tile_list = new ArrayList<Tile>(); //Tile Neighbors
+			List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update 
+			for(int i=0; i<neighbour_tile.size(); i++) {
+				String neighbour = neighbour_tile.get(i);
+				if(tiles.containsKey(neighbour)) {
+					Tile t = tiles.get(neighbour);
+					t_list.add(tiles.get(tile_name));
+					t.setNeighbourTile((ArrayList<Tile>) t_list);
+					tile_list.add(t);
+				}	
+			}
+			tile.setNeighbourTile((ArrayList<Tile>) tile_list);
 		}
-		tile.setNeighbourTile((ArrayList<Tile>) tile_list);
 	}
 	
 	/**
@@ -141,9 +154,9 @@ public class Board {
 	 * @param tileName
 	 * @return List of neighbors surrounding the tile
 	 */
-	public List<Tile> getNeighbourTile(String tileName) {
-		if(tileName.contains(tileName)) {
-			Tile tile = tiles.get(tileName);
+	public List<String> getNeighbourTile(String tile_name) {
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			return tile.getNeighbourTile();
 		}
 		return null;
@@ -155,9 +168,9 @@ public class Board {
 	 * @param tileName
 	 * Associates unit to the tile
 	 */
-	public void addUnit(Unit u, String tileName) {
-		if(tileName.contains(tileName)) {
-			Tile tile = tiles.get(tileName);
+	public void addUnit(Unit u, String tile_name) {
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			tile.addUnit(u);
 		}
 	}
@@ -168,9 +181,9 @@ public class Board {
 	 * @param tileName
 	 * Removes unit associated to the tile
 	 */
-	public void removeUnit(Unit u, String tileName) {
-		if(tileName.contains(tileName)) {
-			Tile tile = tiles.get(tileName);
+	public void removeUnit(Unit u, String tile_name) {
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			tile.removeUnit(u);
 		}
 	}
@@ -178,9 +191,9 @@ public class Board {
 	/**
 	 * List of units associated with the tile
 	 */
-	public ArrayList<Unit> getAllUnits(String tileName) {
-		if(tileName.contains(tileName)) {
-			Tile tile = tiles.get(tileName);
+	public ArrayList<Unit> getAllUnits(String tile_name) {
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			return (ArrayList<Unit>) tile.getAllUnits();
 		}
 		return null;
@@ -193,8 +206,8 @@ public class Board {
 	 * Used to associate a type (land, water, etc..) to the tile
 	 */
 	public void setTileType(String type, String tile_name) {
-		if(tile_name.contains(tile_name)) {
-			Tile tile = tiles.get(tile_name);
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			tile.setTileType(type);
 		}
 		
@@ -206,9 +219,9 @@ public class Board {
 	 * @return Type of the tile
 	 */
 	public String getTileType(String tile_name) {
-		if(tile_name.contains(tile_name)) {
-			Tile tile = tiles.get(tile_name);
-			tile.getTileType();
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
+			return tile.getTileType();
 		}
 		return null;
 	}
@@ -220,8 +233,8 @@ public class Board {
 	 * Associates a value to the tile
 	 */
 	public void setTileValue(int tile_value, String tile_name) {
-		if(tile_name.contains(tile_name)) {
-			Tile tile = tiles.get(tile_name);
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			tile.setTileValue(tile_value);
 		}
 	}
@@ -232,8 +245,8 @@ public class Board {
 	 * @return Value associated with the tile
 	 */
 	public int getTileValue(String tile_name) {
-		if(tile_name.contains(tile_name)) {
-			Tile tile = tiles.get(tile_name);
+		Tile tile = this.getTile(tile_name);
+		if(tile!=null) {
 			return tile.getTileValue();
 		}
 		return 0;
