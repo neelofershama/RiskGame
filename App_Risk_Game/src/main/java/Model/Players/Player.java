@@ -56,8 +56,8 @@ public class Player {
 	    
 	    /**
 	     * Creates a player with a specific name and Id
-	     * @param name A string to set the name of the player
-	     * @param id A Unique Integer used as for identifying a player
+	     * @param name A string to set name of the player
+	     * @param id A Integer used for identifying a player
 	     */
 	    public Player(String name,int id) {
 	        this.player_name=name;
