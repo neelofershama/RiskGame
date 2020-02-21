@@ -30,13 +30,7 @@ public class Player {
 	     * Stores the player's Id
 	     */ 
 		private int player_id;
-		
-		/**
-	     * Stores the number of troops
-	     */ 
-		private int troops;
-		
-	    
+			    
 	    /**
 	     * Store the list of players
 	     */
