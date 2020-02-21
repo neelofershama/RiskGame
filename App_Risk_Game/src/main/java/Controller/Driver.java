@@ -31,7 +31,6 @@ public class Driver {
 
 	private static void startGame() {
 		Player player=new Player();
-		
 	}
 	
 	private static void getPlayers(int num) {
