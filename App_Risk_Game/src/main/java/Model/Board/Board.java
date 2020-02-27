@@ -1,4 +1,6 @@
-package Board;
+package App_Risk_Game.src.main.java.Model.Board;
+
+import App_Risk_Game.src.main.java.Model.Units.Unit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,11 +96,12 @@ public class Board {
 	 * @return Player associated with a tile
 	 */
 	public String getPlayer(String tileName) {
+		String player_name = "";
 		if(tiles.containsKey(tileName)) {
 			Tile tile = tiles.get(tileName);
-			return tile.getPlayer();
+			player_name = tile.getPlayer();
 		}
-		return null;
+		return player_name;
 	}
 	
 	/**
@@ -112,9 +115,8 @@ public class Board {
 			Tile tile = tiles.get(tileName);
 			coordinates.add(tile.getXCoordinate());
 			coordinates.add(tile.getYCoordinate());
-			return coordinates;
 		}
-		return null;
+		return coordinates;
 	}
 	
 	/**
@@ -141,19 +143,18 @@ public class Board {
 	 * @param tileName
 	 * @return List of neighbors surrounding the tile
 	 */
-	public List<Tile> getNeighbourTile(String tileName) {
+	public List<String> getNeighbourTile(String tileName) {
+		List<String> neighbour = new ArrayList<>();
 		if(tileName.contains(tileName)) {
 			Tile tile = tiles.get(tileName);
-			return tile.getNeighbourTile();
+			neighbour =  tile.getNeighbourTile();
 		}
-		return null;
+		return neighbour;
 	}
 	
 	/**
-	 * 
-	 * @param u
+	 *  @param u
 	 * @param tileName
-	 * Associates unit to the tile
 	 */
 	public void addUnit(Unit u, String tileName) {
 		if(tileName.contains(tileName)) {
@@ -179,11 +180,12 @@ public class Board {
 	 * List of units associated with the tile
 	 */
 	public ArrayList<Unit> getAllUnits(String tileName) {
+		List<Unit> units = new ArrayList<>();
 		if(tileName.contains(tileName)) {
 			Tile tile = tiles.get(tileName);
-			return (ArrayList<Unit>) tile.getAllUnits();
+			units = (ArrayList<Unit>) tile.getAllUnits();
 		}
-		return null;
+		return (ArrayList<Unit>) units;
 	}
 	
 	/**
@@ -206,11 +208,12 @@ public class Board {
 	 * @return Type of the tile
 	 */
 	public String getTileType(String tile_name) {
+		String tile_type = "";
 		if(tile_name.contains(tile_name)) {
 			Tile tile = tiles.get(tile_name);
-			tile.getTileType();
+			tile_type = tile.getTileType();
 		}
-		return null;
+		return tile_type;
 	}
 	
 	/**

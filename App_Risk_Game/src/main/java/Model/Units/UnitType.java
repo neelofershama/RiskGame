@@ -1,4 +1,4 @@
-package Model.Units;
+package App_Risk_Game.src.main.java.Model.Units;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,6 +29,11 @@ public class UnitType {
 	public void setMaxUnits(int max_units) {
 		this.max_units = max_units;
 	}
-	
-	
-}
+
+	 public UnitType(String type, int count, int max_units) {
+		 this.type = type;
+		 this.count = count;
+		 this.max_units = max_units;
+	 }
+ }
+

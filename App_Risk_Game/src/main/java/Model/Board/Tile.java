@@ -1,10 +1,11 @@
 
-package src.main.java.Model.Board;
+package App_Risk_Game.src.main.java.Model.Board;
+
+import App_Risk_Game.src.main.java.Model.Units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.Model.Units.Unit;
 
 /**
  * Represent tile of a board
@@ -110,7 +111,7 @@ public class Tile {
 	
 	/**
 	 * 
-	 * @param neighbourTile
+	 * @param neighbour_tile
 	 * Associate neighboring tiles to the tile
 	 */
 	protected void setNeighbourTile(ArrayList<Tile> neighbour_tile) {
@@ -130,11 +131,7 @@ public class Tile {
 			Tile tile = neighbour_tile.get(i);
 			neighbour.add(tile.tile_name);
 		}
-		if(neighbour.isEmpty()) {
-			return null;
-		}
-		else
-			return neighbour;
+		return neighbour;
 	}
 	/**
 	 * 

@@ -1,4 +1,4 @@
-package Model.Units;
+package App_Risk_Game.src.main.java.Model.Units;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -68,7 +68,7 @@ public class Unit {
 
 			String player = (String) it.next();
 			List<UnitType> types_of_units = new LinkedList();
-			UnitType ut= new UnitType(prop.getProperty("basicUnit"),Integer.parseInt(prop.getProperty("basicUnitMax")));
+			UnitType ut= new UnitType(prop.getProperty("basicUnit"),Integer.parseInt(prop.getProperty("initialUnitValue")),Integer.parseInt(prop.getProperty("basicUnitMax")));
 			types_of_units.add(ut);
 			Unit unitObj = new Unit(list.get(player).toUpperCase(), Integer.parseInt(prop.getProperty("initialUnitValue")),
 					types_of_units);
