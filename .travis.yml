@@ -7,4 +7,6 @@ arch: amd64
 jdk:
   - openjdk11
 sudo: false
-script: mvn clean verify
+script:
+  cd RiskGame/App_Risk_Game
+  mvn clean verify
