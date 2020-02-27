@@ -8,5 +8,5 @@ jdk:
   - openjdk11
 sudo: false
 script:
-  cd RiskGame/App_Risk_Game
-  mvn clean verify
+  - cd RiskGame/App_Risk_Game
+  - mvn clean verify
