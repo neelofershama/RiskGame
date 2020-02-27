@@ -1,6 +1,7 @@
 package App_Risk_Game.src.main.java.Model.Cards;
-import java.util.*;
 
+import java.util.*;
+import App_Risk_Game.src.main.java.Model.Cards.*;
 /**
  * The Cards Collection performs all the operations related to Cards
  */

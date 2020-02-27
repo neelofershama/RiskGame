@@ -1,4 +1,4 @@
-package Model.Cards;
+package App_Risk_Game.src.main.java.Model.Cards;
 
 import java.util.List;
 
