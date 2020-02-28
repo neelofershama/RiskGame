@@ -129,21 +129,4 @@ public class Player {
 	    {    
 	        return player_type;
 	    }
-	    
-	    /**
-	     * Setter method to assign the number of troops
-	     * @param troops number of troops
-	     */
-	    public void setTroops(int troops) {
-	        this.troops = troops;
-	    }
-	    
-	    /**
-	     * Getter method to get the number of troops
-	     * @return player's number of troops
-	     */
-	    public int getTroops() {
-	        return troops;
-	    }
-
 }
