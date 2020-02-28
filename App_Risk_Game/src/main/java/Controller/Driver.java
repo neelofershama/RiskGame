@@ -22,14 +22,6 @@ public class Driver {
 	 */
 	private static int num_players;
 	
-	/**
-	 * Setter method to store the number of player
-	 * @param num
-	 */
-	public void setNum(int num) {
-		this.num_players=num;
-	}
-	
 	
 	/**
 	 * Game driver to start game 
@@ -37,9 +29,7 @@ public class Driver {
 	 */
 	public static void main(String[] args) {
 		Player player=new Player();
-		startGame();
-		getPlayers(num);
-				
+		startGame();				
 	}
 
 
