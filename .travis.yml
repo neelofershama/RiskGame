@@ -7,5 +7,4 @@ arch: amd64
 jdk:
   - openjdk11
 before_script: cd RiskGame/App_Risk_Game
-script:
-mvn clean verify
+script: mvn clean verify
