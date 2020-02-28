@@ -6,7 +6,7 @@ os:
 arch: amd64
 jdk:
   - openjdk11
-sudo: false
+before_script: cd project
 script:
   - cd RiskGame/App_Risk_Game
   - mvn clean verify
