@@ -1,3 +1,5 @@
+package App_Risk_Game.src.test.java.Model.Units;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import org.junit.Test;
+import src.main.java.Model.Units.*;
 
  /**
  *  Testcase for Units module, contains the initializeCheck() method.
@@ -43,7 +46,7 @@ public class UnitTest {
 
 			String player = (String) it.next();
 			List<UnitType> types_of_Units = new LinkedList();
-			UnitType ut = new UnitType("infantry", 10);
+			UnitType ut = new UnitType("infantry", 10,10);
 			types_of_Units.add(ut);
 			Unit UnitObj = new Unit(list.get(player).toUpperCase(), 3,
 					types_of_Units);
