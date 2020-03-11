@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import App_Risk_Game.src.main.java.Model.Units.UnitType;
 
 /**
  * contains the units i.e the troops in the risk game or money in monopoly.
@@ -18,8 +19,17 @@ public class Unit {
 
 	String color;
 	int no_of_units;
-	List<UnitType> types_of_units;
-	
+	List<App_Risk_Game.src.main.java.Model.Units.UnitType> types_of_units;
+
+
+	public Unit(String color, int no_of_units, List<App_Risk_Game.src.main.java.Model.Units.UnitType> types_of_units) {
+		super();
+		this.color = color;
+		this.no_of_units = no_of_units;
+		this.types_of_units = types_of_units;
+
+	}
+
 	public String getColor() {
 		return color;
 	}
@@ -32,16 +42,10 @@ public class Unit {
 	public void setNo_of_units(int no_of_units) {
 		this.no_of_units = no_of_units;
 	}
-	public List<UnitType> getTypes_of_units() {
+	public List<App_Risk_Game.src.main.java.Model.Units.UnitType> getTypes_of_units() {
 		return types_of_units;
 	}
-	public void setTypes_of_units(List<UnitType> types_of_units) {
-		this.types_of_units = types_of_units;
-	}
-	public Unit(String color, int no_of_units, List<UnitType> types_of_units) {
-		super();
-		this.color = color;
-		this.no_of_units = no_of_units;
+	public void setTypes_of_units(List<App_Risk_Game.src.main.java.Model.Units.UnitType> types_of_units) {
 		this.types_of_units = types_of_units;
 	}
 	
