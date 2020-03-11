@@ -9,7 +9,7 @@ public class DriverTest {
 	@Test
 	public void testDriver() {
 		Driver driverobj = new Driver();
-		driverobj.setNum(7);
+		//driverobj.setNum(7);
 	}
 
 }
