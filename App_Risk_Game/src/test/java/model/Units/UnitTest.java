@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import org.junit.Test;
-import src.main.java.Model.Units.*;
+import App_Risk_Game.src.main.java.Model.Units.Unit;
+import App_Risk_Game.src.main.java.Model.Units.UnitType;
 
  /**
  *  Testcase for Units module, contains the initializeCheck() method.
