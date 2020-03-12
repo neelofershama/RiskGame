@@ -1,19 +1,19 @@
-package src.test.java.model.Player;
+// package src.test.java.model.Player;
 
-import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+// import org.junit.Test;
 
-import src.main.java.Model.Players.Player;
+// import src.main.java.Model.Players.Player;
 
-class PlayerTest {
+// class PlayerTest {
 
-	@Test
-	void validPlayerName() {
-		Player playobj = new Player(); 
-		playobj.setName("John");
-		assertEquals("John",playobj.getName());
-	}
+// 	@Test
+// 	void validPlayerName() {
+// 		Player playobj = new Player(); 
+// 		playobj.setName("John");
+// 		assertEquals("John",playobj.getName());
+// 	}
 	
 
-}
+// }
