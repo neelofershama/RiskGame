@@ -18,11 +18,11 @@ public class UnitTest {
 	public static LinkedList<Unit> player_list = new LinkedList<Unit>();
 
 	/**
-	 * asserts the initialize function of Unit module. 
+	 * asserts the initialize function of Unit module.
 	 * @throws SecurityException
 	 * @throws IOException
 	 */
-	
+
 	@Test
 	public void initializeCheck() throws SecurityException, IOException {
 

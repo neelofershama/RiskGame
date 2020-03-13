@@ -1,6 +1,7 @@
 package UI.src.main;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -83,13 +85,21 @@ public class Main extends Application {
         exit_game.setOnMouseEntered(e ->
                 exit_game.setCursor(Cursor.HAND));
 
-        // When the user click on start game, they will be taken to game set up scene
+        // When the user click on exit, the welcome window should close
         exit_game.setOnMouseClicked(e ->
         {
             System.out.println("GAME QUITED");
             risk_window.close();
         });
 
+        // When the user click on new game, they will be taken to game set up scene
+        new_game.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                StartGame s  = new StartGame();
+                s.start(risk_window);
+            }
+        });
     }
 }
 
