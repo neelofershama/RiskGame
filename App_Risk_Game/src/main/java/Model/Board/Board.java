@@ -104,12 +104,13 @@ public class Board {
 	 * 
 	 * Creates tile with name and position associated with it, in the board
 	 */
-	public void createTile(String tile_name, int x, int y) {
+	public void createTile(String tile_name, int x, int y, String continent) {
 		if(!tiles.containsKey(tile_name)) {
 			Tile tile = new Tile(tile_name);
 			board.get(x).add(y, tile);
 			tile.setXCoordinate(x);
 			tile.setYCoordinate(y);
+			tile.setContinent(continent);
 			tiles.put(tile_name, tile);
 		}
 	}
