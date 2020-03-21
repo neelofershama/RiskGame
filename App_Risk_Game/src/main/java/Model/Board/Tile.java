@@ -48,6 +48,11 @@ public class Tile {
 	private int tile_value=0;
 	
 	/**
+	 * Stores the continent it belongs to
+	 */
+	private String continent;
+	
+	/**
 	 * 
 	 * @param tile_name
 	 * Update the tile name
@@ -107,6 +112,22 @@ public class Tile {
 	 */
 	protected int getYCoordinate() {
 		return y;
+	}
+	
+	/**
+	 *
+	 * @return continent the tile belongs to
+	 */
+	public String getContinent() {
+		return continent;
+	}
+
+	/**
+	 *
+	 * @param continent
+	 */
+	public void setContinent(String continent) {
+		this.continent = continent;
 	}
 	
 	/**
@@ -200,5 +221,14 @@ public class Tile {
 	 */
 	protected int getTileValue() {
 		return tile_value;
+	}
+
+@Override
+	public String toString() {
+		return "Tile [Country = " + tile_name + ", Contitent ="
+				+ continent +  ", Player ="
+				+ player_owned + ", x =" + x + ", y =" + y + ", neighbour_tile ="
+				+ neighbour_tile.toString() + ", unit =" + unit + ", tile_type ="
+				+ tile_type + ", tile_value =" + tile_value + "]";
 	}
 }
