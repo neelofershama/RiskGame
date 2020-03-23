@@ -59,8 +59,7 @@ public class Driver {
 		Player player=new Player();
 
 		System.out.println("Welcome to the Risk Game!");
-		System.out
-				.println("Please enter how would you like to create a map for the game");
+		System.out.println("Please enter how would you like to create a map for the game");
 		System.out.println("1. Create a new map OR 2. Load from file ");
 
 		if (sc.hasNextInt()) {
