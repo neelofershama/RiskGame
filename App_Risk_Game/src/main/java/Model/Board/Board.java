@@ -32,6 +32,54 @@ public class Board {
 	 */
 	private List<ArrayList<Tile>> board;
 	
+		HashMap<String, Integer> continents = new HashMap<String, Integer>();
+
+
+	public Board() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public HashMap<String, Tile> getTiles() {
+		return tiles;
+	}
+
+	public void setTiles(HashMap<String, Tile> tiles) {
+		this.tiles = tiles;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public List<ArrayList<Tile>> getBoard() {
+		return board;
+	}
+
+	public void setBoard(List<ArrayList<Tile>> board) {
+		this.board = board;
+	}
+
+	public HashMap<String, Integer> getContinents() {
+		return continents;
+	}
+
+	public void setContinents(HashMap<String, Integer> continents) {
+		this.continents = continents;
+	}
+	
 	/**
 	 * 
 	 * @param width
@@ -56,12 +104,13 @@ public class Board {
 	 * 
 	 * Creates tile with name and position associated with it, in the board
 	 */
-	public void createTile(String tile_name, int x, int y) {
+	public void createTile(String tile_name, int x, int y, String continent) {
 		if(!tiles.containsKey(tile_name)) {
 			Tile tile = new Tile(tile_name);
 			board.get(x).add(y, tile);
 			tile.setXCoordinate(x);
 			tile.setYCoordinate(y);
+			tile.setContinent(continent);
 			tiles.put(tile_name, tile);
 		}
 	}
