@@ -1,3 +1,5 @@
+package App_Risk_Game.src.test.java.model.Units;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -7,6 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
+
+import App_Risk_Game.src.main.java.Model.Units.Unit;
+import App_Risk_Game.src.main.java.Model.Units.UnitType;
 import org.junit.Test;
 
  /**
@@ -43,7 +48,7 @@ public class UnitTest {
 
 			String player = (String) it.next();
 			List<UnitType> types_of_Units = new LinkedList();
-			UnitType ut = new UnitType("infantry", 10);
+			UnitType ut = new UnitType("infantry", 10,3);
 			types_of_Units.add(ut);
 			Unit UnitObj = new Unit(list.get(player).toUpperCase(), 3,
 					types_of_Units);
