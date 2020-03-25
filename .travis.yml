@@ -7,3 +7,4 @@ jdk:
   - openjdk11
 before_script: cd App_Risk_Game
 script: mvn clean verify
+
