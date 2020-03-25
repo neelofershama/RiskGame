@@ -33,7 +33,7 @@ public class Tile {
 	/**
 	 * Stores the neighboring tiles of the tile
 	 */
-	private ArrayList<Tile> neighbour_tile;
+	public static ArrayList<Tile> neighbour_tile;
 	/**
 	 * Stores the unit that will be on the tile
 	 */
