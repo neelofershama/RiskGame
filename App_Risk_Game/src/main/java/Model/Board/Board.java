@@ -8,17 +8,16 @@ import java.util.List;
 
 /**
  * Board class representing the board and its properties
- * 
- * @author pavankrishna
  * @ version 1.0
  *
  */
+
 public class Board {
 	
 	/**
 	 * Store the tiles of the board
 	 */
-	private HashMap<String, Tile> tiles;
+	private HashMap<String, Tile> tiles = new HashMap<>();
 	/**
 	 * Store the width of the board
 	 */
@@ -30,9 +29,8 @@ public class Board {
 	/**
 	 * Store the tiles along with location on board
 	 */
-	private List<ArrayList<Tile>> board;
-	
-		HashMap<String, Integer> continents = new HashMap<String, Integer>();
+	private List<ArrayList<Tile>> board = new ArrayList<>();
+	HashMap<String, Integer> continents = new HashMap<String, Integer>();
 
 
 	public Board() {
@@ -79,7 +77,7 @@ public class Board {
 	public void setContinents(HashMap<String, Integer> continents) {
 		this.continents = continents;
 	}
-	
+
 	/**
 	 * 
 	 * @param width
@@ -107,12 +105,14 @@ public class Board {
 	public void createTile(String tile_name, int x, int y, String continent) {
 		if(!tiles.containsKey(tile_name)) {
 			Tile tile = new Tile(tile_name);
-			board.get(x).add(y, tile);
+			//board.get(x).add(y, tile);
 			tile.setXCoordinate(x);
 			tile.setYCoordinate(y);
 			tile.setContinent(continent);
 			tiles.put(tile_name, tile);
 		}
+
+		System.out.println(tiles.toString());
 	}
 	
 	/**
