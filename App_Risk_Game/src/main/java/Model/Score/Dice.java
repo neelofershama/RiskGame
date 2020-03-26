@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package App_Risk_Game.src.main.java.Model.Score;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 /**
@@ -11,35 +13,36 @@ public class Dice {
 	/**
 	 * Store of number of dices to roll.
 	 */
-	private int number_of_dice;
+	public static int number_of_dice;
 	/**
 	 * Store the result of dice roll.
 	 */
-	private List<Integer> dice_value;
+	public static List<Integer> dice_value;
 	/**
 	 * Store the java random generation object
 	 */
-	private Random rand = new Random(); 
+	public static Random rand = new Random();
 	
 	/**
 	 * 
-	 * @param number_of_dice
+	 * @param numberofdice
 	 * Get the number of dices to roll
 	 */
-	private void setNoOfDice(int number_of_dice) {
-		this.number_of_dice = number_of_dice;
-		dice_value = new ArrayList<Integer>(number_of_dice);
+	public static void setNoOfDice(int numberofdice) {
+		number_of_dice = numberofdice;
+		//dice_value = new ArrayList<Integer>(number_of_dice);
+
 	}
 	
 	/**
 	 * 
 	 * @return List of dice roll results
 	 */
-	private List getScore() {
+	public static List getScore() {
 		for(int i=0; i<number_of_dice; i++) {
 			dice_value.add(i, rand.nextInt(6)+1);
 		}
 		return dice_value;
 	}
-	
+
 }

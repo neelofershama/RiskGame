@@ -1,6 +1,8 @@
 package UI.src.main;
 
 import App_Risk_Game.src.main.java.Model.Board.Tile;
+import App_Risk_Game.src.main.java.Model.Score.Dice;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -10,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,7 +25,9 @@ import java.util.List;
 
 public class RiskGame {
 
-    public void start(Stage risk_window) throws FileNotFoundException {
+    public void start(Stage risk_window, ArrayList<String> player_names) throws FileNotFoundException {
+
+        final String[] territory_to_attack = {null};
         //Creating an image
         Image image = new Image(new FileInputStream("UI/images/map.png"));
 
@@ -30,10 +35,11 @@ public class RiskGame {
         ImageView imageView = new ImageView(image);
 
         //Dividing screen into 2 - game and player details side by side
-        HBox mainscreen = new HBox(5);
-        mainscreen.setPadding(new Insets(10, 10, 10, 10));
+        HBox screen = new HBox(5);
+        screen.setPadding(new Insets(10, 10, 10, 10));
 
         // Creating VBox layout to insert image and gaming options
+
         VBox vb = new VBox();
         vb.setPadding(new Insets(10, 10, 10, 10));
         vb.setAlignment(Pos.CENTER);
@@ -44,13 +50,21 @@ public class RiskGame {
         vb.getChildren().add(imageView);
 
         //PLAYER DETAILS
-        HBox playerDetails = new HBox(5);
-
+        VBox playerDetails = new VBox(10);
+        Label player_details = new Label("PLAYER DETAILS");
+        player_details.setAlignment(Pos.CENTER);
         //Select territory to attack
         ArrayList<Tile> neighbors = Tile.neighbour_tile;
+
+        //TODO replace with neighboring countries list later
+       ArrayList<String> terr = new ArrayList<>();
+terr.add("ABC");
+terr.add("XYZ");
+
         Label combo_box = new Label("ATTACK");
         ComboBox<String> territories = new ComboBox<>();
-        territories.getItems().addAll(String.valueOf(neighbors));
+        //territories.getItems().addAll(String.valueOf(neighbors));
+        territories.getItems().addAll(terr);
         territories.setPromptText("Select Territory");
         HBox attack = new HBox();
         attack.setPadding(new Insets(10, 10, 10, 10));
@@ -76,15 +90,30 @@ public class RiskGame {
 
         troops.getChildren().addAll(no_of_troops, range_of_troops);
 
-        Button play = new Button("ROLL DICE");
-        play.setOnMouseEntered(e -> play.setCursor(Cursor.HAND));
+        Button roll_dice = new Button("ROLL DICE");
+        roll_dice.setOnMouseEntered(e -> roll_dice.setCursor(Cursor.HAND));
 
         risk_window.setTitle("WELCOME TO RISK GAME");
-playerDetails.getChildren().addAll(vb,attack,troops,play);
+playerDetails.getChildren().addAll(player_details,attack,troops,roll_dice);
 
-mainscreen.getChildren().addAll(playerDetails);
+screen.getChildren().addAll(vb,playerDetails);
         // Adding Layout to the scene
-        Scene game_scene = new Scene(mainscreen);
+        Scene game_scene = new Scene(screen);
+
+
+        roll_dice.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                territory_to_attack[0] = territories.getValue();
+                int troop_to_attack = range_of_troops.getValue();
+                AttackPhase phase = new AttackPhase();
+                phase.start(risk_window);
+                if (troop_to_attack == 3){
+                    Dice.setNoOfDice(3);
+                    List <Integer> attack_scores = Dice.getScore();
+                }
+
+            }});
 
         // Adding scene to the window
         risk_window.setScene(game_scene);

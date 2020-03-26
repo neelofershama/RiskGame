@@ -17,7 +17,7 @@ public class Tile {
 	/**
 	 * Stores the name of the tile
 	 */
-	private String tile_name;
+	public static String tile_name;
 	/**
 	 * Stores the player to whom the tile belongs
 	 */

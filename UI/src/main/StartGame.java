@@ -160,7 +160,7 @@ public class StartGame {
                         if(next_scene) {
                             RiskGame game = new RiskGame();
                             try {
-                                game.start(risk_window);
+                                game.start(risk_window,player_names);
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
