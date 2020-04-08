@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 public class GameLaunch implements Initializable {
@@ -52,4 +54,6 @@ public class GameLaunch implements Initializable {
         Stage stage = (Stage) exit_game.getScene().getWindow();
         stage.close();
     }
+
+
 }

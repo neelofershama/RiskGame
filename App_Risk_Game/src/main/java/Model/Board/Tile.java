@@ -1,4 +1,3 @@
-
 package App_Risk_Game.src.main.java.Model.Board;
 
 import App_Risk_Game.src.main.java.Model.Units.Unit;
@@ -33,7 +32,7 @@ public class Tile {
 	/**
 	 * Stores the neighboring tiles of the tile
 	 */
-	public static ArrayList<Tile> neighbour_tile;
+	private ArrayList<Tile> neighbour_tile;
 	/**
 	 * Stores the unit that will be on the tile
 	 */
@@ -46,14 +45,14 @@ public class Tile {
 	 * Store the value of the tile
 	 */
 	private int tile_value=0;
-	
+
 	/**
 	 * Stores the continent it belongs to
 	 */
 	private String continent;
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_name
 	 * Update the tile name
 	 */
@@ -62,58 +61,58 @@ public class Tile {
 		neighbour_tile = new ArrayList<Tile>();
 		unit = new ArrayList<Unit>();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_type
 	 * Associates a type to the tile
 	 */
 	protected void setTileType(String tile_type) {
 		this.tile_type = tile_type;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return Type of the tile
 	 */
 	protected String getTileType() {
 		return tile_type;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param x
 	 * Associate x-coordinate of the tile
 	 */
 	protected void setXCoordinate(int x) {
 		this.x = x;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param y
 	 * Associate y-coordinate of the tile
 	 */
 	protected void setYCoordinate(int y) {
 		this.y = y;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return x-coordinate of the tile
 	 */
 	protected int getXCoordinate() {
 		return x;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return y-coordinate of the tile
 	 */
 	protected int getYCoordinate() {
 		return y;
 	}
-	
+
 	/**
 	 *
 	 * @return continent the tile belongs to
@@ -129,9 +128,9 @@ public class Tile {
 	public void setContinent(String continent) {
 		this.continent = continent;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param neighbour_tile
 	 * Associate neighboring tiles to the tile
 	 */
@@ -139,11 +138,11 @@ public class Tile {
 		for(int i=0; i<neighbour_tile.size(); i++) {
 			Tile tile = neighbour_tile.get(i);
 			if(! this.neighbour_tile.contains(tile))
-				 this.neighbour_tile.add(tile);
+				this.neighbour_tile.add(tile);
 		}
 	}
 	/**
-	 * 
+	 *
 	 * @return List of neighboring tiles to the tile
 	 */
 	protected ArrayList<String> getNeighbourTile(){
@@ -155,7 +154,7 @@ public class Tile {
 		return neighbour;
 	}
 	/**
-	 * 
+	 *
 	 * @param u
 	 * Associates a unit to the tile
 	 */
@@ -164,7 +163,7 @@ public class Tile {
 			unit.add(u);
 	}
 	/**
-	 * 
+	 *
 	 * @param u
 	 * Removes the unit from the tile
 	 */
@@ -174,56 +173,56 @@ public class Tile {
 		}
 	}
 	/**
-	 * 
+	 *
 	 * @return List of units associated to the tile
 	 */
 	protected List<Unit> getAllUnits() {
 		return unit;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return Name of the tile
 	 */
 	protected String getTileName() {
 		return tile_name;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param player_owned
 	 * Associates a player to the tile
 	 */
 	protected void setPlayer(String player_owned) {
 		this.player_owned = player_owned;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return Player associated with the tile
 	 */
 	protected String getPlayer() {
 		return player_owned;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_value
 	 * Associate a value to the tile
 	 */
 	protected void setTileValue(int tile_value) {
 		this.tile_value = tile_value;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return Value associated with the tile
 	 */
 	protected int getTileValue() {
 		return tile_value;
 	}
 
-@Override
+	@Override
 	public String toString() {
 		return "Tile [Country = " + tile_name + ", Contitent ="
 				+ continent +  ", Player ="

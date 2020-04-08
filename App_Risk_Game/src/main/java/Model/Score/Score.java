@@ -1,3 +1,5 @@
+package App_Risk_Game.src.main.java.Model.Score;
+
 import java.util.List;
 
 /**
@@ -74,7 +76,7 @@ public class Score {
 	
 	/**
 	 * 
-	 * @param points
+	 * @param score
 	 * Set the points owned by the player
 	 */
 	private void setScore(int score ) {

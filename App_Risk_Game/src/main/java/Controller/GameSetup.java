@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -137,11 +138,13 @@ public class GameSetup implements Initializable {
 //                    }
 //                }
 
-                System.out.println("Number of players :- " + number_of_players);
-                System.out.println("List of player names :- ");
-                for(int i=0;i<player_names.size();i++){
-                    System.out.println(player_names.get(i));
-                }
+                PlayerCollection.createPlayers(number_of_players,player_names);
+//                System.out.println("Number of players :- " + number_of_players);
+//                System.out.println("List of player names :- ");
+//
+//                for(int i=0;i<player_names.size();i++){
+//                    System.out.println(player_names.get(i));
+//                }
 
 
             }

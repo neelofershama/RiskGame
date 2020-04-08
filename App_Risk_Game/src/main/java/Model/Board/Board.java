@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Model.Board;
 
+import App_Risk_Game.src.interfaces.*;
 import App_Risk_Game.src.main.java.Model.Units.Unit;
 
 import java.util.ArrayList;
@@ -8,17 +9,16 @@ import java.util.List;
 
 /**
  * Board class representing the board and its properties
- * 
- * @author pavankrishna
  * @ version 1.0
  *
  */
-public class Board {
-	
+
+public class Board  implements Observable {
+	List<Observer> observers = new ArrayList<>();
 	/**
 	 * Store the tiles of the board
 	 */
-	private HashMap<String, Tile> tiles;
+	private HashMap<String, Tile> tiles = new HashMap<>();
 	/**
 	 * Store the width of the board
 	 */
@@ -30,9 +30,8 @@ public class Board {
 	/**
 	 * Store the tiles along with location on board
 	 */
-	private List<ArrayList<Tile>> board;
-	
-		HashMap<String, Integer> continents = new HashMap<String, Integer>();
+	private List<ArrayList<Tile>> board = new ArrayList<>();
+	HashMap<String, Integer> continents = new HashMap<String, Integer>();
 
 
 	public Board() {
@@ -79,12 +78,12 @@ public class Board {
 	public void setContinents(HashMap<String, Integer> continents) {
 		this.continents = continents;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param width
 	 * @param height
-	 * Creates board and fill each location with tile 
+	 * Creates board and fill each location with tile
 	 */
 	public Board(int width, int height) {
 		this.width = width;
@@ -94,29 +93,31 @@ public class Board {
 			board.add(w, new ArrayList<Tile>(height));
 		}
 	}
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 * @param tile_name
 	 * @param x
 	 * @param y
-	 * 
+	 *
 	 * Creates tile with name and position associated with it, in the board
 	 */
 	public void createTile(String tile_name, int x, int y, String continent) {
 		if(!tiles.containsKey(tile_name)) {
 			Tile tile = new Tile(tile_name);
-			board.get(x).add(y, tile);
+			//board.get(x).add(y, tile);
 			tile.setXCoordinate(x);
 			tile.setYCoordinate(y);
 			tile.setContinent(continent);
 			tiles.put(tile_name, tile);
 		}
+
+		System.out.println(tiles.toString());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_name
 	 * Used to remove the tile from the board
 	 */
@@ -125,9 +126,9 @@ public class Board {
 			tiles.remove(tile_name);
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param player_owned
 	 * @param tileName
 	 * Associates a player with a tile
@@ -138,9 +139,9 @@ public class Board {
 			tile.setPlayer(player_owned);
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tileName
 	 * @return Player associated with a tile
 	 */
@@ -152,9 +153,9 @@ public class Board {
 		}
 		return player_name;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tileName
 	 * @return coordinates of a tile
 	 */
@@ -167,16 +168,16 @@ public class Board {
 		}
 		return coordinates;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param neighbour_tile
 	 * @param tile_name
 	 * Associates a list of neighboring tiles to the tile
 	 */
 	public void setNeighbourTile(List<String> neighbour_tile, String tile_name) {
 		List<Tile> tile_list = new ArrayList<Tile>(); //Tile Neighbors
-		List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update 
+		List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update
 		Tile tile = tiles.get(tile_name);
 		for(int i=0; i<neighbour_tile.size(); i++) {
 			Tile t = tiles.get(neighbour_tile.get(i));
@@ -186,9 +187,9 @@ public class Board {
 		}
 		tile.setNeighbourTile((ArrayList<Tile>) tile_list);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tileName
 	 * @return List of neighbors surrounding the tile
 	 */
@@ -200,7 +201,7 @@ public class Board {
 		}
 		return neighbour;
 	}
-	
+
 	/**
 	 *  @param u
 	 * @param tileName
@@ -211,9 +212,9 @@ public class Board {
 			tile.addUnit(u);
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param u
 	 * @param tileName
 	 * Removes unit associated to the tile
@@ -224,7 +225,7 @@ public class Board {
 			tile.removeUnit(u);
 		}
 	}
-	
+
 	/**
 	 * List of units associated with the tile
 	 */
@@ -236,9 +237,9 @@ public class Board {
 		}
 		return (ArrayList<Unit>) units;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param type
 	 * @param tile_name
 	 * Used to associate a type (land, water, etc..) to the tile
@@ -248,11 +249,11 @@ public class Board {
 			Tile tile = tiles.get(tile_name);
 			tile.setTileType(type);
 		}
-		
+
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_name
 	 * @return Type of the tile
 	 */
@@ -264,9 +265,9 @@ public class Board {
 		}
 		return tile_type;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_value
 	 * @param tile_name
 	 * Associates a value to the tile
@@ -277,9 +278,9 @@ public class Board {
 			tile.setTileValue(tile_value);
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param tile_name
 	 * @return Value associated with the tile
 	 */
@@ -290,5 +291,22 @@ public class Board {
 		}
 		return 0;
 	}
+
+	@Override
+	public void attachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+		this.observers.add(observer);
+	}
+
+	@Override
+	public void dettachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+this.observers.remove(observer);
+	}
+
+	@Override
+	public void notifyObserver(Observable observable) {
+		for (Observer o:observers
+		) {
+			o.update(observable);
+		}
+	}
 }
- 

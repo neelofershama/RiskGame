@@ -1,11 +1,20 @@
 package App_Risk_Game.src.main.java.Model.Cards;
 
-import java.util.*;
+
+
+import App_Risk_Game.src.interfaces.Observable;
+import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
+import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.interfaces.*;
+
+import java.util.*;
+
 /**
  * The Cards Collection performs all the operations related to Cards
  */
-public class CardsCollection {
+public class CardsCollection implements Observable {
     static int noOfLocations;
     static List<String> locations;
     public static List<Card> cardCollection;
@@ -13,7 +22,7 @@ public class CardsCollection {
     public static int remainingCardsCount = 0;
     public static List<Card> remainingCards;
     public static Stack<Card> cardStack;
-
+    List<Observer> observers = new ArrayList<>();
     public CardsCollection(List<String> loc, int ub){
         locations = loc;
         noOfLocations = locations.size();
@@ -45,7 +54,7 @@ public class CardsCollection {
      * Assign cards to each player
      * @param players The list of players to which the cards should be distributed
      */
-    public static void distributeCards(List<String> players) {
+    public static void distributeCards(List<Player> players) {
         int n = noOfLocations % players.size();
         int noofplayers = players.size();
         int cardsforeachplayer = noOfLocations / noofplayers;
@@ -55,7 +64,7 @@ public class CardsCollection {
                 List<Card> lc = new ArrayList<Card>();
                 lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
                 y += cardsforeachplayer;
-                playersCards.put(players.get(i), lc);
+                playersCards.put(players.get(i).getName(), lc);
             }
         } else {
             int y = 0;
@@ -63,7 +72,7 @@ public class CardsCollection {
                 List<Card> lc = new ArrayList<Card>();
                 lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
                 y += cardsforeachplayer;
-                playersCards.put(players.get(i), lc);
+                playersCards.put(players.get(i).getName(), lc);
             }
             //TODO - assign remaining cards to last 2 players
             remainingCardsCount = noOfLocations % noofplayers;
@@ -133,5 +142,21 @@ public class CardsCollection {
         List<Card> ls = playersCards.get(player);
         return ls;
     }
+    @Override
+    public void attachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+        this.observers.add(observer);
+    }
 
+    @Override
+    public void dettachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) {
+        for (App_Risk_Game.src.interfaces.Observer o:observers
+        ) {
+            o.update(observable);
+        }
+    }
 }

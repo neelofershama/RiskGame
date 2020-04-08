@@ -1,4 +1,4 @@
-package src.main.java.Model.Players;
+package App_Risk_Game.src.main.java.Model.Players;
 
 import java.util.List;
 import java.util.Map;
@@ -31,16 +31,12 @@ public class Player {
 	     */ 
 		private int player_id;
 			    
-	    /**
-	     * Store the list of players
-	     */
-		private List players;
-		
+
+
 		/**
 	     * Store the players properties
 	     */
 	    private Map properties;
-	    
 	    /**
 	     *  Creates a new player
 	     */
