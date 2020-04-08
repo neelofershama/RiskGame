@@ -2,6 +2,7 @@ package App_Risk_Game.src.main.java.Controller;
 
 import java.util.ArrayList;
 
+import main.java.View.UiTest;
 
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
@@ -59,30 +60,30 @@ public class Driver {
     public static void main(String[] args) throws IOException {
         Player player = new Player();
 
-        System.out.println("Welcome to the Risk Game!");
-        System.out
-                .println("Please enter how would you like to create a map for the game");
-        System.out.println("1. Create a new map OR 2. Load from file ");
+//         System.out.println("Welcome to the Risk Game!");
+//         System.out
+//                 .println("Please enter how would you like to create a map for the game");
+//         System.out.println("1. Create a new map OR 2. Load from file ");
 
-        if (sc.hasNextInt()) {
-            int choice = sc.nextInt();
+//         if (sc.hasNextInt()) {
+//             int choice = sc.nextInt();
 
-            switch (choice) {
+//             switch (choice) {
 
-                case 1: {
-                    createMap();
-                }
-                break;
-                case 2: {
-                    loadMap();
+//                 case 1: {
+//                     createMap();
+//                 }
+//                 break;
+//                 case 2: {
+//                     loadMap();
 
-                }
-                break;
+//                 }
+//                 break;
 
-            }
-        } else {
-            System.out.println(" Invalid choice");
-        }
+//             }
+//         } else {
+//             System.out.println(" Invalid choice");
+//         }
 
 
         startGame();
@@ -91,6 +92,8 @@ public class Driver {
 
     private static void startGame() {
         //initial setup
+	 UiTest.main(null);
+
     }
 
     /**
