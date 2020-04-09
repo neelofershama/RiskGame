@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameLaunch implements Initializable {
@@ -22,16 +21,18 @@ public class GameLaunch implements Initializable {
     @FXML
     Button exit_game;
 
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO  @FXML
+        //    Button submit;
     }
 
     @FXML
-    public void onMouseClickedNewGame (ActionEvent event) {
+    public void onMouseClickedNewGame(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameSetup.fxml"));
             Scene scene = new Scene(root);
@@ -39,6 +40,7 @@ public class GameLaunch implements Initializable {
             stage.setTitle("RISK GAME SETUP");
             stage.setScene(scene);
             stage.show();
+
             Stage stg = (Stage) exit_game.getScene().getWindow();
             stg.close();
         } catch (IOException e) {

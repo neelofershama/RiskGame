@@ -3,15 +3,20 @@ package App_Risk_Game.src.main.java.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -31,6 +36,7 @@ public class GameSetup implements Initializable {
     ComboBox combo_box_range_of_players;
     @FXML
     Button validate_number;
+
     /**
      * Initializes the controller class.
      */
@@ -42,8 +48,8 @@ public class GameSetup implements Initializable {
         combo_box_range_of_players.getSelectionModel().select(0);
     }
 
-
-    public void setOnMouseClickedValidate(ActionEvent actionEvent) {
+    @FXML
+    public void setOnMouseClickedValidate(ActionEvent actionEvent) throws IOException {
         // Storing the text field objects
         ArrayList<TextField> player_text_field = new ArrayList<>();
         ArrayList<Boolean> validation_status = new ArrayList<>();
@@ -58,17 +64,18 @@ public class GameSetup implements Initializable {
         vb_text_field.setSpacing(10);
 
         Button submit = new Button("Submit");
+        submit.setId("submit");
 
-        if(combo_box_range_of_players.getValue()!= null) {
+        if (combo_box_range_of_players.getValue() != null) {
             number_of_players = (int) combo_box_range_of_players.getValue();
         }
-        for(int p=0;p<number_of_players;p++){
-            Label player_name = new Label("ENTER PLAYER - " + Integer.toString(p+1));
+        for (int p = 0; p < number_of_players; p++) {
+            Label player_name = new Label("ENTER PLAYER - " + Integer.toString(p + 1));
             TextField t = new TextField();
-            t.setPromptText("PLAYER-"+Integer.toString(p+1));
+            t.setPromptText("PLAYER-" + Integer.toString(p + 1));
             vb_text_field.getChildren().addAll(player_name, t);
             player_text_field.add(t);
-            if(p+1==number_of_players){
+            if (p + 1 == number_of_players) {
                 vb_text_field.getChildren().add(submit);
             }
         }
@@ -85,12 +92,12 @@ public class GameSetup implements Initializable {
                 int check_number_player = (int) combo_box_range_of_players.getValue();
                 boolean check_player_count = true;
 
-                if(check_number_player!=number_of_players){
+                if (check_number_player != number_of_players) {
                     check_player_count = false;
                     Alert a = new Alert(Alert.AlertType.WARNING);
                     a.setContentText("OOPS YOU FORGOT TO VALIDATE THE NUMBER OF PLAYERS");
                     a.show();
-                    if(! a.isShowing()){
+                    if (!a.isShowing()) {
                         check_player_count = true;
                     }
                 }
@@ -105,20 +112,18 @@ public class GameSetup implements Initializable {
                             a.setContentText("PLAYER " + Integer.toString(i + 1) + " CANT BE EMPTY");
                             a.show();
                             validation_status.add(false);
-                        }
-                        else if (temp.replace(" ", "").length() == 0) {
+                        } else if (temp.replace(" ", "").length() == 0) {
                             Alert a = new Alert(Alert.AlertType.WARNING);
                             a.setContentText("PLAYER " + Integer.toString(i + 1) + " CANT CONTAIN SPACES");
                             a.show();
                             validation_status.add(false);
-                        }
-                        else{
+                        } else {
                             validation_status.add(true);
                         }
 
                     }
                 }
-                if(! validation_status.contains(false) && !validation_status.isEmpty()) {
+                if (!validation_status.contains(false) && !validation_status.isEmpty()) {
                     // System.out.println(player_text_field.size());
                     for (int i = 0; i < player_text_field.size(); i++) {
                         // System.out.println(player_text_field.get(i).getText());
@@ -139,12 +144,36 @@ public class GameSetup implements Initializable {
 
                 System.out.println("Number of players :- " + number_of_players);
                 System.out.println("List of player names :- ");
-                for(int i=0;i<player_names.size();i++){
+                for (int i = 0; i < player_names.size(); i++) {
                     System.out.println(player_names.get(i));
                 }
-
-
+                getMap();
             }
+
+
         });
+
+//        submit.setOnAction(e -> {
+//            getMap();
+//        });
+
+    }
+
+    void getMap(){
+        //---------------------- LoadMap-----------------------
+        try {
+            System.out.println("HERE===>");
+            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/LoadMap.fxml"));
+
+            Scene loadMapScene = new Scene(loadRoot);
+            Stage loadMapStage = new Stage();
+            loadMapStage.setTitle("Map Loaded");
+            loadMapStage.setScene(loadMapScene);
+            loadMapStage.show();
+
+            //-------------------------------------------------------
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
