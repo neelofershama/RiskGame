@@ -54,12 +54,7 @@ public class LoadMap implements Initializable {
     }
 
     @FXML
-    public void
-
-
-
-
-            (ActionEvent event) {
+    public void onMouseClickedLoadFile(ActionEvent event) {
         try {
             takefile();
             String[][] matrix = getMapMatrix();
