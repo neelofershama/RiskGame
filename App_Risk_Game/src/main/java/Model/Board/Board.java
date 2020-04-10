@@ -34,26 +34,6 @@ public class Board  implements Observable {
 	 */
 	private List<ArrayList<Tile>> board = new ArrayList<>();
 	HashMap<String, Integer> continents = new HashMap<String, Integer>();
-public class Board {
-
-    /**
-     * Store the tiles of the board
-     */
-    private HashMap<String, Tile> tiles = new HashMap<>();
-    /**
-     * Store the width of the board
-     */
-    private int width;
-    /**
-     * Store the height of the board
-     */
-    private int height;
-    /**
-     * Store the tiles along with location on board
-     */
-    private List<ArrayList<Tile>> board = new ArrayList<>();
-    HashMap<String, Integer> continents = new HashMap<String, Integer>();
-
 
     public Board() {
         // TODO Auto-generated constructor stub

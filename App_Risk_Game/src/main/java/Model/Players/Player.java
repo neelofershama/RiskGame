@@ -1,4 +1,4 @@
-package src.main.java.Model.Players;
+package App_Risk_Game.src.main.java.Model.Players;
 
 import java.util.List;
 import java.util.Map;

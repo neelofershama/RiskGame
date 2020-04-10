@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.interfaces.Observer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 
-public class LoadMap implements Initializable,   Observer {
+public class LoadMap implements Initializable, Observer {
 
         @Override
         public void update(App_Risk_Game.src.interfaces.Observable observable) {

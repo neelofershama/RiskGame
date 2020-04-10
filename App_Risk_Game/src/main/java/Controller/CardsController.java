@@ -9,7 +9,6 @@ import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
 
 public class CardsController implements Observer {
 

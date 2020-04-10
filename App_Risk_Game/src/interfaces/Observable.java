@@ -2,7 +2,6 @@ package App_Risk_Game.src.interfaces;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public interface Observable {
 

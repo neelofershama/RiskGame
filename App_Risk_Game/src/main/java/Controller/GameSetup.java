@@ -141,23 +141,23 @@ public class GameSetup implements Initializable {
 //                        e.printStackTrace();
 //                    }
 //                }
-                System.out.println("Number of players :- " + number_of_players);
-                System.out.println("List of player names :- ");
-                for (int i = 0; i < player_names.size(); i++) {
-                    System.out.println(player_names.get(i));
-                }
+                PlayerCollection.createPlayers(number_of_players, player_names);
+//                System.out.println("Number of players :- " + number_of_players);
+//                System.out.println("List of player names :- ");
+//                for (int i = 0; i < player_names.size(); i++) {
+//                    System.out.println(player_names.get(i));
+//                }
                 getMap();
-            }
-                PlayerCollection.createPlayers(number_of_players,player_names);
 
-        });
+
+
 
 //        submit.setOnAction(e -> {
 //            getMap();
 //        });
 
     }
-
+        });}
     void getMap(){
         //---------------------- LoadMap-----------------------
         try {
@@ -174,5 +174,5 @@ public class GameSetup implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-}
+    }}
+
