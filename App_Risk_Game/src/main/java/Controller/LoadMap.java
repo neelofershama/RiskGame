@@ -59,7 +59,7 @@ public class LoadMap implements Initializable {
             takefile();
             String[][] matrix = getMapMatrix();
             Stage stage = new Stage();
-            addtable(stage,matrix );
+                addtable(stage,matrix );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,18 +100,18 @@ public class LoadMap implements Initializable {
 
                 if ("[Continents]".equals(data.trim())) {
                     System.out.println("==>" + data.trim());
-                    String continent = myReader.nextLine();
+                    data = myReader.nextLine();
 
-                    while (!continent.equals("")) {
-                        System.out.println(continent);
-                        String split[] = continent.split("=");
+                    while (!data.equals("[Territories]")) {
+                        System.out.println(data);
+                        String split[] = data.split("=");
                         String continent_name = split[0];
                         String no_of_countries = split[1];
-                        continents.put(continent_name,
-                                Integer.parseInt(no_of_countries));
-                        continent = myReader.nextLine();
+                        continents.put(continent_name, Integer.parseInt(no_of_countries));
+                        data = myReader.nextLine();
                     }
                 }
+
                 System.out.println("continents: " + continents.toString());
                 board.setContinents(continents);
 
