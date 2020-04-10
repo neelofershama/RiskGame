@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 
- * @author yashwanth
+ *
  * Represents the dice rolls.
  */
 public class Dice implements App_Risk_Game.src.interfaces.Observable {

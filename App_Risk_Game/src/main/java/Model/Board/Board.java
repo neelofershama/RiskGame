@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Board class representing the board and its properties
+ *
+ * @author pavankrishna
  * @ version 1.0
  *
  */
@@ -32,48 +34,67 @@ public class Board  implements Observable {
 	 */
 	private List<ArrayList<Tile>> board = new ArrayList<>();
 	HashMap<String, Integer> continents = new HashMap<String, Integer>();
+public class Board {
+
+    /**
+     * Store the tiles of the board
+     */
+    private HashMap<String, Tile> tiles = new HashMap<>();
+    /**
+     * Store the width of the board
+     */
+    private int width;
+    /**
+     * Store the height of the board
+     */
+    private int height;
+    /**
+     * Store the tiles along with location on board
+     */
+    private List<ArrayList<Tile>> board = new ArrayList<>();
+    HashMap<String, Integer> continents = new HashMap<String, Integer>();
 
 
-	public Board() {
-		// TODO Auto-generated constructor stub
-	}
+    public Board() {
+        // TODO Auto-generated constructor stub
+    }
 
 
-	public HashMap<String, Tile> getTiles() {
-		return tiles;
-	}
+    public HashMap<String, Tile> getTiles() {
+        return tiles;
+    }
 
-	public void setTiles(HashMap<String, Tile> tiles) {
-		this.tiles = tiles;
-	}
+    public void setTiles(HashMap<String, Tile> tiles) {
+        this.tiles = tiles;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    public int getHeight() {
+        return height;
+    }
 
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
-	public List<ArrayList<Tile>> getBoard() {
-		return board;
-	}
+    public List<ArrayList<Tile>> getBoard() {
+        return board;
+    }
 
-	public void setBoard(List<ArrayList<Tile>> board) {
-		this.board = board;
-	}
+    public void setBoard(List<ArrayList<Tile>> board) {
+        this.board = board;
+    }
 
-	public HashMap<String, Integer> getContinents() {
-		return continents;
-	}
+    public HashMap<String, Integer> getContinents() {
+        return continents;
+    }
 
 	public void setContinents(HashMap<String, Integer> continents) {
 		this.continents = continents;

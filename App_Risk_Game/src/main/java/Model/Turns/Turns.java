@@ -1,162 +1,160 @@
 package Model.Turns;
+
 /**
  * This class is used to maintain Turns module and its functionality.
- * Below are the 4 actions you’ll do on each turn. 
+ * Below are the 4 actions you’ll do on each turn.
  * 1. Place Your Troops
  * 2. Attack
- * 3. Maneuver Your Troops 
+ * 3. Maneuver Your Troops
  * 4. Draw a Card if You Can
+ *
  * @author Akhila
- * @version 1.0.0 
+ * @version 1.0.0
  */
 
 public class Turns {
-	 private
-	 boolean map_created;
-	 boolean game_begin;
-	 int current_playerID;
-	 TurnPhase current_phase;
-	 boolean attack_result;
-	
-	 public boolean mapCreated() {
-		return map_created;
-	}
+    private
+    boolean map_created;
+    boolean game_begin;
+    int current_playerID;
+    TurnPhase current_phase;
+    boolean attack_result;
 
-	public void setMapCreated(boolean mapCreated) {
-		this.map_created = mapCreated;
-	}
+    public boolean mapCreated() {
+        return map_created;
+    }
 
-	public boolean isGameBegin() {
-		return game_begin;
-	}
+    public void setMapCreated(boolean mapCreated) {
+        this.map_created = mapCreated;
+    }
 
-	public void setGameBegin(boolean gameBegin) {
-		this.game_begin = gameBegin;
-	}
+    public boolean isGameBegin() {
+        return game_begin;
+    }
 
-	public int getCurrentPlayerID() {
-		return current_playerID;
-	}
+    public void setGameBegin(boolean gameBegin) {
+        this.game_begin = gameBegin;
+    }
 
-	public void setCurrentPlayerID(int current_PlayerID) {
-		this.current_playerID = current_PlayerID;
-	}
+    public int getCurrentPlayerID() {
+        return current_playerID;
+    }
 
-	public TurnPhase getCurrentPhase() {
-		return current_phase;
-	}
+    public void setCurrentPlayerID(int current_PlayerID) {
+        this.current_playerID = current_PlayerID;
+    }
 
-	public void setCurrentPhase(TurnPhase current_Phase) {
-		this.current_phase = current_Phase;
-	}
+    public TurnPhase getCurrentPhase() {
+        return current_phase;
+    }
 
-	public boolean attackResult() {
-		return attack_result;
-	}
+    public void setCurrentPhase(TurnPhase current_Phase) {
+        this.current_phase = current_Phase;
+    }
 
-	public void setAttackResult(boolean attack_Result) {
-		this.attack_result= attack_Result;
-	}
+    public boolean attackResult() {
+        return attack_result;
+    }
 
-	/**
-	 * This the constructor of the class it initialize properties of the object
-	 */
-	public Turns() {
-		
-		map_created = false;
-		game_begin = false;
-		current_playerID = -1;
-		current_phase = TurnPhase.PreGame;
-		/**
-		 * missing this should change once attack feature added
-		 * 
-		 */
-		attack_result= true;
-	}
-	
-	/**
-	 * This method set game-started flag
-	 * 
-	 */
-	public void GameBegin() {
-		this.game_begin = true;
-	}
-	
-	/**
-	 * this method verifies if game started
-	 * 
-	 */
-	public boolean gameBegin() {
-		return this.game_begin;
-	}
+    public void setAttackResult(boolean attack_Result) {
+        this.attack_result = attack_Result;
+    }
 
-	/**
-	 * This method set the current phase
-	 * 
-	 * @param prm_currentPhase, 
-	 *   which its type is enum, will replace the current phase
-	 */
-	public void SetCurrentPhase(TurnPhase currentPhase) {
-		this.current_phase = currentPhase;
-	}
+    /**
+     * This the constructor of the class it initialize properties of the object
+     */
+    public Turns() {
 
-	/**
-	 * This method returns the current phase
-	 * 
-	 * @return  which its type is enum, is the current phase of the game
-	 * 
-	 */
-	public TurnPhase GetcurrentPhase() {
-		return this.current_phase;
-	}
+        map_created = false;
+        game_begin = false;
+        current_playerID = -1;
+        current_phase = TurnPhase.PreGame;
+        /**
+         * missing this should change once attack feature added
+         *
+         */
+        attack_result = true;
+    }
 
-	// tbd
-	// in the build1 we didn't have phase attack, however in the future it should be
-	// implemented
-	/**
-	 * This method compute the next phase and return it
-	 * 
-	 * @return  which its type is enum, the current phase of the game
-	 * 
-	 */
-	
-	public TurnPhase GetUpcomingPhase() {
-		switch (this.current_phase) {
-		case StartGame:
-			return TurnPhase.Reinforcement;
-		case Reinforcement:
-			return TurnPhase.Fortification;
-		case Fortification:
-			return TurnPhase.Reinforcement;
-		default:
-			return TurnPhase.PreGame;
-		}
-	}
-	/**
-	 * This method set the current playerId
-	 * 
-	 * @param prm_playerId,
-	 *            which its type is integer, will replace the current player ID
-	 */
-	public void SetCurrentPlayerID(int playerId) {
-		this.current_playerID =playerId;
-	}
+    /**
+     * This method set game-started flag
+     */
+    public void GameBegin() {
+        this.game_begin = true;
+    }
 
-	/**
-	 * this method returns the current playerId
-	 * 
-	 * @return the id of the current player
-	 */
-	public int currentPlayerID() {
-		return current_playerID;
-	}
-	/**
-	 * This method verifies if map is loaded
-	 * 
-	 */
-	public boolean MapCreated() {
-		return this.map_created;
-	}
-	
+    /**
+     * this method verifies if game started
+     */
+    public boolean gameBegin() {
+        return this.game_begin;
+    }
+
+    /**
+     * This method set the current phase
+     *
+     * @param prm_currentPhase, which its type is enum, will replace the current phase
+     */
+    public void SetCurrentPhase(TurnPhase currentPhase) {
+        this.current_phase = currentPhase;
+    }
+
+    /**
+     * This method returns the current phase
+     *
+     * @return which its type is enum, is the current phase of the game
+     */
+    public TurnPhase GetcurrentPhase() {
+        return this.current_phase;
+    }
+
+    // tbd
+    // in the build1 we didn't have phase attack, however in the future it should be
+    // implemented
+
+    /**
+     * This method compute the next phase and return it
+     *
+     * @return which its type is enum, the current phase of the game
+     */
+
+    public TurnPhase GetUpcomingPhase() {
+        switch (this.current_phase) {
+            case StartGame:
+                return TurnPhase.Reinforcement;
+            case Reinforcement:
+                return TurnPhase.Fortification;
+            case Fortification:
+                return TurnPhase.Reinforcement;
+            default:
+                return TurnPhase.PreGame;
+        }
+    }
+
+    /**
+     * This method set the current playerId
+     *
+     * @param prm_playerId, which its type is integer, will replace the current player ID
+     */
+    public void SetCurrentPlayerID(int playerId) {
+        this.current_playerID = playerId;
+    }
+
+    /**
+     * this method returns the current playerId
+     *
+     * @return the id of the current player
+     */
+    public int currentPlayerID() {
+        return current_playerID;
+    }
+
+    /**
+     * This method verifies if map is loaded
+     */
+    public boolean MapCreated() {
+        return this.map_created;
+    }
+
 }
 

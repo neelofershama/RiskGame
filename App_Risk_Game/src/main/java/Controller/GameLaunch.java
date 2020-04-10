@@ -29,11 +29,12 @@ public class GameLaunch implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO  @FXML
+        //    Button submit;
     }
 
     @FXML
-    public void onMouseClickedNewGame (ActionEvent event) {
+    public void onMouseClickedNewGame(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameSetup.fxml"));
             Scene scene = new Scene(root);
@@ -41,6 +42,7 @@ public class GameLaunch implements Initializable {
             stage.setTitle("RISK GAME SETUP");
             stage.setScene(scene);
             stage.show();
+
             Stage stg = (Stage) exit_game.getScene().getWindow();
             stg.close();
         } catch (IOException e) {
@@ -54,6 +56,4 @@ public class GameLaunch implements Initializable {
         Stage stage = (Stage) exit_game.getScene().getWindow();
         stage.close();
     }
-
-
 }
