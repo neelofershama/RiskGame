@@ -98,18 +98,14 @@ public class CardsCollection implements Observable {
         }
         PlayerCollection.players.forEach(player ->
         {
-            Iterator it = playersCards.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                List<Card> cards = (List<Card>) pair.getValue();
+            List<Card> cards = playersCards.get(player.getName());
 
-                if(player.getName().equals(pair.getKey()))
                     for (Card t : cards) {
                         player.territories.put(t.location, t.value);
                     }
                // LoadMap.board.setPlayer((String) pair.getKey(),t.location);
-        }
-    });}
+        });
+    }
 
     /**
      * Remove all the card assignment of each player and push all the cards to a stack

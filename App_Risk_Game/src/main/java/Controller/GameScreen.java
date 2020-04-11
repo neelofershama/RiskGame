@@ -35,7 +35,7 @@ public class GameScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-
+            LoadMap.board.notifyObservers();
             root.getChildren().add(addtable(LoadMap.getMapMatrix()));
             playerdetails.getChildren().addAll(displayPlayers());
         } catch (IOException e) {

@@ -339,7 +339,7 @@ public class LoadMap implements Initializable, Observer {
             }
             System.out.println();
         }
-board.notifyObservers();
+
         return matrix;
     }
 
