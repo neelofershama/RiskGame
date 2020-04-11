@@ -94,7 +94,11 @@ while (iterator.hasNext()){
          break;
     }
 }
-territoriesList.getItems().addAll((MenuItem) p.getTerritories());
+//        p.getTerritories().forEach(t-> {
+//            territoriesList.getItems().add(new MenuItem(t));
+//            territoriesList.show();
+//        });
+
     }
 
 

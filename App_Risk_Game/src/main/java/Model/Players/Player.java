@@ -2,6 +2,8 @@ package App_Risk_Game.src.main.java.Model.Players;
 
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
@@ -35,7 +37,7 @@ public class Player {
     /**
      * Store the list of players
      */
-    public  List territories;
+    public HashMap<String,Integer> territories = new HashMap<>();
 
     /**
      * Store the players properties
@@ -135,10 +137,10 @@ public class Player {
         return player_type;
     }
 
-    public  void setTerritories(String t){
-        territories.add(t);
+    public  void setTerritories(String t,int i){
+        territories.put(t,i);
     }
-    public  List<String> getTerritories(){
+    public  HashMap<String,Integer> getTerritories(){
         return territories;
     }
 }

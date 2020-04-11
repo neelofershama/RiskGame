@@ -137,20 +137,18 @@ public class Board  implements Observable {
 	 * @param tileName
 	 * Associates a player with a tile
 	 */
-	public  void setPlayer(String player_owned, String tileName) {
-		if(tiles.containsKey(tileName)) {
-			Tile tile = tiles.get(tileName);
-			tile.setPlayer(player_owned);
-			Iterator<Player> it = PlayerCollection.players.iterator();
-			while (it.hasNext())
-			{
-				Player player = it.next();
-				if(player.getName().equals(player_owned))
-				{
-					player.territories.add(tileName);
-				}
-			}
-		}
+	public void setPlayer(String player_owned, String tileName) {
+
+		//TODO-set player to tile
+//		if(tiles.containsKey(tileName)) {
+//			System.out.println(tileName);
+//			Tile tile = (Tile) tiles.get(tileName);
+//
+//			tile.setPlayer(player_owned);
+//		}
+//		else {
+//			System.out.println("tileName");
+//		}
 	}
 
 	/**

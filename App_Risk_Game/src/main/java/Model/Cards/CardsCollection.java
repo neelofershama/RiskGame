@@ -10,6 +10,7 @@ import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.interfaces.*;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 
 import java.util.*;
 
@@ -95,16 +96,20 @@ public class CardsCollection implements Observable {
 ////            }
 
         }
-//        Iterator it = playersCards.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Map.Entry pair = (Map.Entry)it.next();
-//         List<Card> territories = (List<Card>) pair.getValue();
-//            for (Card t :territories) {
-//                LoadMap.board.setPlayer((String) pair.getKey(),t.location);
-//            }
-//
-//        }
-    }
+        PlayerCollection.players.forEach(player ->
+        {
+            Iterator it = playersCards.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                List<Card> cards = (List<Card>) pair.getValue();
+
+                if(player.getName().equals(pair.getKey()))
+                    for (Card t : cards) {
+                        player.territories.put(t.location, t.value);
+                    }
+               // LoadMap.board.setPlayer((String) pair.getKey(),t.location);
+        }
+    });}
 
     /**
      * Remove all the card assignment of each player and push all the cards to a stack
