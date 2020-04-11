@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * Represent tile of a board
- *
  * @author pavankrishna
+ *
  */
 
 public class Tile {
@@ -198,12 +198,12 @@ public class Tile {
         return tile_value;
     }
 
-    @Override
-    public String toString() {
-        return "Tile [Country = " + tile_name + ", Contitent ="
-                + continent + ", Player ="
-                + player_owned + ", x =" + x + ", y =" + y + ", neighbour_tile ="
-                + neighbour_tile.toString() + ", unit =" + unit + ", tile_type ="
-                + tile_type + ", tile_value =" + tile_value + "]";
-    }
+	@Override
+	public String toString() {
+		return "Tile [Country = " + tile_name + ", Contitent ="
+				+ continent +  ", Player ="
+				+ player_owned + ", x =" + x + ", y =" + y + ", neighbour_tile ="
+				+ neighbour_tile.toString() + ", unit =" + unit + ", tile_type ="
+				+ tile_type + ", tile_value =" + tile_value + "]";
+	}
 }

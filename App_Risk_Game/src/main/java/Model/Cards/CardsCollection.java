@@ -1,13 +1,22 @@
 package App_Risk_Game.src.main.java.Model.Cards;
 
+
+
+import App_Risk_Game.src.interfaces.Observable;
+import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Controller.LoadMap;
+import App_Risk_Game.src.main.java.Model.Board.Board;
+import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
+import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.interfaces.*;
 
 import java.util.*;
 
 /**
  * The Cards Collection performs all the operations related to Cards
  */
-public class CardsCollection {
+public class CardsCollection implements Observable {
     static int noOfLocations;
     static List<String> locations;
     public static List<Card> cardCollection;
@@ -15,8 +24,8 @@ public class CardsCollection {
     public static int remainingCardsCount = 0;
     public static List<Card> remainingCards;
     public static Stack<Card> cardStack;
-
-    public CardsCollection(List<String> loc, int ub) {
+    List<Observer> observers = new ArrayList<>();
+    public CardsCollection(List<String> loc, int ub){
         locations = loc;
         noOfLocations = locations.size();
         cardCollection = new ArrayList<Card>();
@@ -28,7 +37,6 @@ public class CardsCollection {
 
     /**
      * Initialize the card set by creating object of Card and assigning it a location and value
-     *
      * @param maxValue The maximum value a card can have ex: The no of stars in Risk game
      */
     public static void initializeCards(int maxValue) {
@@ -46,10 +54,9 @@ public class CardsCollection {
 
     /**
      * Assign cards to each player
-     *
      * @param players The list of players to which the cards should be distributed
      */
-    public static void distributeCards(List<String> players) {
+    public static void distributeCards(List<Player> players) {
         int n = noOfLocations % players.size();
         int noofplayers = players.size();
         int cardsforeachplayer = noOfLocations / noofplayers;
@@ -59,7 +66,8 @@ public class CardsCollection {
                 List<Card> lc = new ArrayList<Card>();
                 lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
                 y += cardsforeachplayer;
-                playersCards.put(players.get(i), lc);
+                playersCards.put(players.get(i).getName(), lc);
+
             }
         } else {
             int y = 0;
@@ -67,8 +75,10 @@ public class CardsCollection {
                 List<Card> lc = new ArrayList<Card>();
                 lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
                 y += cardsforeachplayer;
-                playersCards.put(players.get(i), lc);
+                playersCards.put(players.get(i).getName(), lc);
             }
+
+
             //TODO - assign remaining cards to last 2 players
             remainingCardsCount = noOfLocations % noofplayers;
             if (remainingCardsCount == 1) {
@@ -85,7 +95,15 @@ public class CardsCollection {
 ////            }
 
         }
-
+//        Iterator it = playersCards.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry pair = (Map.Entry)it.next();
+//         List<Card> territories = (List<Card>) pair.getValue();
+//            for (Card t :territories) {
+//                LoadMap.board.setPlayer((String) pair.getKey(),t.location);
+//            }
+//
+//        }
     }
 
     /**
@@ -105,9 +123,8 @@ public class CardsCollection {
 
     /**
      * Create a special type of card ex:Cease fire in case of Risk Game
-     *
      * @param loc the location
-     * @param v   the value
+     * @param v the value
      * @return the new Card object
      */
     public static Card createCard(String loc, int v) {
@@ -120,7 +137,6 @@ public class CardsCollection {
 
     /**
      * Allocate the card to the player
-     *
      * @param p the player name
      * @param c the card object
      */
@@ -132,7 +148,6 @@ public class CardsCollection {
 
     /**
      * Returns the list of cards associated with the player
-     *
      * @param player
      * @return the list of Cards
      */
@@ -140,5 +155,21 @@ public class CardsCollection {
         List<Card> ls = playersCards.get(player);
         return ls;
     }
+    @Override
+    public void attachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+        this.observers.add(observer);
+    }
 
+    @Override
+    public void dettachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) {
+        for (App_Risk_Game.src.interfaces.Observer o:observers
+        ) {
+            o.update(observable);
+        }
+    }
 }
