@@ -4,6 +4,8 @@ package App_Risk_Game.src.main.java.Model.Cards;
 
 import App_Risk_Game.src.interfaces.Observable;
 import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Controller.LoadMap;
+import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
@@ -65,6 +67,7 @@ public class CardsCollection implements Observable {
                 lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
                 y += cardsforeachplayer;
                 playersCards.put(players.get(i).getName(), lc);
+
             }
         } else {
             int y = 0;
@@ -74,6 +77,8 @@ public class CardsCollection implements Observable {
                 y += cardsforeachplayer;
                 playersCards.put(players.get(i).getName(), lc);
             }
+
+
             //TODO - assign remaining cards to last 2 players
             remainingCardsCount = noOfLocations % noofplayers;
             if (remainingCardsCount == 1) {
@@ -90,7 +95,15 @@ public class CardsCollection implements Observable {
 ////            }
 
         }
+        Iterator it = playersCards.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+         List<Card> territories = (List<Card>) pair.getValue();
+            for (Card t :territories) {
+                LoadMap.board.setPlayer((String) pair.getKey(),t.location);
+            }
 
+        }
     }
 
     /**

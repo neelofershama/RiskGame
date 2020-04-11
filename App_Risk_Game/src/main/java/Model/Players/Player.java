@@ -1,5 +1,7 @@
 package App_Risk_Game.src.main.java.Model.Players;
 
+import App_Risk_Game.src.main.java.Model.Board.Tile;
+
 import java.util.List;
 import java.util.Map;
 /**
@@ -33,7 +35,7 @@ public class Player {
     /**
      * Store the list of players
      */
-    private List players;
+    public  List territories;
 
     /**
      * Store the players properties
@@ -131,5 +133,12 @@ public class Player {
      */
     public String getType() {
         return player_type;
+    }
+
+    public  void setTerritories(String t){
+        territories.add(t);
+    }
+    public  List<String> getTerritories(){
+        return territories;
     }
 }

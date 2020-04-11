@@ -1,6 +1,0 @@
-[Continents]
-Asia=1
-US=1
-[Territories]
-Canada,-,-,US,
-India,-,-,Asia,

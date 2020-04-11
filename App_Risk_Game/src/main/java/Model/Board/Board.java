@@ -1,10 +1,13 @@
 package App_Risk_Game.src.main.java.Model.Board;
 
 import App_Risk_Game.src.interfaces.*;
+import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Units.Unit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,7 +23,7 @@ public class Board  implements Observable {
 	/**
 	 * Store the tiles of the board
 	 */
-	private HashMap<String, Tile> tiles = new HashMap<>();
+	public static HashMap<String, Tile> tiles = new HashMap<>();
 	/**
 	 * Store the width of the board
 	 */
@@ -40,8 +43,8 @@ public class Board  implements Observable {
     }
 
 
-    public HashMap<String, Tile> getTiles() {
-        return tiles;
+	public HashMap<String, Tile> getTiles() {
+    	return tiles;
     }
 
     public void setTiles(HashMap<String, Tile> tiles) {
@@ -134,10 +137,19 @@ public class Board  implements Observable {
 	 * @param tileName
 	 * Associates a player with a tile
 	 */
-	public void setPlayer(String player_owned, String tileName) {
+	public static void setPlayer(String player_owned, String tileName) {
 		if(tiles.containsKey(tileName)) {
 			Tile tile = tiles.get(tileName);
 			tile.setPlayer(player_owned);
+			Iterator<Player> it = PlayerCollection.players.iterator();
+			while (it.hasNext())
+			{
+				Player player = it.next();
+				if(player.getName().equals(player_owned))
+				{
+					player.territories.add(tileName);
+				}
+			}
 		}
 	}
 
@@ -304,10 +316,14 @@ this.observers.remove(observer);
 	}
 
 	@Override
-	public void notifyObserver(Observable observable) {
-		for (Observer o:observers
+	public  void notifyObserver(Observable observable) {
+		for (Observer o:this.observers
 		) {
 			o.update(observable);
 		}
+	}
+
+	public void notifyObservers() {
+		notifyObserver(this);
 	}
 }
