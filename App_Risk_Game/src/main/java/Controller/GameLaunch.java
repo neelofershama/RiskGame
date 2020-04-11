@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameLaunch implements Initializable {
@@ -20,7 +21,6 @@ public class GameLaunch implements Initializable {
     Button new_game;
     @FXML
     Button exit_game;
-
 
     /**
      * Initializes the controller class.

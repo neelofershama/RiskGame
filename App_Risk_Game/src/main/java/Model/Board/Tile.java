@@ -1,4 +1,3 @@
-
 package App_Risk_Game.src.main.java.Model.Board;
 
 import App_Risk_Game.src.main.java.Model.Units.Unit;
@@ -33,7 +32,7 @@ public class Tile {
     /**
      * Stores the neighboring tiles of the tile
      */
-	public static ArrayList<Tile> neighbour_tile;
+    private ArrayList<Tile> neighbour_tile;
     /**
      * Stores the unit that will be on the tile
      */
@@ -199,12 +198,12 @@ public class Tile {
         return tile_value;
     }
 
-    @Override
-    public String toString() {
-        return "Tile [Country = " + tile_name + ", Contitent ="
-                + continent + ", Player ="
-                + player_owned + ", x =" + x + ", y =" + y + ", neighbour_tile ="
-                + neighbour_tile.toString() + ", unit =" + unit + ", tile_type ="
-                + tile_type + ", tile_value =" + tile_value + "]";
-    }
+	@Override
+	public String toString() {
+		return "Tile [Country = " + tile_name + ", Contitent ="
+				+ continent +  ", Player ="
+				+ player_owned + ", x =" + x + ", y =" + y + ", neighbour_tile ="
+				+ neighbour_tile.toString() + ", unit =" + unit + ", tile_type ="
+				+ tile_type + ", tile_value =" + tile_value + "]";
+	}
 }

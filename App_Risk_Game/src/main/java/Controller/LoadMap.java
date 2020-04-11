@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.interfaces.Observer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,8 +28,12 @@ import java.io.*;
 import java.net.URL;
 import java.util.*;
 
-public class LoadMap implements Initializable {
+public class LoadMap implements Initializable, Observer {
 
+        @Override
+        public void update(App_Risk_Game.src.interfaces.Observable observable) {
+
+        }
     /**
      * scanner is initialised
      */
@@ -40,10 +45,11 @@ public class LoadMap implements Initializable {
     /**
      * Board initialised
      */
-    static Board board = new Board();
+    public static Board board = new Board();
 
     @FXML
     Button LoadFile;
+
 
     /**
      * Initializes the controller class.
@@ -51,6 +57,8 @@ public class LoadMap implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        CardsController cardsController = new CardsController();
+        board.attachObserver((App_Risk_Game.src.interfaces.Observer)cardsController);
     }
 
     @FXML
@@ -58,8 +66,12 @@ public class LoadMap implements Initializable {
         try {
             takefile();
             String[][] matrix = getMapMatrix();
-            Stage stage = new Stage();
-                addtable(stage,matrix );
+            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreen.fxml"));
+            Scene loadMapScene = new Scene(loadRoot);
+            Stage loadMapStage = new Stage();
+            loadMapStage.setTitle("Map Loaded");
+            loadMapStage.setScene(loadMapScene);
+            loadMapStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,8 +82,13 @@ public class LoadMap implements Initializable {
         try {
             createMap();
             String[][] matrix = getMapMatrix();
-            Stage stage = new Stage();
-            addtable(stage,matrix );
+
+            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreen.fxml"));
+            Scene loadMapScene = new Scene(loadRoot);
+            Stage loadMapStage = new Stage();
+            loadMapStage.setTitle("Map Loaded");
+            loadMapStage.setScene(loadMapScene);
+            loadMapStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -322,6 +339,7 @@ public class LoadMap implements Initializable {
             }
             System.out.println();
         }
+board.notifyObservers();
         return matrix;
     }
 
@@ -343,39 +361,11 @@ public class LoadMap implements Initializable {
 
     }
 
-    public void addtable(Stage pri, String[][] a){
-        StackPane root = new StackPane();
-        TableView view= new TableView();
 
-        ObservableList<String[]> data = FXCollections.observableArrayList();
-        data.addAll(Arrays.asList(a));
-        //  data.remove(0);
-        for (int i = 0; i < a[0].length; i++) {
-            TableColumn tc = new TableColumn(" ");
-            final int colNo = i;
-            tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
-                    return new SimpleStringProperty((p.getValue()[colNo]));
-                }
-            });
-            tc.setPrefWidth(50);
-            view.getColumns().add(tc);
-        }
-        view.setItems(data);
-        root.getChildren().add(view);
 
-        VBox layout = new VBox(20);
-
-        Text txt = new Text();
-        txt.setText("Risk Map Loaded");
-        Font font = new Font("Calibri",20);
-        txt.setFont(font);
-        layout.getChildren().addAll(txt, root);
-
-        pri.setScene(new Scene(layout, 6000, 6000));
-        pri.show();
-
-    }
 }
+
+
+
+
 

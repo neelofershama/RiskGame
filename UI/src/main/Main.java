@@ -1,5 +1,6 @@
 package UI.src.main;
 
+import App_Risk_Game.src.main.java.Model.Board.Board;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +22,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        Board board = new Board();
 
         Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameLaunch.fxml"));
         Scene scene = new Scene(root);

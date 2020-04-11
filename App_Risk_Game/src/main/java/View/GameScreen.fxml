@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<SplitPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.GameScreen">
+   <items>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <children>
+            <VBox nodeOrientation="LEFT_TO_RIGHT" style="-fx-max-height: 500; -fx-max-width: 700;">
+               <children>
+                            <StackPane fx:id="root">
+                               <children>
+                               <VBox fx:id="layout" alignment="BASELINE_LEFT" />
+                               </children>
+                            </StackPane>
+                  <HBox fx:id="playerdetails" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+
+                  </HBox>
+               </children>
+            </VBox>
+                      <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                          <children>
+                              <Label text="Player Details" />
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                  <children>
+                                      <Label text="Attack from" />
+                                      <ComboBox prefWidth="150.0" promptText="Select" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                  <children>
+                                      <Label text="Attack On" />
+                                      <ComboBox prefWidth="150.0" promptText="Select" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                  <children>
+                                      <Label text="Troops" />
+                                      <ComboBox prefWidth="150.0" promptText="Select" />
+                                  </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                  <children>
+                                      <Button mnemonicParsing="false" prefHeight="5.0" prefWidth="38.0" text="Roll" />
+                                      <Button mnemonicParsing="false" text="Cards" />
+                                  </children>
+                              </HBox>
+                          </children>
+                      </VBox>
+                  </children>
+              </HBox>
+   </items>
+</SplitPane>

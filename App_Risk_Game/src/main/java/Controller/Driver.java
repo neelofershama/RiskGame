@@ -1,8 +1,9 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Board.Board;
-//import View.UiTest;
-import src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Board.Tile;
+import App_Risk_Game.src.main.java.Model.Players.Player;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
