@@ -137,7 +137,7 @@ public class Board  implements Observable {
 	 * @param tileName
 	 * Associates a player with a tile
 	 */
-	public static void setPlayer(String player_owned, String tileName) {
+	public  void setPlayer(String player_owned, String tileName) {
 		if(tiles.containsKey(tileName)) {
 			Tile tile = tiles.get(tileName);
 			tile.setPlayer(player_owned);

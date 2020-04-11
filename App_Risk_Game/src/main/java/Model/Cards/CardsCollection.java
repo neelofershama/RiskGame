@@ -95,15 +95,15 @@ public class CardsCollection implements Observable {
 ////            }
 
         }
-        Iterator it = playersCards.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-         List<Card> territories = (List<Card>) pair.getValue();
-            for (Card t :territories) {
-                LoadMap.board.setPlayer((String) pair.getKey(),t.location);
-            }
-
-        }
+//        Iterator it = playersCards.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry pair = (Map.Entry)it.next();
+//         List<Card> territories = (List<Card>) pair.getValue();
+//            for (Card t :territories) {
+//                LoadMap.board.setPlayer((String) pair.getKey(),t.location);
+//            }
+//
+//        }
     }
 
     /**
