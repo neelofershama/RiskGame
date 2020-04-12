@@ -142,13 +142,21 @@ public class GameSetup implements Initializable {
 //                        e.printStackTrace();
 //                    }
 //                }
-                PlayerCollection.createPlayers(number_of_players, player_names);
+
+                // There will be a bug by creating PlayerCollection and loading map without validating so i made this
+                // change
+
+                if(next_scene){
+                    PlayerCollection.createPlayers(number_of_players, player_names);
+                    getMap();
+                }
+
 //                System.out.println("Number of players :- " + number_of_players);
 //                System.out.println("List of player names :- ");
 //                for (int i = 0; i < player_names.size(); i++) {
 //                    System.out.println(player_names.get(i));
 //                }
-                getMap();
+
 
 
 

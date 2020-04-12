@@ -69,7 +69,7 @@ public class LoadMap implements Initializable, Observer {
             Stage stg = (Stage) LoadFile.getScene().getWindow();
             stg.close();
             String[][] matrix = getMapMatrix();
-            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreen.fxml"));
+            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
             Scene loadMapScene = new Scene(loadRoot);
             Stage loadMapStage = new Stage();
             loadMapStage.setTitle("Map Loaded");
