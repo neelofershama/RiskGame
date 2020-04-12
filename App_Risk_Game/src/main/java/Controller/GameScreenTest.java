@@ -1,6 +1,5 @@
 package App_Risk_Game.src.main.java.Controller;
 
-import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,9 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -46,6 +42,22 @@ public class GameScreenTest implements Initializable {
 
     @FXML
     Label current_player_name;
+
+    @FXML
+    Label attack_from;
+
+    @FXML
+    Label attack_to;
+
+
+    ComboBox owned_territories = new ComboBox();
+    ComboBox other_territories = new ComboBox();
+
+    @FXML
+    HBox hbox_from;
+
+    @FXML
+    HBox hbox_to;
 
     Player current_player;
 
@@ -100,34 +112,28 @@ public class GameScreenTest implements Initializable {
                 playerList) {
             Label player_name = new Label(p.getName());
             vb.getChildren().add(player_name);
-//            b.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//                @Override
-//                public void handle(MouseEvent event) {
-//                    getPlayerterritories(p.getName());
-//                }
-//            });
         }
         return vb;
     }
 
-    private void getPlayerterritories(String name) {
-        Menu territoriesList = new Menu();
-        Player p = null;
-        Iterator iterator = PlayerCollection.players.listIterator();
-        while (iterator.hasNext()){
-            Player player = (Player)iterator.next();
-            if(player.getName().equals(name))
-            {
-                p = player;
-                break;
-            }
-        }
+//    private void getPlayerterritories(String name) {
+//        Menu territoriesList = new Menu();
+//        Player p = null;
+//        Iterator iterator = PlayerCollection.players.listIterator();
+//        while (iterator.hasNext()){
+//            Player player = (Player)iterator.next();
+//            if(player.getName().equals(name))
+//            {
+//                p = player;
+//                break;
+//            }
+//        }
 //        p.getTerritories().forEach(t-> {
 //            territoriesList.getItems().add(new MenuItem(t));
 //            territoriesList.show();
 //        });
 
-    }
+//    }
 
     // Needed to be updated using Turns Model. For now I am fetching the first player in PlayerCollection
     public Player returnPlayerTurn(){
@@ -150,9 +156,6 @@ public class GameScreenTest implements Initializable {
         }
     }
 
-    private void attack() {
-    }
-
     private void getPlayerStatistics() {
 //        String player_name = current_player.getName();
 //        String player_color = current_player.getColor();
@@ -165,6 +168,44 @@ public class GameScreenTest implements Initializable {
         System.out.println(current_player.getId());
         System.out.println(current_player.getTerritories());
 
+    }
+
+    private void getPlayerTerritories() {
+        HashMap<String, Integer> territories = current_player.getTerritories();
+
+        Iterator iterator = territories.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry)iterator.next();
+            owned_territories.getItems().add(mapElement.getKey());
+            // System.out.println(mapElement.getKey());
+        }
+    }
+
+    private void attack() {
+        System.out.println("Attack");
+
+        // Setting up the attack
+        attack_from.setText("ATTACK FROM ");
+        // Getting the list of territories owned by the current player and put it in combo list
+        getPlayerTerritories();
+        Button submit = new Button("Validate");
+        hbox_from.getChildren().addAll(owned_territories, submit);
+        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String selected_country = (String) owned_territories.getValue();
+                getAttachableTerritories(selected_country);
+            }
+
+        // Getting the list of other territories that
+        //        attack_to.setText("ATTACK TO  ");
+            });
+    }
+
+    // Need to get neighbour countries for the given country STATUS :- PENDING
+    private void getAttachableTerritories(String selected_country) {
+        System.out.println(selected_country);
     }
 
 }

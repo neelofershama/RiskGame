@@ -38,6 +38,16 @@
                   <Button fx:id="submit" mnemonicParsing="false" onAction="#setOnMouseClick" text="SUBMIT" />
                </children>
             </VBox>
+            <HBox fx:id="hbox_from" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2">
+               <children>
+                  <Label fx:id="attack_from" />
+               </children>
+            </HBox>
+            <HBox fx:id="hbox_to" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="attack_to" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>
