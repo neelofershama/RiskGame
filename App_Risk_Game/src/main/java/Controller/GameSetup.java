@@ -43,6 +43,7 @@ public class GameSetup implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
         combo_box_range_of_players.getItems().removeAll(combo_box_range_of_players.getItems());
         combo_box_range_of_players.getItems().addAll(2, 3, 4, 5, 6);
         combo_box_range_of_players.getSelectionModel().select(0);
@@ -161,6 +162,9 @@ public class GameSetup implements Initializable {
     void getMap(){
         //---------------------- LoadMap-----------------------
         try {
+
+            Stage stg = (Stage) validate_number.getScene().getWindow();
+            stg.close();
             System.out.println("HERE===>");
             Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/LoadMap.fxml"));
 
