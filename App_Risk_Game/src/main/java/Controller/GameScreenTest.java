@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.*;
 
 public class GameScreenTest implements Initializable {
+
     @FXML
     VBox root;
 
@@ -36,38 +37,39 @@ public class GameScreenTest implements Initializable {
     @FXML
     GridPane player_details;
 
-    ComboBox<String> cb = new ComboBox<>();
+    @FXML
+    ComboBox options;
 
     // Create a button to get the value from combo box
+    @FXML
     Button submit = new Button("SUBMIT");
+
+    @FXML
+    Label current_player_name;
+
+    Player current_player;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            cb.setPromptText("CHOOSE");
-            cb.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION", "SKIP");
+            options.setPromptText("CHOOSE");
+            options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION", "SKIP");
             LoadMap.board.notifyObservers();
             stack.getChildren().add(addtable(LoadMap.getMapMatrix()));
             player_details.add(displayPlayers(), 0, 1);
             // This is to show whose turn it is in the game
-            // player_details.getChildren().add(setUpOptionForPlayer());
-            player_details.add(setUpListOfPlayers(), 1, 1);
-
+            current_player = returnPlayerTurn();
+            current_player_name.setText(current_player.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
         //layout.setAlignment(Pos.BASELINE_LEFT);
     }
 
-    private HBox setUpListOfPlayers() {
-        HBox hb = new HBox();
-        hb.setSpacing(10);
 
-        // Get the player name
-        Label player_name = new Label(returnPlayerTurn());
-        hb.getChildren().addAll(player_name, cb, submit);
-        return hb;
-    }
+
+    // Whenever user click on submit button
+
 
     public TableView addtable(String[][] a) throws IOException {
         TableView view= new TableView();
@@ -108,14 +110,6 @@ public class GameScreenTest implements Initializable {
         return vb;
     }
 
-    /*
-    HBox hb = new HBox();
-            Button b = new Button(p.getName());
-            Label player_name = new Label(p.getName());
-            ComboBox<String> cb = new ComboBox<>();
-            cb.setPromptText("CHOOSE");
-            cb.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION", "SKIP");
-     */
     private void getPlayerterritories(String name) {
         Menu territoriesList = new Menu();
         Player p = null;
@@ -135,10 +129,42 @@ public class GameScreenTest implements Initializable {
 
     }
 
-    // USING THIS METHOD TO GET WHOSE TURN IT IS IN THE GAME
-    public String returnPlayerTurn(){
-        return "a";
+    // Needed to be updated using Turns Model. For now I am fetching the first player in PlayerCollection
+    public Player returnPlayerTurn(){
+        //return PlayerCollection.players.get(0).getName();
+        return PlayerCollection.players.get(0);
     }
 
+    // When user clicks on submit button, we get combo box value and do appropriate things
+    @FXML
+    public void setOnMouseClick(ActionEvent actionEvent) throws IOException {
+        //System.out.println(options.getValue());
+        String choice = (String) options.getValue();
+        if(choice.equals("STATISTICS")){
+            // NEED TO POP UP THE USER WITH HIS STATISTICS
+            getPlayerStatistics();
+        }
+
+        else if(choice.equals("ATTACK")){
+            attack();
+        }
+    }
+
+    private void attack() {
+    }
+
+    private void getPlayerStatistics() {
+//        String player_name = current_player.getName();
+//        String player_color = current_player.getColor();
+//        HashMap<String, Integer> territories = current_player.getTerritories();
+
+
+        System.out.println(current_player.getName());
+        System.out.println(current_player.getColor());
+        System.out.println(current_player.getType());
+        System.out.println(current_player.getId());
+        System.out.println(current_player.getTerritories());
+
+    }
 
 }
