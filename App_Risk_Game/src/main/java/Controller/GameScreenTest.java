@@ -9,13 +9,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -59,7 +63,27 @@ public class GameScreenTest implements Initializable {
     @FXML
     HBox hbox_to;
 
+    @FXML
+    private Button attackButton;
+
     Player current_player;
+
+    @FXML
+    void attackButtonClicked(ActionEvent event) throws IOException {
+
+        try {
+
+            Parent RootLoad = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/AttackPhase.fxml"));
+            Scene loadAttackScene = new Scene(RootLoad);
+            Stage loadAttackStage = new Stage();
+            loadAttackStage.setTitle("Attack Phase Loaded");
+            loadAttackStage.setScene(loadAttackScene);
+            loadAttackStage.show();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

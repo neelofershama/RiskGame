@@ -36,6 +36,12 @@ public class AttackPhase implements Initializable {
     @FXML
     private ComboBox<String> attackFromList;
 
+    public void getAttackFromList() {
+        attackList.removeAll(attackList);
+        getAttackList().addAll(attackList);
+        attackFromList.getItems().addAll(getAttackList());
+    }
+
     @FXML
     void attackingCountryClicked(ActionEvent event) {
     }
@@ -45,11 +51,14 @@ public class AttackPhase implements Initializable {
     List<String> attackList = new ArrayList<String>();
 
     public List<String> getAttackList() {
+        attackList.addAll(p.getTerritories().keySet());
         return null;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        getAttackFromList();
+
     }
 }
 
