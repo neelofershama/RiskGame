@@ -1,6 +1,7 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Model.Players.Player;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -49,6 +51,32 @@ public class LoadMap implements Initializable, Observer {
 
     @FXML
     Button LoadFile;
+    static Stage stage = new Stage();
+
+    public static String[][] neighbourMatrix;
+    HashMap<String, Integer> playerTerritories = new HashMap<>();
+    public static Player player;
+
+    @FXML
+    Button NewMap;
+    @FXML
+    TextField no_of_continents;
+    @FXML
+    TextField continent_name;
+    @FXML
+    TextField no_of_countries_in_continent;
+    @FXML
+    TextField no_of_countries;
+    @FXML
+    TextField country_name;
+    @FXML
+    TextField adj_countries;
+    @FXML
+    TextField continent_name_belongs;
+    @FXML
+    TextField X;
+    @FXML
+    TextField Y;
 
 
     /**
@@ -68,7 +96,7 @@ public class LoadMap implements Initializable, Observer {
 
             Stage stg = (Stage) LoadFile.getScene().getWindow();
             stg.close();
-            String[][] matrix = getMapMatrix();
+            String[][] matrix = getMapMatrix(board.getTiles());
             Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
             Scene loadMapScene = new Scene(loadRoot);
             Stage loadMapStage = new Stage();
@@ -81,17 +109,13 @@ public class LoadMap implements Initializable, Observer {
     }
 
     @FXML
-    public void onMouseClickedNewMap (ActionEvent event) {
+    public void onMouseClickedNewMap(ActionEvent event) {
         try {
-            createMap();
-            String[][] matrix = getMapMatrix();
-
-            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreen.fxml"));
-            Scene loadMapScene = new Scene(loadRoot);
-            Stage loadMapStage = new Stage();
-            loadMapStage.setTitle("Map Loaded");
-            loadMapStage.setScene(loadMapScene);
-            loadMapStage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/createMap.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -273,9 +297,9 @@ public class LoadMap implements Initializable, Observer {
             String country = i.next().toString();
             Tile country_details = map.get(country);
 
-            printWriter.write(country + "," + "-,-," + country_details.getContinent() + ",");
+            printWriter.write(country + "," + country_details.getXCoordinate() + "," + country_details.getYCoordinate() + "," + country_details.getContinent() );
             for (int j = 0; j < board.getNeighbourTile(country).size(); j++) {
-                printWriter.write(board.getNeighbourTile(country).get(j) + ",");
+                printWriter.write("," + board.getNeighbourTile(country).get(j));
             }
             printWriter.println();
 
@@ -292,9 +316,8 @@ public class LoadMap implements Initializable, Observer {
         return toReturn;
     }
 
-    public static String[][] getMapMatrix() {
+    public static String[][] getMapMatrix(HashMap<String, Tile> tiles) {
 
-        HashMap<String, Tile> tiles = board.getTiles();
         Iterator<String> tileList = tiles.keySet().iterator();
         String[][] matrix = new String[tiles.keySet().size() + 1][tiles.keySet().size() + 1];
 
@@ -364,6 +387,119 @@ public class LoadMap implements Initializable, Observer {
 
     }
 
+    static String[][] getNeighboursPath(String[][] inputMatrix) {
+
+        int n = inputMatrix.length;
+
+        for (int i = 1; i < n; i++) {
+            List<Integer> yesList = new ArrayList<>();
+            for (int j = 1; j < n; j++) {
+                if (i != j) {
+                    if (inputMatrix[i][j].toLowerCase().equals("yes")) {
+                        yesList.add(j);
+                    }
+                }
+            }
+            for (int k : yesList) {
+                for (int j = 1; j < n; j++) {
+                    if (inputMatrix[k][j].toLowerCase().equals("yes")) {
+                        if (i != j) {
+                            inputMatrix[i][j] = "yes";
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("THE MATRIX");
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(inputMatrix[i][j] + "\t");
+            }
+            System.out.println();
+        }
+
+        return inputMatrix;
+    }
+
+    @FXML
+    public void createMap(ActionEvent event) throws IOException {
+        LoadMapGlobalVariables.count = Integer.parseInt(no_of_continents.getText());
+        Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/continentsinfo.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("Continent " + LoadMapGlobalVariables.i);
+        LoadMapGlobalVariables.i++;
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+
+
+    @FXML
+    public void dynamic(ActionEvent event) throws IOException {
+        continents.put(continent_name.getText(), Integer.parseInt(no_of_countries_in_continent.getText()));
+        LoadMapGlobalVariables.count--;
+        if (LoadMapGlobalVariables.count > 0) {
+            Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/continentsinfo.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Continent " + LoadMapGlobalVariables.i);
+            LoadMapGlobalVariables.i++;
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/noofcountries.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    @FXML
+    public void dynamic3(ActionEvent event) throws IOException {
+        LoadMapGlobalVariables.count = Integer.parseInt(no_of_countries.getText());
+        Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/countryInfo.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("Country " + LoadMapGlobalVariables.i);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void dynamic4(ActionEvent event) throws IOException {
+        board.createTile(country_name.getText(), Integer.parseInt(X.getText()), Integer.parseInt(Y.getText()), continent_name_belongs.getText());
+        LoadMapGlobalVariables.neighborsList.put(country_name.getText(), Arrays.asList(adj_countries.getText().split(",")));
+        LoadMapGlobalVariables.count--;
+        if (LoadMapGlobalVariables.count > 0) {
+            Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/countryInfo.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Country " + LoadMapGlobalVariables.i);
+            LoadMapGlobalVariables.i++;
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            System.out.println("neigbourslist: " + LoadMapGlobalVariables.neighborsList.toString());
+            for (Map.Entry entry : LoadMapGlobalVariables.neighborsList.entrySet()) {
+                System.out.println("[]".equals(((List<String>) entry.getValue()).toString()));
+                if(!("[]".equals(((List<String>) entry.getValue()).toString())))
+                    board.setNeighbourTile((List<String>) entry.getValue(), (String) entry.getKey());
+            }
+            storeMap();
+            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+            Scene loadMapScene = new Scene(loadRoot);
+            Stage loadMapStage = new Stage();
+            loadMapStage.setTitle("Map Loaded");
+            loadMapStage.setScene(loadMapScene);
+            loadMapStage.show();
+
+        }
+    }
+    static class LoadMapGlobalVariables{
+        static HashMap<String, List<String>> neighborsList = new HashMap<>();
+        static int count = 0;
+        static int i = 0;
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import javafx.beans.property.SimpleStringProperty;
@@ -68,6 +69,8 @@ public class GameScreenTest implements Initializable {
 
     Player current_player;
 
+    Board board = LoadMap.board;
+
     @FXML
     void attackButtonClicked(ActionEvent event) throws IOException {
 
@@ -89,9 +92,9 @@ public class GameScreenTest implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             options.setPromptText("CHOOSE");
-            options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION", "SKIP");
+            options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
             LoadMap.board.notifyObservers();
-            stack.getChildren().add(addtable(LoadMap.getMapMatrix()));
+            stack.getChildren().add(addtable(LoadMap.getMapMatrix(board.getTiles())));
             player_details.add(displayPlayers(), 0, 1);
             // This is to show whose turn it is in the game
             current_player = returnPlayerTurn();
@@ -177,8 +180,34 @@ public class GameScreenTest implements Initializable {
 
         else if(choice.equals("ATTACK")){
             attack();
+        }else if (choice.equals("FORTIFICATION")) {
+            fortification();
+        } else if (choice.equals("REINFORCEMENT")) {
+            reinforcement();
         }
     }
+
+    void reinforcement(){
+
+    }
+
+    void fortification() {
+        try {
+            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
+            Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
+            String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
+            label.setText(message);
+            label.setMinWidth(message.length()*10);
+            label.setMinHeight(message.length());
+            Scene scene = new Scene(reinforceRoot);
+            Stage reinforceStage = new Stage();
+            reinforceStage.setScene(scene);
+            reinforceStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void getPlayerStatistics() {
 //        String player_name = current_player.getName();

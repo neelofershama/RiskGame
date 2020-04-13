@@ -32,12 +32,13 @@ public class GameScreen implements Initializable {
     @FXML
     HBox playerdetails;
 
+    Board board = LoadMap.board;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             LoadMap.board.notifyObservers();
-            root.getChildren().add(addtable(LoadMap.getMapMatrix()));
+            root.getChildren().add(addtable(LoadMap.getMapMatrix(board.getTiles())));
             playerdetails.getChildren().addAll(displayPlayers());
         } catch (IOException e) {
             e.printStackTrace();
