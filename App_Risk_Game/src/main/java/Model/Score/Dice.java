@@ -22,12 +22,12 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 	/**
 	 * Store the result of dice roll.
 	 */
-	private List<Integer> dice_value;
+	public List<Integer> dice_value;
 
 	/**
 	 * Store the result of dice roll.
 	 */
-	private List<Integer> dice_value1;
+	public List<Integer> dice_value1;
 	/**
 	 * Store the java random generation object
 	 */
@@ -60,7 +60,7 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 	}
 
 	//return list containing troops lost by attacker followed by defence
-	public List<Integer> rollDice(int m, int n) {
+	public  List<Integer> rollDice(int m, int n) {
 		dice_value = getScore(m);
 		dice_value1 = getScore(n);
 		List<Integer> result = new ArrayList<>();

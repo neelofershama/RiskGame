@@ -140,15 +140,15 @@ public class Board  implements Observable {
 	public void setPlayer(String player_owned, String tileName) {
 
 		//TODO-set player to tile
-//		if(tiles.containsKey(tileName)) {
-//			System.out.println(tileName);
-//			Tile tile = (Tile) tiles.get(tileName);
-//
-//			tile.setPlayer(player_owned);
-//		}
-//		else {
-//			System.out.println("tileName");
-//		}
+		if(tiles.containsKey(tileName)) {
+			System.out.println(tileName);
+			Tile tile = (Tile) tiles.get(tileName);
+
+			tile.setPlayer(player_owned);
+		}
+		else {
+			System.out.println("tileName");
+		}
 	}
 
 	/**
@@ -206,7 +206,7 @@ public class Board  implements Observable {
 	 */
 	public List<String> getNeighbourTile(String tileName) {
 		List<String> neighbour = new ArrayList<>();
-		if(tileName.contains(tileName)) {
+		if(tiles.containsKey(tileName)) {
 			Tile tile = tiles.get(tileName);
 			neighbour =  tile.getNeighbourTile();
 		}

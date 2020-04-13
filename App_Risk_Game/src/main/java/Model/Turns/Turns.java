@@ -1,5 +1,7 @@
 package App_Risk_Game.src.main.java.Model.Turns;
 
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+
 /**
  * This class is used to maintain Turns module and its functionality.
  * Below are the 4 actions you’ll do on each turn.
@@ -20,6 +22,26 @@ public class Turns {
     TurnPhase current_phase;
     boolean attack_result;
 
+    public int getDefenceplayerid() {
+
+        return defenceplayerid;
+    }
+
+    public void setDefenceplayerid(String name) {
+        //PlayerCollection.players.
+        this.defenceplayerid = defenceplayerid;
+    }
+
+    int defenceplayerid;
+    public String getDefenceplayer() {
+        return defenceplayer;
+    }
+
+    public void setDefenceplayer(String defenceplayer) {
+        this.defenceplayer = defenceplayer;
+    }
+
+    String defenceplayer;
     public String getCurrent_player() {
         return current_player;
     }

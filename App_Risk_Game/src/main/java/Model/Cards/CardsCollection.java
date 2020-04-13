@@ -83,18 +83,17 @@ public class CardsCollection implements Observable {
 
             //TODO - assign remaining cards to last 2 players
             remainingCardsCount = noOfLocations % noofplayers;
+            //remainingCards.clear();
             if (remainingCardsCount == 1) {
                 remainingCards.add(cardCollection.get(y));
             } else {
-                for (int i = 0; i < remainingCardsCount; i++) {
                     remainingCards.addAll(cardCollection.subList(y, noOfLocations));
-                }
             }
-//            for (int i = 0; i < remainingcards; i++)
-////            {
-////              playersCards.get(noofplayers--).add(cardCollection.get(y));
-////              y++;
-////            }
+            for (int i = 0; i < remainingCards.size(); i++)
+           {
+             playersCards.get(players.get(--noofplayers).getName()).add(cardCollection.get(y));
+             y++;
+            }
 
         }
         PlayerCollection.players.forEach(player ->
