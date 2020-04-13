@@ -32,6 +32,7 @@ public class GameScreen implements Initializable {
     @FXML
     HBox playerdetails;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

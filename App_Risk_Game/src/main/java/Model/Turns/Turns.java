@@ -1,4 +1,4 @@
-package Model.Turns;
+package App_Risk_Game.src.main.java.Model.Turns;
 
 /**
  * This class is used to maintain Turns module and its functionality.
@@ -20,6 +20,16 @@ public class Turns {
     TurnPhase current_phase;
     boolean attack_result;
 
+    public String getCurrent_player() {
+        return current_player;
+    }
+
+    public void setCurrent_player(String current_player) {
+        this.current_player = current_player;
+    }
+
+    String current_player;
+public static Turns turns = new Turns();
     public boolean mapCreated() {
         return map_created;
     }
@@ -93,7 +103,7 @@ public class Turns {
     /**
      * This method set the current phase
      *
-     * @param prm_currentPhase, which its type is enum, will replace the current phase
+     * @param currentPhase, which its type is enum, will replace the current phase
      */
     public void SetCurrentPhase(TurnPhase currentPhase) {
         this.current_phase = currentPhase;
@@ -134,7 +144,7 @@ public class Turns {
     /**
      * This method set the current playerId
      *
-     * @param prm_playerId, which its type is integer, will replace the current player ID
+     * @param playerId, which its type is integer, will replace the current player ID
      */
     public void SetCurrentPlayerID(int playerId) {
         this.current_playerID = playerId;

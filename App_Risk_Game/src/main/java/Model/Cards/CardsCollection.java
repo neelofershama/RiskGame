@@ -58,6 +58,7 @@ public class CardsCollection implements Observable {
      * @param players The list of players to which the cards should be distributed
      */
     public static void distributeCards(List<Player> players) {
+
         int n = noOfLocations % players.size();
         int noofplayers = players.size();
         int cardsforeachplayer = noOfLocations / noofplayers;

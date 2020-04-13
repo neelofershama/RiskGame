@@ -5,7 +5,11 @@ import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 
+import App_Risk_Game.src.main.java.Model.Turns.Turns;
+import javafx.beans.property.ObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -13,6 +17,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,11 +38,12 @@ public class AttackPhase implements Initializable {
      * Used to display the current player name
      */
     @FXML
-    private Text playerInPhase;
+    Text current_player;
     /**
      * setter method to display current player name
      */
-
+@FXML
+ComboBox<Integer> troopstoattack;
     @FXML
     private ComboBox<String> attackFromList;
 
@@ -51,7 +57,24 @@ public class AttackPhase implements Initializable {
     @FXML
     void attackingCountryClicked(ActionEvent event) {
         attacking_country=attackFromList.getValue();
-
+defendList = LoadMap.board.getNeighbourTile(attacking_country);
+        Iterator it = defendList.listIterator();
+        while (it.hasNext()){
+            String country = (String)it.next();
+            if(p.getTerritories().containsKey(country)){
+                it.remove();
+            }
+        }
+        attackToList.getItems().addAll(defendList);
+int troopsinattackingcountry = players.get(Turns.turns.getCurrentPlayerID()-1).territories.get(attacking_country);
+List<Integer> nooftroops = new ArrayList<>();
+if (troopsinattackingcountry == 1)
+    nooftroops.add(0);
+else {
+for (int i =1;i<=troopsinattackingcountry-1;i++) {
+    nooftroops.add(i);
+}}
+troopstoattack.getItems().addAll(nooftroops);
     }
 
 
@@ -62,7 +85,9 @@ public class AttackPhase implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        current_player.setText(Turns.turns.getCurrent_player());
         getAttackFromList();
+
     }
 
     public void defendingCountryClicked(ActionEvent actionEvent) {
@@ -72,5 +97,7 @@ public class AttackPhase implements Initializable {
         defendList.addAll(tile.getNeighbourTile());
         return attackToList;
     }
+
+
 }
 

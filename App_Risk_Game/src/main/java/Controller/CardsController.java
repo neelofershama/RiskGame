@@ -5,6 +5,7 @@ import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Turns.Turns;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,5 +29,7 @@ public class CardsController implements Observer {
             System.out.println(p.getName());
             System.out.println(p.getTerritories());
         }
+        Turns.turns.setCurrentPlayerID(players.get(0).getId());
+        Turns.turns.setCurrent_player(players.get(0).getName());
     }
 }
