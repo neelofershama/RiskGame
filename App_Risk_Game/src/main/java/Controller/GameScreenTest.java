@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -23,9 +25,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
 public class GameScreenTest implements Initializable {
 
@@ -71,22 +75,23 @@ public class GameScreenTest implements Initializable {
 
     Board board = LoadMap.board;
 
-    @FXML
-    void attackButtonClicked(ActionEvent event) throws IOException {
 
-        try {
-
-            Parent RootLoad = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/AttackPhase.fxml"));
-            Scene loadAttackScene = new Scene(RootLoad);
-            Stage loadAttackStage = new Stage();
-            loadAttackStage.setTitle("Attack Phase Loaded");
-            loadAttackStage.setScene(loadAttackScene);
-            loadAttackStage.show();
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+//    @FXML
+//    void attackButtonClicked(ActionEvent event) throws IOException {
+//
+//        try {
+//
+//            Parent RootLoad = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/AttackPhase.fxml"));
+//            Scene loadAttackScene = new Scene(RootLoad);
+//            Stage loadAttackStage = new Stage();
+//            loadAttackStage.setTitle("Attack Phase Loaded");
+//            loadAttackStage.setScene(loadAttackScene);
+//            loadAttackStage.show();
+//        }
+//        catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -99,6 +104,7 @@ public class GameScreenTest implements Initializable {
             // This is to show whose turn it is in the game
             current_player = returnPlayerTurn();
             current_player_name.setText(current_player.getName());
+            current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -138,6 +144,8 @@ public class GameScreenTest implements Initializable {
         for (Player p:
                 playerList) {
             Label player_name = new Label(p.getName());
+            String color = p.getColor();
+            player_name.setTextFill(javafx.scene.paint.Color.web(color));
             vb.getChildren().add(player_name);
         }
         return vb;
@@ -237,23 +245,18 @@ public class GameScreenTest implements Initializable {
 
     private void attack() {
         System.out.println("Attack");
+        try {
 
-        // Setting up the attack
-        attack_from.setText("ATTACK FROM ");
-        // Getting the list of territories owned by the current player and put it in combo list
-        getPlayerTerritories();
-        Button submit = new Button("Validate");
-        hbox_from.getChildren().addAll(owned_territories, submit);
-        submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String selected_country = (String) owned_territories.getValue();
-                getAttachableTerritories(selected_country);
-            }
-
-        // Getting the list of other territories that
-        //        attack_to.setText("ATTACK TO  ");
-            });
+            Parent RootLoad = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/AttackPhase.fxml"));
+            Scene loadAttackScene = new Scene(RootLoad);
+            Stage loadAttackStage = new Stage();
+            loadAttackStage.setTitle("Attack Phase Loaded");
+            loadAttackStage.setScene(loadAttackScene);
+            loadAttackStage.show();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     // Need to get neighbour countries for the given country STATUS :- PENDING
