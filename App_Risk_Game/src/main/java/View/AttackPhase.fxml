@@ -35,6 +35,19 @@
                   <Insets top="15.0" />
                </VBox.margin>
             </ComboBox>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select the Country you want to attack to">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </Text>
+            <ComboBox fx:id="attackToList" onAction="#defendingCountryClicked" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </ComboBox>
          </children>
       </VBox>
    </children>

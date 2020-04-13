@@ -60,6 +60,10 @@ public class Tile {
         unit = new ArrayList<Unit>();
     }
 
+    public Tile() {
+
+    }
+
     /**
      * @param tile_type Associates a type to the tile
      */
