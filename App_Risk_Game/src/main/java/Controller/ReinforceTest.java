@@ -98,6 +98,7 @@ public class ReinforceTest implements Initializable {
             //PlayerCollectionTest.updateTurn();
             GameScreenTest gameScreen = new GameScreenTest();
             LoadMap.LoadMapGlobalVariables.gsFlag = true;
+            LoadMap.LoadMapGlobalVariables.phaseComplete = true;
             PlayerCollectionTest.goBackToGameScreen();
         }
     }
