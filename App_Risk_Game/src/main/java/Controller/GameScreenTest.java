@@ -104,9 +104,10 @@ public class GameScreenTest implements Initializable {
             if (!LoadMap.LoadMapGlobalVariables.gsFlag)
                 options.setVisible(false);
 
-            else
+            else {
                 options.setVisible(true);
-
+                start.setVisible(false);
+            }
             stack.getChildren().add(addtable(LoadMap.getMapMatrix(board.getTiles())));
             player_details.add(displayPlayers(), 0, 1);
             // This is to show whose turn it is in the game
