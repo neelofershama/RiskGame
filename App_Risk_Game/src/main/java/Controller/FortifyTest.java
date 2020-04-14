@@ -2,10 +2,14 @@ package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+// import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -42,7 +46,7 @@ public class FortifyTest implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        current_player = PlayerCollection.players.get(0); // Need to get current player turn from TURNS MODULE
+        current_player = PlayerCollectionTest.getTurn(); // Need to get current player turn from TURNS MODULE
         player_name.setText(current_player.getName());
         player_name.setTextFill(Color.web(current_player.getColor()));
         territories = current_player.getTerritories();
@@ -76,7 +80,12 @@ public class FortifyTest implements Initializable {
 
 
     public void onEnter(ActionEvent actionEvent) throws IOException {
-
+        // Fixing bugs
+        System.out.println("Root size :- " + root.getChildren().size());
+        int root_size = root.getChildren().size();
+        if(root_size > 4){
+            root.getChildren().remove(4,root_size-1);
+        }
         source_territory = from.getValue();
         String[][] matrix = LoadMap.getMapMatrix(LoadMap.board.getTiles());
         String neighbourMatrix[][] = LoadMap.getNeighboursPath(matrix);
@@ -156,30 +165,43 @@ public class FortifyTest implements Initializable {
 //        root.getChildren().add(tf);
 //        root.getChildren().add(tf2);
         root.getChildren().add(submit);
-        submit.setOnAction(e -> dynamic(source_territory, to.getValue(), troops.getValue()));
+        submit.setOnAction(e -> {
+            try {
+                dynamic(source_territory, to.getValue(), troops.getValue());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
     }
 
-    void dynamic(String source, String dest, int qant) {
-        GameScreenTest gameScreenTest = new GameScreenTest();
-        List<Player> players = PlayerCollection.players;
-        Player player = players.get(0);
-        HashMap<String, Integer> territories = player.getTerritories();
+    void dynamic(String source, String dest, int qant) throws IOException {
+//        GameScreenTest gameScreenTest = new GameScreenTest();
+//        List<Player> players = PlayerCollectionTest.players;
+//        Player player = players.get(0);
+        HashMap<String, Integer> territories = current_player.getTerritories();
+        System.out.println(territories);
+        System.out.println("Source :- " + source);
+        System.out.println("Destination :- " + dest);
         int destTroops = territories.get(dest);
         int sourceTroops = territories.get(source);
 
         if ((sourceTroops - qant) != 0) {
 
-            player.setTerritory(dest, destTroops + qant);
-            player.setTerritory(source, sourceTroops - qant);
+            current_player.setTerritory(dest, destTroops + qant);
+            current_player.setTerritory(source, sourceTroops - qant);
 
         } else {
             Label tf = new Label("Reinforcement failed as troops at " + source + " get 0 after reinforcement.");
             root.getChildren().add(tf);
         }
-        System.out.println(player.getTerritories().toString());
+        System.out.println(current_player.getTerritories().toString());
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
+        PlayerCollectionTest.updateTurn();
+        PlayerCollectionTest.goBackToGameScreen();
 
     }
+
+
 }

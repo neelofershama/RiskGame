@@ -2,9 +2,10 @@ package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+// import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Score.Dice;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 import javafx.beans.property.ObjectProperty;
@@ -28,7 +29,7 @@ import java.util.*;
 
 public class AttackPhase implements Initializable {
 
-    List<Player> players = PlayerCollection.players;
+    List<Player> players = PlayerCollectionTest.players;
     Player p = players.get(0);
     String attacking_country;
     List<String> attackList = new ArrayList<String>();

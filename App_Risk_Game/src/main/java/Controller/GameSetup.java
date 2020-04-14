@@ -1,6 +1,8 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,7 +35,6 @@ public class GameSetup implements Initializable {
     private ArrayList<Boolean> validate_status = new ArrayList<>();
     private boolean next_scene = false;
     private ArrayList<String> color_names = new ArrayList<String>();
-    // "RED", "GREEN", "BLUE", "YELLOW", "ORANGE", "VIOLET"
 
     @FXML
     GridPane grid;
@@ -158,7 +159,8 @@ public class GameSetup implements Initializable {
                 // change
 
                 if(next_scene){
-                    PlayerCollection.createPlayers(number_of_players, player_names);
+                    // PlayerCollection.createPlayers(number_of_players, player_names);
+                    PlayerCollectionTest.createPlayers(number_of_players, player_names);
                     getMap();
                 }
 

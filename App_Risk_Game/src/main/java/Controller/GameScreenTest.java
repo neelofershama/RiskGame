@@ -3,6 +3,7 @@ package App_Risk_Game.src.main.java.Controller;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -102,7 +103,11 @@ public class GameScreenTest implements Initializable {
             stack.getChildren().add(addtable(LoadMap.getMapMatrix(board.getTiles())));
             player_details.add(displayPlayers(), 0, 1);
             // This is to show whose turn it is in the game
-            current_player = returnPlayerTurn();
+
+            //current_player = returnPlayerTurn();
+
+            current_player = PlayerCollectionTest.getTurn();
+            current_player_name.setText(current_player.getName());
             current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
         } catch (IOException e) {
@@ -110,8 +115,6 @@ public class GameScreenTest implements Initializable {
         }
         //layout.setAlignment(Pos.BASELINE_LEFT);
     }
-
-
 
     // Whenever user click on submit button
 
@@ -140,7 +143,7 @@ public class GameScreenTest implements Initializable {
     public VBox displayPlayers(){
         VBox vb = new VBox();
         vb.setSpacing(5);
-        List<Player> playerList = PlayerCollection.players;
+        List<Player> playerList = PlayerCollectionTest.players;
         for (Player p:
                 playerList) {
             Label player_name = new Label(p.getName());
@@ -192,7 +195,12 @@ public class GameScreenTest implements Initializable {
             // fortification();
             fortificationTest();
         } else if (choice.equals("REINFORCEMENT")) {
-            reinforcement();
+            reinforcementTest();
+        } else if (choice.equals("SKIP")){
+            PlayerCollectionTest.updateTurn();
+            PlayerCollectionTest.goBackToGameScreen();
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -216,6 +224,16 @@ public class GameScreenTest implements Initializable {
         }
     }
 
+    public void reinforcementTest() throws IOException {
+        Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
+        Scene loadReinforceScene = new Scene(reinforceRoot);
+        Stage loadReinforceStage = new Stage();
+        loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
+        loadReinforceStage.setScene(loadReinforceScene);
+        loadReinforceStage.show();
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
+    }
     void fortification() {
         try {
             // Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
@@ -229,6 +247,7 @@ public class GameScreenTest implements Initializable {
             Stage reinforceStage = new Stage();
             reinforceStage.setScene(scene);
             reinforceStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -242,15 +261,8 @@ public class GameScreenTest implements Initializable {
             loadAttackStage.setTitle("FORTIFICATION PHASE LOADED");
             loadAttackStage.setScene(loadAttackScene);
             loadAttackStage.show();
-//            Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
-//            String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
-//            label.setText(message);
-//            label.setMinWidth(message.length()*10);
-//            label.setMinHeight(message.length());
-//            Scene scene = new Scene(reinforceRoot);
-//            Stage reinforceStage = new Stage();
-//            reinforceStage.setScene(scene);
-//            reinforceStage.show();
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
