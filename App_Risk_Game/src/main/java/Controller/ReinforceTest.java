@@ -1,7 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Players.Player;
-// import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +17,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+// import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 
 public class ReinforceTest implements Initializable {
 
@@ -53,28 +54,27 @@ public class ReinforceTest implements Initializable {
     }
 
     private void reinforce() {
-        troop_update.setText("YOU HAVE " + max_troop +" TO REINFORCE YOUR TERRITORIES");
+        troop_update.setText("YOU HAVE " + max_troop + " TO REINFORCE YOUR TERRITORIES");
         troops.getItems().clear();
         troops.getSelectionModel().selectFirst();
         territories = current_player.getTerritories();
         territories_owned.setText("TERRITORIES OWNED :- " + territories.toString());
-        if(!territories.isEmpty()){ // HAVE TO MAKE SURE ITS NULL OR EMPTY
+        if (!territories.isEmpty()) { // HAVE TO MAKE SURE ITS NULL OR EMPTY
             Iterator iterator = territories.entrySet().iterator();
 
             while (iterator.hasNext()) {
-                Map.Entry mapElement = (Map.Entry)iterator.next();
+                Map.Entry mapElement = (Map.Entry) iterator.next();
                 territory.getItems().add((String) mapElement.getKey());
             }
             territory.getSelectionModel().selectFirst();
-        }
-        else{
+        } else {
             Alert a = new Alert(Alert.AlertType.WARNING);
             a.setContentText(current_player.getName() + " HAS NO TERRITORIES");
             a.show();
         }
 
         // Setting up the troop values
-        for(int i=1; i<=max_troop; i++){
+        for (int i = 1; i <= max_troop; i++) {
             troops.getItems().add(i);
         }
 
@@ -87,14 +87,15 @@ public class ReinforceTest implements Initializable {
         System.out.println(current_player.getTerritories().get(territory_selected));
         current_player.setTerritory(territory_selected, current_player.getTerritories().get(territory_selected) + troop_selected);
         max_troop = max_troop - troop_selected;
-        if(max_troop!=0){
+        if (max_troop != 0) {
             reinforce();
-        }
-        else{
+        } else {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
             // Logic to update turn and loading gamescreetest
-            PlayerCollectionTest.updateTurn();
+            //PlayerCollectionTest.updateTurn();
+            GameScreenTest gameScreen = new GameScreenTest();
+            LoadMap.LoadMapGlobalVariables.gsFlag = true;
             PlayerCollectionTest.goBackToGameScreen();
         }
     }

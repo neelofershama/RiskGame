@@ -2,6 +2,7 @@ package App_Risk_Game.src.main.java.Model.Players;
 
 import App_Risk_Game.src.interfaces.Observable;
 import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Controller.LoadMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -78,6 +79,7 @@ public class PlayerCollectionTest implements Observable {
     }
 
     public static void updateTurn(){
+        LoadMap.LoadMapGlobalVariables.gsFlag = false;
         System.out.println("Number of players :- " + number_of_players);
         // System.out.println("Turn index :- " + turn_index);
         if(turn_index == number_of_players -1 ){

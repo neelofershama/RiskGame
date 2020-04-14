@@ -31,7 +31,8 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Label fx:id="current_player_name" text="Label" />
+                         <Label fx:id="current_player_name" text="Label" />
+                             <Button fx:id="start" onAction="#onStart" text="START TURN"/>
                         <ComboBox fx:id="options" prefWidth="150.0" />
                      </children>
                   </HBox>

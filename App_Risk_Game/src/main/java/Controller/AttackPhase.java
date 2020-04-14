@@ -210,6 +210,9 @@ atkrdice.setText(atkdice);
     public void endAttack(MouseEvent mouseEvent) {
         Stage stage = (Stage) end.getScene().getWindow();
         stage.close();
+
+        GameScreenTest gs = new GameScreenTest();
+        gs.fortificationTest();
     }
 }
 

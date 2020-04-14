@@ -16,8 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
@@ -27,7 +25,6 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 
 public class GameScreenTest implements Initializable {
 
@@ -56,6 +53,8 @@ public class GameScreenTest implements Initializable {
     @FXML
     Label attack_to;
 
+    @FXML
+    Button start;
 
     ComboBox owned_territories = new ComboBox();
     ComboBox other_territories = new ComboBox();
@@ -69,11 +68,11 @@ public class GameScreenTest implements Initializable {
     @FXML
     private Button attackButton;
 
+
     Player current_player;
 
     Board board = LoadMap.board;
     public static int reinforceCount = 3;
-
     public Stage reinforceStage = new Stage();
 
 
@@ -98,8 +97,16 @@ public class GameScreenTest implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             options.setPromptText("CHOOSE");
-            options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
+            //options.getItems().addAll("STATISTICS","ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
+            options.getItems().addAll("STATISTICS", "ATTACK");
             LoadMap.board.notifyObservers();
+
+            if (!LoadMap.LoadMapGlobalVariables.gsFlag)
+                options.setVisible(false);
+
+            else
+                options.setVisible(true);
+
             stack.getChildren().add(addtable(LoadMap.getMapMatrix(board.getTiles())));
             player_details.add(displayPlayers(), 0, 1);
             // This is to show whose turn it is in the game
@@ -117,10 +124,13 @@ public class GameScreenTest implements Initializable {
     }
 
     // Whenever user click on submit button
-
+    @FXML
+    void onStart(ActionEvent event) throws IOException {
+        reinforcementTest();
+    }
 
     public TableView addtable(String[][] a) throws IOException {
-        TableView view= new TableView();
+        TableView view = new TableView();
 
         ObservableList<String[]> data = FXCollections.observableArrayList();
         data.addAll(Arrays.asList(a));
@@ -140,11 +150,12 @@ public class GameScreenTest implements Initializable {
         view.setItems(data);
         return view;
     }
-    public VBox displayPlayers(){
+
+    public VBox displayPlayers() {
         VBox vb = new VBox();
         vb.setSpacing(5);
         List<Player> playerList = PlayerCollectionTest.players;
-        for (Player p:
+        for (Player p :
                 playerList) {
             Label player_name = new Label(p.getName());
             String color = p.getColor();
@@ -174,7 +185,7 @@ public class GameScreenTest implements Initializable {
 //    }
 
     // Needed to be updated using Turns Model. For now I am fetching the first player in PlayerCollection
-    public Player returnPlayerTurn(){
+    public Player returnPlayerTurn() {
         //return PlayerCollection.players.get(0).getName();
         return PlayerCollection.players.get(0);
     }
@@ -184,19 +195,17 @@ public class GameScreenTest implements Initializable {
     public void setOnMouseClick(ActionEvent actionEvent) throws IOException {
         //System.out.println(options.getValue());
         String choice = (String) options.getValue();
-        if(choice.equals("STATISTICS")){
+        if (choice.equals("STATISTICS")) {
             // NEED TO POP UP THE USER WITH HIS STATISTICS
             getPlayerStatistics();
-        }
-
-        else if(choice.equals("ATTACK")){
+        } else if (choice.equals("ATTACK")) {
             attack();
-        }else if (choice.equals("FORTIFICATION")) {
+        } else if (choice.equals("FORTIFICATION")) {
             // fortification();
             fortificationTest();
         } else if (choice.equals("REINFORCEMENT")) {
             reinforcementTest();
-        } else if (choice.equals("SKIP")){
+        } else if (choice.equals("SKIP")) {
             PlayerCollectionTest.updateTurn();
             PlayerCollectionTest.goBackToGameScreen();
             Stage stage = (Stage) root.getScene().getWindow();
@@ -210,7 +219,7 @@ public class GameScreenTest implements Initializable {
             GameScreenTest gt = new GameScreenTest();
             Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
             Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(3);
-            String message = "You have " + reinforceCount + " troops to assign to your territories. Following are the troops for given territories : " +  PlayerCollection.players.get(0).getTerritories().toString();
+            String message = "You have " + reinforceCount + " troops to assign to your territories. Following are the troops for given territories : " + PlayerCollection.players.get(0).getTerritories().toString();
             label.setText(message);
             label.setMinWidth(message.length() * 10);
             label.setMinHeight(message.length());
@@ -234,6 +243,7 @@ public class GameScreenTest implements Initializable {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
     }
+
     void fortification() {
         try {
             // Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
@@ -241,7 +251,7 @@ public class GameScreenTest implements Initializable {
             Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
             String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
             label.setText(message);
-            label.setMinWidth(message.length()*10);
+            label.setMinWidth(message.length() * 10);
             label.setMinHeight(message.length());
             Scene scene = new Scene(reinforceRoot);
             Stage reinforceStage = new Stage();
@@ -267,7 +277,6 @@ public class GameScreenTest implements Initializable {
             e.printStackTrace();
         }
     }
-
 
 
     private void getPlayerStatistics() {
@@ -353,7 +362,7 @@ public class GameScreenTest implements Initializable {
         Iterator iterator = territories.entrySet().iterator();
 
         while (iterator.hasNext()) {
-            Map.Entry mapElement = (Map.Entry)iterator.next();
+            Map.Entry mapElement = (Map.Entry) iterator.next();
             owned_territories.getItems().add(mapElement.getKey());
             // System.out.println(mapElement.getKey());
         }
@@ -369,8 +378,7 @@ public class GameScreenTest implements Initializable {
             loadAttackStage.setTitle("Attack Phase Loaded");
             loadAttackStage.setScene(loadAttackScene);
             loadAttackStage.show();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
