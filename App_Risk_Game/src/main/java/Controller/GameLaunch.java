@@ -33,6 +33,10 @@ public class GameLaunch implements Initializable {
         //    Button submit;
     }
 
+    /**
+     * Starting point for a new game
+     * @param event
+     */
     @FXML
     public void onMouseClickedNewGame(ActionEvent event) {
         try {

@@ -124,6 +124,12 @@ public class GameScreenTest implements Initializable {
         //layout.setAlignment(Pos.BASELINE_LEFT);
     }
 
+    /**
+     * creates a table view for displaying the countries and its neighbors
+     * @param event
+     * @return
+     * @throws IOException
+     */
     // Whenever user click on submit button
     @FXML
     void onStart(ActionEvent event) throws IOException {
@@ -152,6 +158,10 @@ public class GameScreenTest implements Initializable {
         return view;
     }
 
+    /**
+     * creates players based on no of players selected for the game
+     * @return
+     */
     public VBox displayPlayers() {
         VBox vb = new VBox();
         vb.setSpacing(5);
@@ -279,7 +289,9 @@ public class GameScreenTest implements Initializable {
         }
     }
 
-
+    /**
+     * displays player details like countries owned,troops owned and total continents owned by the player
+     */
     private void getPlayerStatistics() {
 
         try {

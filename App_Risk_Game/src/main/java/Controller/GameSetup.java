@@ -56,6 +56,11 @@ public class GameSetup implements Initializable {
         combo_box_range_of_players.getSelectionModel().select(0);
     }
 
+    /**
+     * provides selection of o of players of the game and takes player names
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void setOnMouseClickedValidate(ActionEvent actionEvent) throws IOException {
         // Storing the text field objects

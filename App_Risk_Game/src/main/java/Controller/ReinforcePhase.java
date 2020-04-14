@@ -30,6 +30,11 @@ public class ReinforcePhase implements Initializable {
 
     }
 
+    /**
+     * assigns selected no of troops to reinforce destination
+     * @param ae
+     * @throws IOException
+     */
     @FXML
     public void submit_troops(ActionEvent ae) throws IOException {
 

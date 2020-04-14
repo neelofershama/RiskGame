@@ -80,6 +80,10 @@ public class LoadMap implements Initializable, Observer {
         board.attachObserver((App_Risk_Game.src.interfaces.Observer) cardsController);
     }
 
+    /**
+     * prompts user to select a map file
+     * @param event
+     */
     @FXML
     public void onMouseClickedLoadFile(ActionEvent event) {
         try {
@@ -115,6 +119,7 @@ public class LoadMap implements Initializable, Observer {
         }
     }
 
+    //prompts user to create a new map
     @FXML
     public void onMouseClickedNewMap(ActionEvent event) {
         try {
@@ -326,6 +331,7 @@ public class LoadMap implements Initializable, Observer {
         return toReturn;
     }
 
+    //map matrix describing the relation between countries
     public static String[][] getMapMatrix(HashMap<String, Tile> tiles) {
 
         Iterator<String> tileList = tiles.keySet().iterator();

@@ -46,6 +46,7 @@ public class Turns {
         return defenceplayer;
     }
 
+    //identifies defence layer during attack
     public void setDefenceplayer(String defenceterritory) {
         Iterator it = PlayerCollectionTest.players.listIterator();
         while (it.hasNext())

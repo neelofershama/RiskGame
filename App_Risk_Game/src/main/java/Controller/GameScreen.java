@@ -46,6 +46,12 @@ public class GameScreen implements Initializable {
         layout.setAlignment(Pos.BASELINE_LEFT);
     }
 
+    /**
+     * creates a table view for displaying the countries and its neighbors
+     * @param a
+     * @return
+     * @throws IOException
+     */
     public TableView addtable(String[][] a) throws IOException {
         TableView view= new TableView();
 
@@ -67,6 +73,11 @@ public class GameScreen implements Initializable {
         view.setItems(data);
         return view;
     }
+
+    /**
+     * creates players based on no of players selected for the game
+     * @return
+     */
     public List<Button> displayPlayers(){
         List<Button> list = new ArrayList<>();
         List<Player> playerList = PlayerCollection.players;
@@ -83,6 +94,7 @@ public class GameScreen implements Initializable {
         }
 return list;
     }
+
 
     private void getPlayerterritories(String name) {
 Menu territoriesList = new Menu();

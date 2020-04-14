@@ -13,6 +13,11 @@ import java.util.List;
 
 public class CardsController implements Observer {
 
+    /**
+     * controller is responsible for assigning territories to players for phase 0.
+     * this controller is a observer for board model
+     * @param observable
+     */
     @Override
     public void update(App_Risk_Game.src.interfaces.Observable observable) {
         List<String> territories = new ArrayList<>();
@@ -21,7 +26,7 @@ public class CardsController implements Observer {
             String name = (String) iterator.next();
             territories.add(name);
         }
-        CardsCollection cardsCollection = new CardsCollection(territories, 2);
+        CardsCollection cardsCollection = new CardsCollection(territories, 5);
         List<Player> players = PlayerCollectionTest.players;
         CardsCollection.distributeCards(players);
         for (Player p:players

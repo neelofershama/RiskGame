@@ -53,6 +53,7 @@ public class ReinforceTest implements Initializable {
         reinforce();
     }
 
+    // shows the summary of the reinforcement
     private void reinforce() {
         territory.getItems().removeAll(territory.getItems());
         troop_update.setText("YOU HAVE " + max_troop + " TO REINFORCE YOUR TERRITORIES");

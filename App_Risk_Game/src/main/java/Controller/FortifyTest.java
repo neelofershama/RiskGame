@@ -53,6 +53,9 @@ public class FortifyTest implements Initializable {
         foritfy();
     }
 
+    /**
+     * Fortifcation phase-shows troops in each territory
+     */
     private void foritfy() {
         territories_owned.setText("TERRITORIES OWNED :- " + territories.toString());
         label_from.setText("MOVE THE TROOPS FROM ");
@@ -78,7 +81,11 @@ public class FortifyTest implements Initializable {
 
     }
 
-
+    /**
+     * loads possible destination countries for fortifying troops
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onEnter(ActionEvent actionEvent) throws IOException {
         // Fixing bugs
         System.out.println("Root size :- " + root.getChildren().size());

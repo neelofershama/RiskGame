@@ -41,6 +41,11 @@ public class PlayerCollectionTest implements Observable {
         }
     };
 
+    /**
+     * creates player object and assigns them name and color and places in the players list
+     * @param number_of_players
+     * @param player_names
+     */
     public static void createPlayers(int number_of_players, ArrayList<String> player_names) {
         PlayerCollectionTest.number_of_players = number_of_players;
         ArrayList<Integer> color_index = new ArrayList<>(); // To generate random number within range of players playing
@@ -73,6 +78,7 @@ public class PlayerCollectionTest implements Observable {
 
     }
 
+    // returns current player
     public static Player getTurn(){
         System.out.println("Turn index :- " + turn_index);
         return players.get(turn_index);
