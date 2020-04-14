@@ -7,7 +7,9 @@ import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Model.Cards.Card;
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -25,21 +27,45 @@ public class PlayerCollection implements Observable {
 
     private List<String> namesPlayers;
 
+    private static ArrayList<String> color_name = new ArrayList<String>(){
+        {
+            add("RED");
+            add("GREEN");
+            add("BLUE");
+            add("ORANGE");
+            add("MAROON");
+            add("CYAN");
+        }
+    };
 
     public static void createPlayers(int number_of_players, ArrayList<String> player_names) {
-
+        ArrayList<Integer> color_index = new ArrayList<>(); // To generate random number within range of players playing
         for(int i=0;i< player_names.size(); i++)
         {
+            color_index.add(i);
             Player player = new Player(player_names.get(i),i+1);
             players.add(player);
         }
-        ListIterator<Player>
-                iterator = PlayerCollection.players.listIterator();
-        while(iterator.hasNext()){
-            Player p = (Player)iterator.next();
+        // shuffling the colors of the player
+        Collections.shuffle(color_index);
+
+        // Assigning the color name to players
+        for(int i=0;i< players.size(); i++)
+        {
+            Player p = players.get(i);
+            int index = color_index.get(i);
+            p.setColor(color_name.get(index));
             System.out.println(p.getName());
-            System.out.println(p.getId());
+            System.out.println(p.getColor());
         }
+
+//        ListIterator<Player>
+//                iterator = PlayerCollection.players.listIterator();
+//        while(iterator.hasNext()){
+//            Player p = (Player)iterator.next();
+//            System.out.println(p.getName());
+//            System.out.println(p.getId());
+//        }
 
     }
 

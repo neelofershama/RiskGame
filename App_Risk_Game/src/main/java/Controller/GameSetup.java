@@ -11,12 +11,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,6 +32,8 @@ public class GameSetup implements Initializable {
     private ArrayList<String> player_names = new ArrayList<>();
     private ArrayList<Boolean> validate_status = new ArrayList<>();
     private boolean next_scene = false;
+    private ArrayList<String> color_names = new ArrayList<String>();
+    // "RED", "GREEN", "BLUE", "YELLOW", "ORANGE", "VIOLET"
 
     @FXML
     GridPane grid;
@@ -74,6 +80,11 @@ public class GameSetup implements Initializable {
             Label player_name = new Label("ENTER PLAYER - " + Integer.toString(p + 1));
             TextField t = new TextField();
             t.setPromptText("PLAYER-" + Integer.toString(p + 1));
+
+            // Adding color combobox
+            ComboBox<String> color = new ComboBox<>();
+
+
             vb_text_field.getChildren().addAll(player_name, t);
             player_text_field.add(t);
             if (p + 1 == number_of_players) {

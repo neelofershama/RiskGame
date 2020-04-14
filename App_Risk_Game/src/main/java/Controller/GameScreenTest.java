@@ -189,7 +189,8 @@ public class GameScreenTest implements Initializable {
         else if(choice.equals("ATTACK")){
             attack();
         }else if (choice.equals("FORTIFICATION")) {
-            fortification();
+            // fortification();
+            fortificationTest();
         } else if (choice.equals("REINFORCEMENT")) {
             reinforcement();
         }
@@ -201,7 +202,8 @@ public class GameScreenTest implements Initializable {
 
     void fortification() {
         try {
-            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
+            // Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
+            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
             Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
             String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
             label.setText(message);
@@ -216,6 +218,27 @@ public class GameScreenTest implements Initializable {
         }
     }
 
+    void fortificationTest() {
+        try {
+            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
+            Scene loadAttackScene = new Scene(reinforceRoot);
+            Stage loadAttackStage = new Stage();
+            loadAttackStage.setTitle("Attack Phase Loaded");
+            loadAttackStage.setScene(loadAttackScene);
+            loadAttackStage.show();
+//            Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
+//            String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
+//            label.setText(message);
+//            label.setMinWidth(message.length()*10);
+//            label.setMinHeight(message.length());
+//            Scene scene = new Scene(reinforceRoot);
+//            Stage reinforceStage = new Stage();
+//            reinforceStage.setScene(scene);
+//            reinforceStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void getPlayerStatistics() {
 //        String player_name = current_player.getName();
