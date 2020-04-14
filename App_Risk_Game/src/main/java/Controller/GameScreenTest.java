@@ -223,7 +223,7 @@ public class GameScreenTest implements Initializable {
             Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
             Scene loadAttackScene = new Scene(reinforceRoot);
             Stage loadAttackStage = new Stage();
-            loadAttackStage.setTitle("Attack Phase Loaded");
+            loadAttackStage.setTitle("FORTIFICATION PHASE LOADED");
             loadAttackStage.setScene(loadAttackScene);
             loadAttackStage.show();
 //            Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);

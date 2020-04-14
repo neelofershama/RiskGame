@@ -7,6 +7,7 @@
 <VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.ReinforceTest">
    <children>
       <Label fx:id="player_name" alignment="CENTER" text="Label" />
+      <Label fx:id="territories_owned" text="Label" />
       <Label fx:id="label_from" text="Label" />
       <ComboBox fx:id="from" onAction="#onEnter" prefWidth="150.0" />
    </children>
