@@ -33,7 +33,6 @@ public class GameSetup implements Initializable {
     private ArrayList<Boolean> validate_status = new ArrayList<>();
     private boolean next_scene = false;
     private ArrayList<String> color_names = new ArrayList<String>();
-    // "RED", "GREEN", "BLUE", "YELLOW", "ORANGE", "VIOLET"
 
     @FXML
     GridPane grid;

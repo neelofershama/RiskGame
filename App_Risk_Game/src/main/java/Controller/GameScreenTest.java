@@ -192,7 +192,7 @@ public class GameScreenTest implements Initializable {
             // fortification();
             fortificationTest();
         } else if (choice.equals("REINFORCEMENT")) {
-            reinforcement();
+            reinforcementTest();
         }
     }
 
@@ -216,6 +216,14 @@ public class GameScreenTest implements Initializable {
         }
     }
 
+    public void reinforcementTest() throws IOException {
+        Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
+        Scene loadReinforceScene = new Scene(reinforceRoot);
+        Stage loadReinforceStage = new Stage();
+        loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
+        loadReinforceStage.setScene(loadReinforceScene);
+        loadReinforceStage.show();
+    }
     void fortification() {
         try {
             // Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
