@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
@@ -11,10 +16,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.AttackPhase">
+<AnchorPane prefHeight="500.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.AttackPhase">
    <children>
       <Button fx:id="attackagain" layoutX="417.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#attackAgain" text="Attack again" />
-      <VBox alignment="TOP_CENTER" prefHeight="277.0" prefWidth="600.0" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" onMouseClicked="#attackAgain" prefHeight="277.0" prefWidth="600.0" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text fx:id="current_player" strokeType="OUTSIDE" strokeWidth="0.0">
                <VBox.margin>
@@ -85,6 +90,6 @@
             <TextField fx:id="dfcdice" layoutX="73.0" layoutY="73.0" prefHeight="27.0" prefWidth="86.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="reinforce" layoutX="521.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#movetoreinforcement" text="Reinforcement" />
+      <Button fx:id="end" layoutX="521.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#endAttack" text="End Attack" />
    </children>
 </AnchorPane>

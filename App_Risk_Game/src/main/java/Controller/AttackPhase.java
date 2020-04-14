@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.*;
@@ -43,6 +44,8 @@ public class AttackPhase implements Initializable {
    }*/
 @FXML
     Button roll;
+@FXML
+Button end;
     /**
      * Used to display the current player name
      */
@@ -87,9 +90,7 @@ public void onattackcountryselected(String attacking_country){
         attackToList.getItems().addAll(defendList);
 
 
-        //for (int i = 1; i <= troopsinattackingcountry - 1; i++) {
-        //nooftroops.add(i);
-   // }
+
         int max_troops =0;
         if(troopsinattackingcountry >3)
             max_troops =3;
@@ -160,25 +161,20 @@ public void showWarning(){
         List<Integer> troopslost = dice.rollDice(m,n);
         int troopsofatk = troopslost.get(0);
         int troopsofdfc = troopslost.get(1);
-
         int current_troop =troopsinattackingcountry-troopsofatk;
-    PlayerCollection.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
+    PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
     String f =Turns.turns.getDefenceplayer();
     System.out.println(f);
     System.out.println(Turns.turns.getDefenceplayerid());
 
-    int t = PlayerCollection.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(attackToList.getValue());
+    int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(attackToList.getValue());
     t = t-troopsofdfc;
-    PlayerCollection.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().replace(attackToList.getValue(),t);
-    if (current_troop == 0)
-    {
-        PlayerCollection.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().remove(attacking_country);
-        PlayerCollection.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().put(attackToList.getValue(),t);
-    }
+    PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().replace(attackToList.getValue(),t);
+
        if (t == 0)
        {
-           PlayerCollection.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().remove(attackToList.getValue());
-           PlayerCollection.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().put(attackToList.getValue(),current_troop);
+           PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().remove(attackToList.getValue());
+           PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().put(attackToList.getValue(),current_troop);
        }
         for (Player p:players
         ) {
@@ -199,19 +195,21 @@ atkrdice.setText(atkdice);
     }
 
     public void attackAgain(MouseEvent mouseEvent) {
-       // attackFromList.setValue(null);
+
         defendList.clear();
         nooftroops.clear();
-    //    attackToList.valueProperty().set(null);
-    //    troopstoattack.valueProperty().set(null);
+
         attackToList.getItems().removeAll(attackToList.getItems());
         troopstoattack.getItems().removeAll(troopstoattack.getItems());
-//        attackToList.setValue(null);
-//        troopstoattack.setValue(null);
-        //troopstoattack.setItems();
+
         DiceValues.setVisible(false);
-        //attackingCountryClicked((ActionEvent )mouseEvent);
+
         onattackcountryselected(attacking_country);
+    }
+
+    public void endAttack(MouseEvent mouseEvent) {
+        Stage stage = (Stage) end.getScene().getWindow();
+        stage.close();
     }
 }
 

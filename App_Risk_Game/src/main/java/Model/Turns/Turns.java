@@ -1,7 +1,7 @@
 package App_Risk_Game.src.main.java.Model.Turns;
 
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 
 import java.util.Iterator;
 
@@ -47,13 +47,14 @@ public class Turns {
     }
 
     public void setDefenceplayer(String defenceterritory) {
-        Iterator it = PlayerCollection.players.listIterator();
+        Iterator it = PlayerCollectionTest.players.listIterator();
         while (it.hasNext())
         {
             Player p = (Player) it.next();
             if(p.getTerritories().containsKey(defenceterritory)) {
                 defenceplayer = p.getName();
                 defenceplayerid = p.getId();
+                break;
             }
         }
 System.out.println(defenceplayer);

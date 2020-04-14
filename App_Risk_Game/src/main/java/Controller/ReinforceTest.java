@@ -85,7 +85,7 @@ public class ReinforceTest implements Initializable {
         String territory_selected = (String) territory.getValue();
         System.out.println(territory_selected);
         System.out.println(current_player.getTerritories().get(territory_selected));
-        current_player.setTerritories(territory_selected, current_player.getTerritories().get(territory_selected) + troop_selected);
+        current_player.setTerritory(territory_selected, current_player.getTerritories().get(territory_selected) + troop_selected);
         max_troop = max_troop - troop_selected;
         if(max_troop!=0){
             reinforce();
