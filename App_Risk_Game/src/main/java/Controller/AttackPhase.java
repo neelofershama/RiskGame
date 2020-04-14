@@ -31,7 +31,7 @@ import java.util.*;
 public class AttackPhase implements Initializable {
 
     List<Player> players = PlayerCollectionTest.players;
-    Player p = players.get(0);
+    Player p ;
     String attacking_country;
     List<String> attackList = new ArrayList<String>();
     List<String> defendList = new ArrayList<String>();
@@ -39,12 +39,16 @@ public class AttackPhase implements Initializable {
     public static Tile tile = new Tile();
     int troopsinattackingcountry;
     boolean warning_given = false;
-   /*public AttackPhase() {
 
-   }*/
-@FXML
+    /**
+     * Button for rolling dice
+     */
+    @FXML
     Button roll;
-@FXML
+    /**
+     * Button for ending attack phase
+     */
+    @FXML
 Button end;
     /**
      * Used to display the current player name
@@ -54,19 +58,37 @@ Button end;
     /**
      * setter method to display current player name
      */
-@FXML
+    /**
+     * Dropdown menu for selecting no of territories available for attacking
+     */
+    @FXML
 ComboBox<Integer> troopstoattack;
 
-@FXML
+    /**
+     * Pane showing the out come of rolling dice.visibility set to false initially but made visble on rolling dice
+     */
+    @FXML
     AnchorPane DiceValues;
 
-@FXML
+    /**
+     * Textfield showing values of attacker dice
+     */
+    @FXML
     TextField atkrdice;
+    /**
+     * Textfield showing values of defence dice
+     */
     @FXML
     TextField dfcdice;
+    /**
+     * Combobox for selecting  territory to attack from
+     */
     @FXML
     private ComboBox<String> attackFromList;
 
+    /**
+     * Combobox for selecting  territory to attack to
+     */
     @FXML
     private ComboBox<String> attackToList;
 
@@ -122,7 +144,9 @@ public void showWarning(){
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        current_player.setText(Turns.turns.getCurrent_player());
+        p  = PlayerCollectionTest.getTurn();
+        current_player.setText(p.getName());
+        //current_player.setText(Turns.turns.getCurrent_player());
         attackFromList.getItems().addAll(getAttackList());
         attackFromList.valueProperty().addListener(new ChangeListener<String>() {
             @Override

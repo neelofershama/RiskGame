@@ -26,7 +26,7 @@ public class CardsController implements Observer {
         CardsCollection.distributeCards(players);
         for (Player p:players
              ) {
-            System.out.println(p.getName() + p.getId());
+            System.out.println(p.getName());
 
             System.out.println(p.getTerritories());
         }
