@@ -28,7 +28,7 @@ Correct Map File :
 mapinput.txt
 
 Incorrect Map File : 
-incorrectMAp.txt
+incorrectMap.txt
 
 -----------------------------------------------------------------------------------------------------------------------------
 
