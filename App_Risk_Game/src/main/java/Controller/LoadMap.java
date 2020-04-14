@@ -4,6 +4,7 @@ import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
+import UI.src.main.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -94,6 +95,8 @@ public class LoadMap implements Initializable, Observer {
                 incorrectStage.setTitle("Incorrect MAP");
                 incorrectStage.setScene(incorrectMapScene);
                 incorrectStage.show();
+                System.out.println("GAME QUITED");
+
             } else {
                 Stage stg = (Stage) LoadFile.getScene().getWindow();
                 stg.close();
@@ -106,6 +109,8 @@ public class LoadMap implements Initializable, Observer {
                 loadMapStage.show();
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -500,10 +505,12 @@ public class LoadMap implements Initializable, Observer {
         }
     }
 
-    static class LoadMapGlobalVariables {
+    public static class LoadMapGlobalVariables {
         static HashMap<String, List<String>> neighborsList = new HashMap<>();
         static int count = 0;
         static int i = 0;
+        static public Boolean gsFlag = false;
+
     }
 
 
