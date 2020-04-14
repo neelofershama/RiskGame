@@ -1,11 +1,9 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Model.Board.Board;
+import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,18 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import App_Risk_Game.src.main.java.Model.Board.Board;
-import App_Risk_Game.src.main.java.Model.Board.Tile;
 
 import java.io.*;
 import java.net.URL;
@@ -32,10 +21,11 @@ import java.util.*;
 
 public class LoadMap implements Initializable, Observer {
 
-        @Override
-        public void update(App_Risk_Game.src.interfaces.Observable observable) {
+    @Override
+    public void update(App_Risk_Game.src.interfaces.Observable observable) {
 
-        }
+    }
+
     /**
      * scanner is initialised
      */
@@ -86,23 +76,35 @@ public class LoadMap implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         CardsController cardsController = new CardsController();
-        board.attachObserver((App_Risk_Game.src.interfaces.Observer)cardsController);
+        board.attachObserver((App_Risk_Game.src.interfaces.Observer) cardsController);
     }
 
     @FXML
     public void onMouseClickedLoadFile(ActionEvent event) {
         try {
-            takefile();
+            boolean res = takefile();
 
-            Stage stg = (Stage) LoadFile.getScene().getWindow();
-            stg.close();
-            String[][] matrix = getMapMatrix(board.getTiles());
-            Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
-            Scene loadMapScene = new Scene(loadRoot);
-            Stage loadMapStage = new Stage();
-            loadMapStage.setTitle("Map Loaded");
-            loadMapStage.setScene(loadMapScene);
-            loadMapStage.show();
+            if (!res) {
+                Stage stg = (Stage) LoadFile.getScene().getWindow();
+                stg.close();
+
+                Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/incorrectMap.fxml"));
+                Scene incorrectMapScene = new Scene(loadRoot);
+                Stage incorrectStage = new Stage();
+                incorrectStage.setTitle("Incorrect MAP");
+                incorrectStage.setScene(incorrectMapScene);
+                incorrectStage.show();
+            } else {
+                Stage stg = (Stage) LoadFile.getScene().getWindow();
+                stg.close();
+                String[][] matrix = getMapMatrix(board.getTiles());
+                Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+                Scene loadMapScene = new Scene(loadRoot);
+                Stage loadMapStage = new Stage();
+                loadMapStage.setTitle("Map Loaded");
+                loadMapStage.setScene(loadMapScene);
+                loadMapStage.show();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,6 +122,7 @@ public class LoadMap implements Initializable, Observer {
             e.printStackTrace();
         }
     }
+
     /**
      * Method is used to load the map from an existing file
      *
@@ -192,6 +195,8 @@ public class LoadMap implements Initializable, Observer {
 
             System.out.println("Map" + map.keySet().toString());
 
+            if (board.getContinents().size() == 0 || board.getTiles().size() == 0)
+                return false;
             return true;
 
         } else {
@@ -297,7 +302,7 @@ public class LoadMap implements Initializable, Observer {
             String country = i.next().toString();
             Tile country_details = map.get(country);
 
-            printWriter.write(country + "," + country_details.getXCoordinate() + "," + country_details.getYCoordinate() + "," + country_details.getContinent() );
+            printWriter.write(country + "," + country_details.getXCoordinate() + "," + country_details.getYCoordinate() + "," + country_details.getContinent());
             for (int j = 0; j < board.getNeighbourTile(country).size(); j++) {
                 printWriter.write("," + board.getNeighbourTile(country).get(j));
             }
@@ -436,7 +441,6 @@ public class LoadMap implements Initializable, Observer {
     }
 
 
-
     @FXML
     public void dynamic(ActionEvent event) throws IOException {
         continents.put(continent_name.getText(), Integer.parseInt(no_of_countries_in_continent.getText()));
@@ -482,7 +486,7 @@ public class LoadMap implements Initializable, Observer {
             System.out.println("neigbourslist: " + LoadMapGlobalVariables.neighborsList.toString());
             for (Map.Entry entry : LoadMapGlobalVariables.neighborsList.entrySet()) {
                 System.out.println("[]".equals(((List<String>) entry.getValue()).toString()));
-                if(!("[]".equals(((List<String>) entry.getValue()).toString())))
+                if (!("[]".equals(((List<String>) entry.getValue()).toString())))
                     board.setNeighbourTile((List<String>) entry.getValue(), (String) entry.getKey());
             }
             storeMap();
@@ -495,7 +499,8 @@ public class LoadMap implements Initializable, Observer {
 
         }
     }
-    static class LoadMapGlobalVariables{
+
+    static class LoadMapGlobalVariables {
         static HashMap<String, List<String>> neighborsList = new HashMap<>();
         static int count = 0;
         static int i = 0;
