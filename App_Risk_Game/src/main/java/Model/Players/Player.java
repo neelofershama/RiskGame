@@ -64,6 +64,21 @@ public class Player {
     }
 
     /**
+     *  Constructor for player with all attributes
+     * @param player_name
+     * @param player_type
+     * @param player_color
+     * @param player_id
+     * @param territories
+     */
+    public Player(String player_name, String player_type, String player_color, int player_id, HashMap<String, Integer> territories) {
+        this.player_name = player_name;
+        this.player_type = player_type;
+        this.player_color = player_color;
+        this.player_id = player_id;
+        this.territories = territories;
+    }
+    /**
      * gets the player Id
      *
      * @return player Id

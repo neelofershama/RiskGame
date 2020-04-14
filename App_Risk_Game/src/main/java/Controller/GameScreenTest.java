@@ -12,15 +12,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -268,18 +268,83 @@ public class GameScreenTest implements Initializable {
         }
     }
 
+
+
     private void getPlayerStatistics() {
-//        String player_name = current_player.getName();
-//        String player_color = current_player.getColor();
-//        HashMap<String, Integer> territories = current_player.getTerritories();
+
+        try {
+
+            List<String> list = new ArrayList<>();
+            list.add(current_player.getName());
+            list.add(current_player.getColor());
+            list.add(current_player.getType());
+            list.add(String.valueOf(current_player.getId()));
+            list.add(current_player.getTerritories().toString());
+
+            TableView view = new TableView();
 
 
-        System.out.println(current_player.getName());
-        System.out.println(current_player.getColor());
-        System.out.println(current_player.getType());
-        System.out.println(current_player.getId());
-        System.out.println(current_player.getTerritories());
+            TableColumn firstNameCol = new TableColumn("Player Name");
+            firstNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            makeHeaderWrappable(firstNameCol);
+            firstNameCol.setPrefWidth(100);
 
+            TableColumn secCol = new TableColumn("Color");
+            secCol.setCellValueFactory(new PropertyValueFactory<>("color"));
+            makeHeaderWrappable(secCol);
+            secCol.setPrefWidth(100);
+
+            TableColumn thirdCol = new TableColumn("Type");
+            thirdCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            makeHeaderWrappable(thirdCol);
+            thirdCol.setPrefWidth(100);
+
+            TableColumn fourCol = new TableColumn("ID");
+            fourCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            makeHeaderWrappable(fourCol);
+            fourCol.setPrefWidth(100);
+
+            TableColumn fiveCol = new TableColumn("Territories");
+            fiveCol.setCellValueFactory(new PropertyValueFactory<>("territories"));
+            makeHeaderWrappable(fiveCol);
+            fiveCol.setPrefWidth(500);
+
+            view.getColumns().addAll(firstNameCol);
+            view.getColumns().addAll(secCol);
+            view.getColumns().addAll(thirdCol);
+            view.getColumns().addAll(fourCol);
+            view.getColumns().addAll(fiveCol);
+
+
+            view.getItems().add(new Player(current_player.getName(), "", "", current_player.getId(), current_player.getTerritories()));
+
+            Pane layout = new VBox(10);
+            layout.setStyle("-fx-padding: 10;");
+            layout.getChildren().addAll(view);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(layout));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void makeHeaderWrappable(TableColumn col) {
+        Label label = new Label(col.getText());
+        label.setStyle("-fx-padding: 8px;");
+        label.setWrapText(true);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+
+        StackPane stack = new StackPane();
+        stack.getChildren().add(label);
+        stack.prefWidthProperty().bind(col.widthProperty().subtract(5));
+        label.prefWidthProperty().bind(stack.prefWidthProperty());
+        col.setText(null);
+        col.setGraphic(stack);
     }
 
     private void getPlayerTerritories() {

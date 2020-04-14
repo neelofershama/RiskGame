@@ -117,7 +117,7 @@ public class Board  implements Observable {
 			tiles.put(tile_name, tile);
 		}
 
-		System.out.println(tiles.toString());
+	//	System.out.println(tiles.toString());
 	}
 
 	/**
