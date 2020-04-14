@@ -98,7 +98,7 @@ public class GameScreenTest implements Initializable {
         try {
             options.setPromptText("CHOOSE");
             //options.getItems().addAll("STATISTICS","ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
-            options.getItems().addAll("STATISTICS", "ATTACK");
+            options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION");
             LoadMap.board.notifyObservers();
 
             if (!LoadMap.LoadMapGlobalVariables.gsFlag)
