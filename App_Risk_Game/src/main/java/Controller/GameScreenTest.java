@@ -8,7 +8,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -25,7 +23,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -74,6 +71,9 @@ public class GameScreenTest implements Initializable {
     Player current_player;
 
     Board board = LoadMap.board;
+    public static int reinforceCount = 3;
+
+    public Stage reinforceStage = new Stage();
 
 
 //    @FXML
@@ -196,14 +196,30 @@ public class GameScreenTest implements Initializable {
         }
     }
 
-    void reinforcement(){
+    public void reinforcement() {
 
+        try {
+            GameScreenTest gt = new GameScreenTest();
+            Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
+            Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(3);
+            String message = "You have " + reinforceCount + " troops to assign to your territories. Following are the troops for given territories : " +  PlayerCollection.players.get(0).getTerritories().toString();
+            label.setText(message);
+            label.setMinWidth(message.length() * 10);
+            label.setMinHeight(message.length());
+            Scene scene = new Scene(reinforceRoot);
+            reinforceStage.setScene(scene);
+            reinforceStage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void fortification() {
         try {
             // Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
-            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
+            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/FortifyTest.fxml"));
             Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
             String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
             label.setText(message);
@@ -220,10 +236,10 @@ public class GameScreenTest implements Initializable {
 
     void fortificationTest() {
         try {
-            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
+            Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/FortifyTest.fxml"));
             Scene loadAttackScene = new Scene(reinforceRoot);
             Stage loadAttackStage = new Stage();
-            loadAttackStage.setTitle("Attack Phase Loaded");
+            loadAttackStage.setTitle("FORTIFICATION PHASE LOADED");
             loadAttackStage.setScene(loadAttackScene);
             loadAttackStage.show();
 //            Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);

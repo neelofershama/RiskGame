@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ReinforceTest implements Initializable {
+public class FortifyTest implements Initializable {
 
     @FXML
     Label player_name;
@@ -25,6 +25,9 @@ public class ReinforceTest implements Initializable {
 
     @FXML
     Label label_from;
+
+    @FXML
+    Label territories_owned;
 
     @FXML
     ComboBox<String> from;
@@ -42,12 +45,14 @@ public class ReinforceTest implements Initializable {
         current_player = PlayerCollection.players.get(0); // Need to get current player turn from TURNS MODULE
         player_name.setText(current_player.getName());
         player_name.setTextFill(Color.web(current_player.getColor()));
+        territories = current_player.getTerritories();
         foritfy();
     }
 
     private void foritfy() {
+        territories_owned.setText("TERRITORIES OWNED :- " + territories.toString());
         label_from.setText("MOVE THE TROOPS FROM ");
-        territories = current_player.getTerritories();
+
 
         if(!territories.isEmpty()){ // HAVE TO MAKE SURE ITS NULL OR EMPTY
             Iterator iterator = territories.entrySet().iterator();
