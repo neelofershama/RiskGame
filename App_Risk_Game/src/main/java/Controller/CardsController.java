@@ -4,7 +4,7 @@ import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class CardsController implements Observer {
             territories.add(name);
         }
         CardsCollection cardsCollection = new CardsCollection(territories, 2);
-        List<Player> players = PlayerCollection.players;
+        List<Player> players = PlayerCollectionTest.players;
         CardsCollection.distributeCards(players);
         for (Player p:players
              ) {

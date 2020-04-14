@@ -10,7 +10,7 @@ import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.interfaces.*;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 
 import java.util.*;
 
@@ -96,7 +96,7 @@ public class CardsCollection implements Observable {
             }
 
         }
-        PlayerCollection.players.forEach(player ->
+        PlayerCollectionTest.players.forEach(player ->
         {
             List<Card> cards = playersCards.get(player.getName());
 

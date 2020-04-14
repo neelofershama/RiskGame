@@ -1,7 +1,8 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+// import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,7 +46,7 @@ public class ReinforceTest implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         max_troop = 3;
-        current_player = PlayerCollection.players.get(0); // Need to get current player turn from TURNS MODULE
+        current_player = PlayerCollectionTest.players.get(0); // Need to get current player turn from TURNS MODULE
         player_name.setText(current_player.getName());
         player_name.setTextFill(Color.web(current_player.getColor()));
         reinforce();
@@ -54,7 +55,7 @@ public class ReinforceTest implements Initializable {
     private void reinforce() {
         troop_update.setText("YOU HAVE " + max_troop +" TO REINFORCE YOUR TERRITORIES");
         troops.getItems().clear();
-        troops.setPromptText("TROOPS");
+        troops.getSelectionModel().selectFirst();
         territories = current_player.getTerritories();
         territories_owned.setText("TERRITORIES OWNED :- " + territories.toString());
         if(!territories.isEmpty()){ // HAVE TO MAKE SURE ITS NULL OR EMPTY
@@ -64,7 +65,7 @@ public class ReinforceTest implements Initializable {
                 Map.Entry mapElement = (Map.Entry)iterator.next();
                 territory.getItems().add((String) mapElement.getKey());
             }
-            territory.setPromptText("TERRITORY");
+            territory.getSelectionModel().selectFirst();
         }
         else{
             Alert a = new Alert(Alert.AlertType.WARNING);
@@ -92,6 +93,9 @@ public class ReinforceTest implements Initializable {
         else{
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
+            // Logic to update turn and loading gamescreetest
+            PlayerCollectionTest.updateTurn();
+            PlayerCollectionTest.goBackToGameScreen();
         }
     }
 }

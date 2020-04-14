@@ -2,9 +2,10 @@ package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
-import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+// import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Score.Dice;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 import javafx.beans.property.ObjectProperty;
@@ -24,7 +25,7 @@ import java.util.*;
 
 public class AttackPhase implements Initializable {
 
-    List<Player> players = PlayerCollection.players;
+    List<Player> players = PlayerCollectionTest.players;
     Player p = players.get(0);
     String attacking_country;
     List<String> attackList = new ArrayList<String>();
@@ -127,11 +128,11 @@ troopstoattack.getItems().addAll(nooftroops);
         List<Integer> troopslost = dice.rollDice(m,n);
         int troopsofatk = troopslost.get(0);
         int troopsofdfc = troopslost.get(1);
-        HashMap<String, Integer> g =PlayerCollection.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories();
+        HashMap<String, Integer> g =PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories();
 
         g.replace(attacking_country,troopsinattackingcountry-troopsofatk);
         String f =attackToList.getValue();
-        HashMap<String, Integer> d = PlayerCollection.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories();
+        HashMap<String, Integer> d = PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories();
         //int t = g.get(attackToList.getValue());
        // t = t-troopsofdfc;
        // g.replace(attackToList.getValue(),t);
