@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ReinforceTest implements Initializable {
+public class FortifyTest implements Initializable {
 
     @FXML
     Label player_name;
