@@ -34,7 +34,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Text>
-            <ComboBox fx:id="attackFromList" onAction="#attackingCountryClicked" prefWidth="150.0">
+            <ComboBox fx:id="attackFromList" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -70,7 +70,7 @@
                         <Point3D />
                      </rotationAxis>
                   </ComboBox>
-                  <Button fx:id="roll" mnemonicParsing="false" onMouseClicked="#rolldice" text="Roll Die">
+                  <Button fx:id="roll" mnemonicParsing="false" onMouseClicked="#rolldice" text="Roll Die" visible="true">
                      <HBox.margin>
                         <Insets top="15.0" />
                      </HBox.margin>
@@ -82,9 +82,9 @@
       <AnchorPane fx:id="DiceValues" layoutX="-8.0" layoutY="266.0" prefHeight="145.0" prefWidth="200.0" visible="false">
          <children>
             <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack" />
-            <TextField fx:id="atkrdice" layoutX="74.0" layoutY="1.0" prefHeight="27.0" prefWidth="52.0" />
+            <TextField fx:id="atkrdice" layoutX="74.0" layoutY="1.0" prefHeight="27.0" prefWidth="86.0" />
             <Text layoutX="15.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Defence" />
-            <TextField fx:id="dfcdice" layoutX="73.0" layoutY="73.0" prefHeight="27.0" prefWidth="55.0" />
+            <TextField fx:id="dfcdice" layoutX="73.0" layoutY="73.0" prefHeight="27.0" prefWidth="86.0" />
          </children>
       </AnchorPane>
       <Button fx:id="reinforce" layoutX="521.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#movetoreinforcement" text="Reinforcement" />

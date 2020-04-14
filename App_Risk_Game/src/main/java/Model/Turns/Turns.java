@@ -1,6 +1,9 @@
 package App_Risk_Game.src.main.java.Model.Turns;
 
+import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+
+import java.util.Iterator;
 
 /**
  * This class is used to maintain Turns module and its functionality.
@@ -27,18 +30,33 @@ public class Turns {
         return defenceplayerid;
     }
 
-    public void setDefenceplayerid(String name) {
-        //PlayerCollection.players.
-        this.defenceplayerid = defenceplayerid;
-    }
+//    public void setDefenceplayerid(String name) {
+//        Iterator it = PlayerCollection.players.listIterator();
+//        while (it.hasNext())
+//        {
+//            Player p = (Player) it.next();
+//            if(p.getName().equals(name))
+//                defenceplayerid = p.getId();
+//        }
+//        System.out.println(defenceplayerid);
+//    }
 
     int defenceplayerid;
     public String getDefenceplayer() {
         return defenceplayer;
     }
 
-    public void setDefenceplayer(String defenceplayer) {
-        this.defenceplayer = defenceplayer;
+    public void setDefenceplayer(String defenceterritory) {
+        Iterator it = PlayerCollection.players.listIterator();
+        while (it.hasNext())
+        {
+            Player p = (Player) it.next();
+            if(p.getTerritories().containsKey(defenceterritory)) {
+                defenceplayer = p.getName();
+                defenceplayerid = p.getId();
+            }
+        }
+System.out.println(defenceplayer);
     }
 
     String defenceplayer;

@@ -207,8 +207,7 @@ public class Board  implements Observable {
 	public List<String> getNeighbourTile(String tileName) {
 		List<String> neighbour = new ArrayList<>();
 		if(tiles.containsKey(tileName)) {
-			Tile tile = tiles.get(tileName);
-			neighbour =  tile.getNeighbourTile();
+			neighbour =  tiles.get(tileName).getNeighbourTile();
 		}
 		return neighbour;
 	}

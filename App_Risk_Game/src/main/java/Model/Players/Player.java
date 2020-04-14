@@ -137,10 +137,15 @@ public class Player {
         return player_type;
     }
 
-    public  void setTerritories(String t,int i){
-        territories.put(t,i);
+    public  void setTerritories(HashMap<String,Integer> t){
+territories = t;
     }
+
     public  HashMap<String,Integer> getTerritories(){
         return territories;
+    }
+
+    public void setTerritory(String t, int i) {
+        territories.put(t,i);
     }
 }

@@ -170,8 +170,8 @@ public class FortifyTest implements Initializable {
 
         if ((sourceTroops - qant) != 0) {
 
-            player.setTerritories(dest, destTroops + qant);
-            player.setTerritories(source, sourceTroops - qant);
+            player.setTerritory(dest, destTroops + qant);
+            player.setTerritory(source, sourceTroops - qant);
 
         } else {
             Label tf = new Label("Reinforcement failed as troops at " + source + " get 0 after reinforcement.");

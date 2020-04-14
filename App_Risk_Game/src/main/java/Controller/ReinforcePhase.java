@@ -43,7 +43,7 @@ public class ReinforcePhase implements Initializable {
             GameScreenTest.reinforceCount = GameScreenTest.reinforceCount - troops;
             System.out.println(dest);
             System.out.println(player.getTerritories());
-            player.setTerritories(dest, player.getTerritories().get(dest) + troops);
+            player.setTerritory(dest, player.getTerritories().get(dest) + troops);
         }
 
         if (GameScreenTest.reinforceCount != 0) {

@@ -21,7 +21,7 @@ public class CardsController implements Observer {
             String name = (String) iterator.next();
             territories.add(name);
         }
-        CardsCollection cardsCollection = new CardsCollection(territories, 2);
+        CardsCollection cardsCollection = new CardsCollection(territories, 5);
         List<Player> players = PlayerCollection.players;
         CardsCollection.distributeCards(players);
         for (Player p:players

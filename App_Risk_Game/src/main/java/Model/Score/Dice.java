@@ -3,10 +3,7 @@ package App_Risk_Game.src.main.java.Model.Score;
 
 import App_Risk_Game.src.interfaces.Observer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -55,7 +52,7 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 		for (int a = 0; a < number_of_dice; a++) {
 			Dice[a] = (int) (Math.random() * range) + min;
 		}
-		Arrays.sort(Dice);
+		Arrays.sort(Dice, Collections.reverseOrder());
 		return Arrays.asList(Dice);
 	}
 
