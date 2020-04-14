@@ -20,6 +20,7 @@ Steps for playing the Game:
 9. In fortification, player can move troops from one territory to other.
 10. The territory and troops owned by the player are visible to the him, accordingly he can fortify.
 11. Once fortification is done, the turn moves to next player and the process repeats.
+12. A player can check his/her details like territories owned, total troops owned, by selecting the STATISTICS.
 
 -----------------------------------------------------------------------------------------------------------------------------
 
