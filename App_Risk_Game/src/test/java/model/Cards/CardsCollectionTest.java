@@ -2,6 +2,7 @@
 //
 //import App_Risk_Game.src.main.java.Model.Cards.Card;
 //import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
+//import App_Risk_Game.src.main.java.Model.Players.Player;
 //import org.junit.Assert;
 //import org.junit.Test;
 //
@@ -76,7 +77,7 @@
 //        locations.add("England");
 //        List<Card> cards = new ArrayList<Card>();
 //        HashMap<String, List<Card>> playerDetails = new HashMap<String, List<Card>>();
-//        List<String> players = new ArrayList<>();
+//        List<Player> players = new ArrayList<>();
 //        players.add("Player1");
 //        players.add("Player2");
 //        players.add("Player3");

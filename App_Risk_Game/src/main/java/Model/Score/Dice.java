@@ -30,6 +30,8 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 	 */
 	private Random rand = new Random();
 
+	public  List<Integer> sorted_dice_values;
+
 
 	/**
 	 * @param number_of_dice Get the number of dices to roll
@@ -44,7 +46,7 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 	 * @param number_of_dice
 	 * @return List of dice roll results
 	 */
-	private List getScore(int number_of_dice) {
+	public List getScore(int number_of_dice) {
 		int max = 6;
 		int min = 1;
 		int range = max;
@@ -52,8 +54,9 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 		for (int a = 0; a < number_of_dice; a++) {
 			Dice[a] = (int) (Math.random() * range) + min;
 		}
-		Arrays.sort(Dice, Collections.reverseOrder());
-		return Arrays.asList(Dice);
+		 Arrays.sort(Dice, Collections.reverseOrder());
+		sorted_dice_values =Arrays.asList(Dice);
+		return sorted_dice_values;
 	}
 
 	//return list containing troops lost by attacker followed by defence

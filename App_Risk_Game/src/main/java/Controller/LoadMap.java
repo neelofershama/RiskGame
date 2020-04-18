@@ -516,6 +516,7 @@ public class LoadMap implements Initializable, Observer {
         static int i = 0;
         static public Boolean gsFlag = false;
         static public Boolean phaseComplete = false;
+
     }
 
 
