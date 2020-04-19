@@ -26,6 +26,8 @@ public class ReinforcePhase implements Initializable {
     @FXML
     TextField no_troops;
 
+    public Player player;
+
     public static void main(String args[]) {
 
     }
@@ -38,7 +40,7 @@ public class ReinforcePhase implements Initializable {
     @FXML
     public void submit_troops(ActionEvent ae) throws IOException {
 
-        Player player = PlayerCollection.players.get(0);
+         player = PlayerCollection.players.get(0);
         String dest = reinforce_destination.getText();
         int troops = Integer.parseInt(no_troops.getText());
         GameScreenTest gt = new GameScreenTest();

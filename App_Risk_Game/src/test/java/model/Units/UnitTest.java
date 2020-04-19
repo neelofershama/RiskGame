@@ -1,65 +1,83 @@
-//package App_Risk_Game.src.test.java.model.Units;
-//
-//import java.io.FileInputStream;
-//import java.io.IOException;
-//import java.util.LinkedList;
-//import static org.junit.Assert.assertEquals;
-//import java.util.HashMap;
-//import java.util.Iterator;
-//import java.util.List;
-//import java.util.Properties;
-//import java.util.logging.FileHandler;
-//
-//import App_Risk_Game.src.main.java.Model.Units.Unit;
-//import App_Risk_Game.src.main.java.Model.Units.UnitType;
-//import org.junit.Test;
-//
-// /**
-// *  Testcase for Units module, contains the initializeCheck() method.
-// *  @throws SecurityException, IOException
-// */
-//public class UnitTest {
-//
-//	public static LinkedList<Unit> player_list = new LinkedList<Unit>();
-//
-//	/**
-//	 * asserts the initialize function of Unit module.
-//	 * @throws SecurityException
-//	 * @throws IOException
-//	 */
-//
-//	@Test
-//	public void initializeCheck() throws SecurityException, IOException {
-//
-//		Properties prop = new Properties();
-//		FileInputStream ip = new FileInputStream(
-//				"C:\\Users\\Tanvi\\git\\RiskGame\\App_Risk_Game\\src\\main\\java\\Model\\Game\\properties.properties");
-//		prop.load(ip);
-//		HashMap<String, String> list = new HashMap<String, String>();
-//		list.put("Player1", "blue");
-//		list.put("Player2", "red");
-//		list.put("Player3", "white");
-//
-//		LinkedList<Unit> player_list = new LinkedList<Unit>();
-//		LinkedList<Unit> units = Unit.initialize(list, prop);
-//
-//		Iterator it = list.keySet().iterator();
-//		while (it.hasNext()) {
-//
-//			String player = (String) it.next();
-//			List<UnitType> types_of_Units = new LinkedList();
-//			UnitType ut = new UnitType("infantry", 10,3);
-//			types_of_Units.add(ut);
-//			Unit UnitObj = new Unit(list.get(player).toUpperCase(), 3,
-//					types_of_Units);
-//			player_list.add(UnitObj);
-//
-//		}
-//		System.out.println(player_list.toString());
-//		System.out.println(units.toString());
-//
-//		assertEquals(player_list, units);
-//
-//	}
-//
-//}
+package App_Risk_Game.src.test.java.model.Units;
+
+import App_Risk_Game.src.main.java.Controller.GameScreenTest;
+import App_Risk_Game.src.main.java.Controller.LoadMap;
+import App_Risk_Game.src.main.java.Controller.ReinforcePhase;
+import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.stage.Stage;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Testcase for Units module, contains the initializeCheck() method.
+ *
+ * @throws SecurityException, IOException
+ */
+public class UnitTest extends Application {
+
+    @Test
+    public void checkReinforcement() throws IOException {
+
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                new JFXPanel(); // Initializes the JavaFx Platform
+                //Application.launch(UnitTest.class, new String[0]);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+							Scanner sc = new Scanner(System.in);
+							String path = "E:\\MACS-SEM1\\APP\\GitHub\\WithTesecases\\RiskGame\\mapinput.txt";
+
+							HashMap<String, Integer> territories = new HashMap<>();
+							territories.put("NA1", 2);
+							territories.put("NA2", 2);
+							territories.put("AS2", 5);
+
+							ReinforcePhase rp = new ReinforcePhase();
+							rp.player = new Player("Tanvi", "NA", "blue", 1, territories);
+							PlayerCollection.players.add(rp.player);
+
+							LoadMap.loadMap(path);
+
+							GameScreenTest gt = new GameScreenTest();
+							gt.reinforcement();
+
+							Player player = PlayerCollection.players.get(0);
+
+							assertEquals(player.getTerritories().toString(), rp.player.getTerritories().toString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+        t.setDaemon(true);
+        t.start();
+
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+    }
+//	 public static void main(String args[]) throws IOException {
+//		UnitTest ut = new UnitTest();
+//    	ut.checkReinforcement();
+//	 }
+}
