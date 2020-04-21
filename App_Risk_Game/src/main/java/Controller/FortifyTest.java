@@ -167,18 +167,18 @@ public class FortifyTest implements Initializable {
         }
 //        TextField tf = new TextField("Enter the source");
 //        TextField tf2 = new TextField("no of troops");
-        Button submit = new Button("submit");
+        // Button submit = new Button("submit");
 //        root.getChildren().add(new Label("The possible sources are : " + possibleSoures.toString()));
 //        root.getChildren().add(tf);
 //        root.getChildren().add(tf2);
-        root.getChildren().add(submit);
-        submit.setOnAction(e -> {
-            try {
-                dynamic(source_territory, to.getValue(), troops.getValue());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+        // root.getChildren().add(submit);
+//        submit.setOnAction(e -> {
+//            try {
+//                dynamic(source_territory, to.getValue(), troops.getValue());
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//        });
 
     }
 

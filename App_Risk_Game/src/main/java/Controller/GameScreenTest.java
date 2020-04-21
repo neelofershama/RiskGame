@@ -1,6 +1,7 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Board.Board;
+import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
@@ -295,6 +296,7 @@ public class GameScreenTest implements Initializable {
     private void getPlayerStatistics() {
 
         try {
+            getContinentsOwned();
 
             List<String> list = new ArrayList<>();
             list.add(current_player.getName());
@@ -338,7 +340,7 @@ public class GameScreenTest implements Initializable {
             view.getColumns().addAll(fiveCol);
 
 
-            view.getItems().add(new Player(current_player.getName(), "", "", current_player.getId(), current_player.getTerritories()));
+            view.getItems().add(new Player(current_player.getName(), "", current_player.getColor(), current_player.getId(), current_player.getTerritories()));
 
             Pane layout = new VBox(10);
             layout.setStyle("-fx-padding: 10;");
@@ -399,6 +401,50 @@ public class GameScreenTest implements Initializable {
     // Need to get neighbour countries for the given country STATUS :- PENDING
     private void getAttachableTerritories(String selected_country) {
         System.out.println(selected_country);
+    }
+
+    // Adding continents owned and percentage of map owned functionality to statistics module
+    private ArrayList<String> getContinentsOwned(){
+
+        ArrayList<String> continent_list = new ArrayList<>();
+        // get all continents and number of countries in the continent
+        HashMap<String, Integer> continents = Board.continents;
+        System.out.println(continents);
+
+        // Used to store the player owned territories continent along with no of territories in the continent
+        HashMap<String, Integer> player_continents = new HashMap<>();
+
+        // For every player owned by the player, we get the continent of country and increase the count of continent
+        HashMap<String, Integer> player_territories = current_player.getTerritories();
+
+        Iterator iterator = player_territories.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry) iterator.next();
+            String territory = (String) mapElement.getKey(); // get territory name
+            Tile territory_tile = Board.getTile(territory); // get tile associated with territory
+            String continent = territory_tile.getContinent();
+            if(!player_continents.containsKey(continent)){
+                player_continents.put(continent,1);
+            }
+            else{
+                int continent_count = player_continents.get(continent)+1;
+                player_continents.replace(continent, continent_count);
+            }
+
+        }
+
+        iterator = player_continents.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry) iterator.next();
+            String continent_name = (String) mapElement.getKey();
+            int territory_count = (int) mapElement.getValue();
+            if(continents.get(continent_name) == territory_count){
+                continent_list.add(continent_name);
+            }
+        }
+        System.out.println(continent_list);
+        return continent_list;
     }
 
 }

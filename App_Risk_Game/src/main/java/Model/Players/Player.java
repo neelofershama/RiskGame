@@ -44,6 +44,10 @@ public class Player {
      */
     private Map properties;
 
+    // Adding two fields continents owned and percentage of map owned
+    private String continents_owned;
+    private float map_controlled;
+
     /**
      * Interface defining the player behaviour strategy
      */
