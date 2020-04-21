@@ -36,7 +36,7 @@
                 </ComboBox>
             </children>
         </HBox>
-        <Button fx:id="validate_number" mnemonicParsing="false" onAction="#setOnMouseClickedValidate" text="VALIDATE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <Button fx:id="validate_number" mnemonicParsing="false" onAction="#setOnMouseClickedValidate" text="SUBMIT" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>

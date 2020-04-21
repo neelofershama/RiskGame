@@ -3,6 +3,8 @@ package App_Risk_Game.src.main.java.Controller;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,6 +29,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class GameSetup implements Initializable {
@@ -44,6 +48,9 @@ public class GameSetup implements Initializable {
     ComboBox combo_box_range_of_players;
     @FXML
     Button validate_number;
+    @FXML
+    ComboBox cb_behavior;
+
     /**
      * Initializes the controller class.
      */
@@ -54,6 +61,9 @@ public class GameSetup implements Initializable {
         combo_box_range_of_players.getItems().removeAll(combo_box_range_of_players.getItems());
         combo_box_range_of_players.getItems().addAll(2, 3, 4, 5, 6);
         combo_box_range_of_players.getSelectionModel().select(0);
+
+
+
     }
 
     /**
@@ -84,20 +94,33 @@ public class GameSetup implements Initializable {
         }
         for (int p = 0; p < number_of_players; p++) {
             Label player_name = new Label("ENTER PLAYER - " + Integer.toString(p + 1));
+            HBox hBox = new HBox(5);
             TextField t = new TextField();
+            Button select_player_behavior = new Button("Select Behavior");
+            select_player_behavior.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        selectPlayerBehavior();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }});
+
             t.setPromptText("PLAYER-" + Integer.toString(p + 1));
 
             // Adding color combobox
             ComboBox<String> color = new ComboBox<>();
 
-
-            vb_text_field.getChildren().addAll(player_name, t);
+hBox.getChildren().addAll(player_name,t,select_player_behavior);
+            vb_text_field.getChildren().addAll(hBox);
             player_text_field.add(t);
             if (p + 1 == number_of_players) {
                 vb_text_field.getChildren().add(submit);
             }
         }
         grid.add(vb_text_field, 0, 2);
+
 
         // Validating Player Names
         submit.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -204,5 +227,14 @@ public class GameSetup implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }}
+    }
+void selectPlayerBehavior() throws IOException {
+    Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/PlayerBehavior.fxml"));
+    Scene behaviorScene = new Scene(loadRoot);
+    Stage loadMapStage = new Stage();
+    loadMapStage.setTitle("Select Player Behavior");
+    loadMapStage.setScene(behaviorScene);
+    loadMapStage.show();
+}
+}
 

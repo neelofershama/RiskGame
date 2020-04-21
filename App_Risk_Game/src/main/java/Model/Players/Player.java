@@ -45,6 +45,10 @@ public class Player {
     private Map properties;
 
     /**
+     * Interface defining the player behaviour strategy
+     */
+ PlayerBehaviour player_behaviour;
+    /**
      * Creates a new player
      */
     public Player() {
@@ -58,9 +62,14 @@ public class Player {
      * @param id   A Integer used for identifying a player
      */
     public Player(String name, int id) {
+       // , PlayerBehaviour behaviour
         this.player_name = name;
         this.player_id = id;
+        //setPlayerBehaviour(behaviour);
+    }
 
+    private void setPlayerBehaviour(PlayerBehaviour behaviour) {
+        player_behaviour = behaviour;
     }
 
     /**
