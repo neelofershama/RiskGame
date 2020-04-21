@@ -65,11 +65,10 @@ public class Player {
      * @param name A string to set name of the player
      * @param id   A Integer used for identifying a player
      */
-    public Player(String name, int id) {
-       // , PlayerBehaviour behaviour
+    public Player(String name, int id, PlayerBehaviour behaviour) {
         this.player_name = name;
         this.player_id = id;
-        //setPlayerBehaviour(behaviour);
+        setPlayerBehaviour(behaviour);
     }
 
     private void setPlayerBehaviour(PlayerBehaviour behaviour) {
@@ -175,5 +174,17 @@ territories = t;
 
     public void setTerritory(String t, int i) {
         territories.put(t,i);
+    }
+
+    public void reinforce(){
+        player_behaviour.reinforce();
+    }
+
+    public void attack(){
+        player_behaviour.attack();
+    }
+
+    public void fortify(){
+        player_behaviour.fortify();
     }
 }

@@ -1,6 +1,7 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Players.PlayerBehaviour;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.beans.value.ChangeListener;
@@ -188,7 +189,7 @@ hBox.getChildren().addAll(player_name,t,select_player_behavior);
 
                 if(next_scene){
                     // PlayerCollection.createPlayers(number_of_players, player_names);
-                    PlayerCollectionTest.createPlayers(number_of_players, player_names);
+                    PlayerCollectionTest.createPlayers(number_of_players, player_names, new ArrayList<>());
                     getMap();
                 }
 

@@ -61,7 +61,7 @@ public class FunctionalTests {
     player_names.add("p2");
 //    player_names.add("p3");
     int no_of_players = 3;
-    PlayerCollectionTest.createPlayers(no_of_players,player_names);
+    PlayerCollectionTest.createPlayers(no_of_players,player_names, new ArrayList<>());
     }
 
     @Test

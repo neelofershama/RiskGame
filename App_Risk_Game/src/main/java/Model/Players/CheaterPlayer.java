@@ -11,6 +11,7 @@ public class CheaterPlayer implements PlayerBehaviour{
     @Override
     public void attack() {
 
+
     }
 
     @Override
