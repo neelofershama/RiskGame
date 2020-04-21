@@ -1,15 +1,14 @@
 package App_Risk_Game.src.main.java.Model.Board;
 
 import App_Risk_Game.src.interfaces.*;
+import App_Risk_Game.src.interfaces.Observable;
+import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Controller.LoadMap;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Units.Unit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Board class representing the board and its properties
@@ -37,11 +36,15 @@ public class Board  implements Observable {
 	 * Store the tiles along with location on board
 	 */
 	private List<ArrayList<Tile>> board = new ArrayList<>();
-	HashMap<String, Integer> continents = new HashMap<String, Integer>();
+	public static HashMap<String, Integer> continents = new HashMap<String, Integer>();
 
     public Board() {
         // TODO Auto-generated constructor stub
     }
+
+	public static Tile getTile(String territory) {
+    	return tiles.get(territory);
+	}
 
 
 	public HashMap<String, Tile> getTiles() {
