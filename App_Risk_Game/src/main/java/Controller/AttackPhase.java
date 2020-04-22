@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 // import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
@@ -155,23 +156,28 @@ ComboBox<Integer> troopstoattack;
     public void initialize(URL location, ResourceBundle resources) {
         p  = PlayerCollectionTest.getTurn();
         current_player.setText(p.getName());
-        //current_player.setText(Turns.turns.getCurrent_player());
-        attackFromList.getItems().addAll(getAttackList());
-        attackFromList.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                //TODO
-                //incase of attack can be done from only one country at a time
-                if(oldValue == null || warning_given){
-                attacking_country =newValue;
-                warning_given = false;}
-                else
+if(p.getType()== BehaviourStrategies.RandomPlayer){
+    p.attack();
+}
+else {
+    //current_player.setText(Turns.turns.getCurrent_player());
+    attackFromList.getItems().addAll(getAttackList());
+    attackFromList.valueProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            //TODO
+            //incase of attack can be done from only one country at a time
+            if (oldValue == null || warning_given) {
+                attacking_country = newValue;
+                warning_given = false;
+            } else
                 attacking_country = oldValue;
-                //attacking_country = newValue;
-                System.out.println("Atacking from " +attacking_country);
-                onattackcountryselected(attacking_country);
-            }
-        });
+            //attacking_country = newValue;
+            System.out.println("Atacking from " + attacking_country);
+            onattackcountryselected(attacking_country);
+        }
+    });
+}
     }
 
     /**

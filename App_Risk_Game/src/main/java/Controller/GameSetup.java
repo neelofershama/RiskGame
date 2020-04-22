@@ -49,8 +49,9 @@ public class GameSetup implements Initializable {
     ComboBox combo_box_range_of_players;
     @FXML
     Button validate_number;
-    @FXML
-    ComboBox cb_behavior;
+
+
+    List<String> player_behaviors = new ArrayList<>();
 
     /**
      * Initializes the controller class.
@@ -58,7 +59,11 @@ public class GameSetup implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        player_behaviors.add("Human Player");
+        player_behaviors.add("Aggressive Player");
+        player_behaviors.add("Conservative Player");
+        player_behaviors.add("Random Player");
+        player_behaviors.add("Cheater Player");
         combo_box_range_of_players.getItems().removeAll(combo_box_range_of_players.getItems());
         combo_box_range_of_players.getItems().addAll(2, 3, 4, 5, 6);
         combo_box_range_of_players.getSelectionModel().select(0);
@@ -78,6 +83,7 @@ public class GameSetup implements Initializable {
         ArrayList<TextField> player_text_field = new ArrayList<>();
         ArrayList<Boolean> validation_status = new ArrayList<>();
 
+        ArrayList<String> cb_values_behaviors = new ArrayList<>();
         player_text_field.clear();
         VBox vb_text_field = new VBox();
         vb_text_field.setPadding(new Insets(10, 10, 10, 10));
@@ -97,25 +103,26 @@ public class GameSetup implements Initializable {
             Label player_name = new Label("ENTER PLAYER - " + Integer.toString(p + 1));
             HBox hBox = new HBox(5);
             TextField t = new TextField();
-            Button select_player_behavior = new Button("Select Behavior");
-            select_player_behavior.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    try {
-                        selectPlayerBehavior();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }});
+ComboBox cb_behavior = new ComboBox();
+cb_behavior.getItems().removeAll(cb_behavior.getItems());
 
+            cb_behavior.getItems().addAll(player_behaviors);
+            cb_behavior.valueProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if(oldValue == null)
+                    cb_values_behaviors.add(newValue);
+                }
+            });
             t.setPromptText("PLAYER-" + Integer.toString(p + 1));
 
             // Adding color combobox
             ComboBox<String> color = new ComboBox<>();
 
-//hBox.getChildren().addAll(player_name,t,select_player_behavior);
-            vb_text_field.getChildren().addAll(player_name,t);
+hBox.getChildren().addAll(player_name,t,cb_behavior);
+            vb_text_field.getChildren().addAll(hBox);
             player_text_field.add(t);
+
             if (p + 1 == number_of_players) {
                 vb_text_field.getChildren().add(submit);
             }
@@ -165,11 +172,13 @@ public class GameSetup implements Initializable {
 
                     }
                 }
+                player_behaviors.clear();
                 if (!validation_status.contains(false) && !validation_status.isEmpty()) {
                     // System.out.println(player_text_field.size());
                     for (int i = 0; i < player_text_field.size(); i++) {
                         // System.out.println(player_text_field.get(i).getText());
                         player_names.add(player_text_field.get(i).getText());
+player_behaviors.add(cb_values_behaviors.get(i));
                         // System.out.println(player_names.size());
                     }
                     next_scene = true;
@@ -188,8 +197,8 @@ public class GameSetup implements Initializable {
                 // change
 
                 if(next_scene){
-                    PlayerCollectionTest.createPlayers(number_of_players, player_names);
-                   // PlayerCollectionTest.createPlayers(number_of_players, player_names, new ArrayList<>());
+                  //  PlayerCollectionTest.createPlayers(number_of_players, player_names);
+                    PlayerCollectionTest.createPlayers(number_of_players, player_names, player_behaviors);
                     getMap();
                 }
 
@@ -229,13 +238,6 @@ public class GameSetup implements Initializable {
             ex.printStackTrace();
         }
     }
-void selectPlayerBehavior() throws IOException {
-//    Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/PlayerBehavior.fxml"));
-//    Scene behaviorScene = new Scene(loadRoot);
-//    Stage loadMapStage = new Stage();
-//    loadMapStage.setTitle("Select Player Behavior");
-//    loadMapStage.setScene(behaviorScene);
-//    loadMapStage.show();
-}
+
 }
 

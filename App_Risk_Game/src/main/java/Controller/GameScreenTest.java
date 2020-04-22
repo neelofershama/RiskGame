@@ -66,6 +66,7 @@ public class GameScreenTest implements Initializable {
 
     @FXML
     HBox hbox_to;
+    Player current_player;
 
     @FXML
     private Button attackButton;
@@ -116,11 +117,11 @@ public class GameScreenTest implements Initializable {
 
             //current_player = returnPlayerTurn();
 
-            LoadMap.LoadMapGlobalVariables.current_player = PlayerCollectionTest.getTurn();
-            Turns.turns.setCurrent_player(LoadMap.LoadMapGlobalVariables.current_player);
-            current_player_name.setText(LoadMap.LoadMapGlobalVariables.current_player.getName());
-            current_player_name.setText(LoadMap.LoadMapGlobalVariables.current_player.getName());
-            current_player_name.setTextFill(javafx.scene.paint.Color.web(LoadMap.LoadMapGlobalVariables.current_player.getColor()));
+            current_player = PlayerCollectionTest.getTurn();
+            Turns.turns.setCurrent_player(current_player);
+            current_player_name.setText(current_player.getName());
+            current_player_name.setText(current_player.getName());
+            current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -263,7 +264,7 @@ public class GameScreenTest implements Initializable {
             // Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/reinforce.fxml"));
             Parent reinforceRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/FortifyTest.fxml"));
             Label label = (Label) reinforceRoot.getChildrenUnmodifiable().get(2);
-            String message = " Following are the troops for given territories : " + LoadMap.LoadMapGlobalVariables.current_player.getTerritories().toString();
+            String message = " Following are the troops for given territories : " + current_player.getTerritories().toString();
             label.setText(message);
             label.setMinWidth(message.length() * 10);
             label.setMinHeight(message.length());
@@ -301,11 +302,11 @@ public class GameScreenTest implements Initializable {
             getContinentsOwned();
 
             List<String> list = new ArrayList<>();
-            list.add(LoadMap.LoadMapGlobalVariables.current_player.getName());
-            list.add(LoadMap.LoadMapGlobalVariables.current_player.getColor());
-            list.add(LoadMap.LoadMapGlobalVariables.current_player.getType());
-            list.add(String.valueOf(LoadMap.LoadMapGlobalVariables.current_player.getId()));
-            list.add(LoadMap.LoadMapGlobalVariables.current_player.getTerritories().toString());
+            list.add(current_player.getName());
+            list.add(current_player.getColor());
+            list.add(current_player.getType().toString());
+            list.add(String.valueOf(current_player.getId()));
+            list.add(current_player.getTerritories().toString());
 
             TableView view = new TableView();
 
@@ -342,7 +343,7 @@ public class GameScreenTest implements Initializable {
             view.getColumns().addAll(fiveCol);
 
 
-            view.getItems().add(new Player(LoadMap.LoadMapGlobalVariables.current_player.getName(), "", LoadMap.LoadMapGlobalVariables.current_player.getColor(), LoadMap.LoadMapGlobalVariables.current_player.getId(), LoadMap.LoadMapGlobalVariables.current_player.getTerritories()));
+            view.getItems().add(new Player(current_player.getName(), "", current_player.getColor(), current_player.getId(), current_player.getTerritories()));
 
             Pane layout = new VBox(10);
             layout.setStyle("-fx-padding: 10;");
@@ -374,7 +375,7 @@ public class GameScreenTest implements Initializable {
     }
 
     private void getPlayerTerritories() {
-        HashMap<String, Integer> territories = LoadMap.LoadMapGlobalVariables.current_player.getTerritories();
+        HashMap<String, Integer> territories = current_player.getTerritories();
 
         Iterator iterator = territories.entrySet().iterator();
 
@@ -417,7 +418,7 @@ public class GameScreenTest implements Initializable {
         HashMap<String, Integer> player_continents = new HashMap<>();
 
         // For every player owned by the player, we get the continent of country and increase the count of continent
-        HashMap<String, Integer> player_territories = LoadMap.LoadMapGlobalVariables.current_player.getTerritories();
+        HashMap<String, Integer> player_territories = current_player.getTerritories();
 
         Iterator iterator = player_territories.entrySet().iterator();
 

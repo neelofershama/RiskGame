@@ -1,6 +1,8 @@
 package App_Risk_Game.src.main.java.Model.Players;
 
 public class AggressivePlayer implements PlayerBehaviour {
+Player p;
+
 
     @Override
     public void reinforce() {
@@ -8,9 +10,10 @@ public class AggressivePlayer implements PlayerBehaviour {
     }
 
     @Override
-    public void attack() {
+    public void attack(Player p) {
 
     }
+
 
     @Override
     public void fortify() {
