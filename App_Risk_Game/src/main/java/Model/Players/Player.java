@@ -70,7 +70,11 @@ public class Player {
         this.player_id = id;
         setPlayerBehaviour(behaviour);
     }
+    public Player(String name, int id) {
+        this.player_name = name;
+        this.player_id = id;
 
+    }
     private void setPlayerBehaviour(PlayerBehaviour behaviour) {
         player_behaviour = behaviour;
     }

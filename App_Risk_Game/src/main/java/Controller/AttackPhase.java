@@ -213,7 +213,7 @@ if(attackToList.getValue() == null)
     System.out.println("Troops lost by defence " + troopsofdfc);
         int current_troop =troops_in_attacking_country-troopsofatk;
     PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
-    String f =Turns.turns.getDefenceplayer();
+    Player f =Turns.turns.getDefenceplayer();
     //System.out.println(f);
    // System.out.println(Turns.turns.getDefenceplayerid());
 

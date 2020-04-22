@@ -113,8 +113,8 @@ public class GameSetup implements Initializable {
             // Adding color combobox
             ComboBox<String> color = new ComboBox<>();
 
-hBox.getChildren().addAll(player_name,t,select_player_behavior);
-            vb_text_field.getChildren().addAll(hBox);
+//hBox.getChildren().addAll(player_name,t,select_player_behavior);
+            vb_text_field.getChildren().addAll(player_name,t);
             player_text_field.add(t);
             if (p + 1 == number_of_players) {
                 vb_text_field.getChildren().add(submit);
@@ -188,8 +188,8 @@ hBox.getChildren().addAll(player_name,t,select_player_behavior);
                 // change
 
                 if(next_scene){
-                    // PlayerCollection.createPlayers(number_of_players, player_names);
-                    PlayerCollectionTest.createPlayers(number_of_players, player_names, new ArrayList<>());
+                    PlayerCollectionTest.createPlayers(number_of_players, player_names);
+                   // PlayerCollectionTest.createPlayers(number_of_players, player_names, new ArrayList<>());
                     getMap();
                 }
 
@@ -230,12 +230,12 @@ hBox.getChildren().addAll(player_name,t,select_player_behavior);
         }
     }
 void selectPlayerBehavior() throws IOException {
-    Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/PlayerBehavior.fxml"));
-    Scene behaviorScene = new Scene(loadRoot);
-    Stage loadMapStage = new Stage();
-    loadMapStage.setTitle("Select Player Behavior");
-    loadMapStage.setScene(behaviorScene);
-    loadMapStage.show();
+//    Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/PlayerBehavior.fxml"));
+//    Scene behaviorScene = new Scene(loadRoot);
+//    Stage loadMapStage = new Stage();
+//    loadMapStage.setTitle("Select Player Behavior");
+//    loadMapStage.setScene(behaviorScene);
+//    loadMapStage.show();
 }
 }
 

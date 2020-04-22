@@ -46,13 +46,15 @@ public class PlayerCollectionTest implements Observable {
      * @param number_of_players
      * @param player_names
      */
-    public static void createPlayers(int number_of_players, ArrayList<String> player_names,List<PlayerBehaviour> player_behaviors) {
+    public static void createPlayers(int number_of_players, ArrayList<String> player_names) {
+        //,List<PlayerBehaviour> player_behaviors
         PlayerCollectionTest.number_of_players = number_of_players;
         ArrayList<Integer> color_index = new ArrayList<>(); // To generate random number within range of players playing
         for(int i=0;i< player_names.size(); i++)
         {
             color_index.add(i);
-            Player player = new Player(player_names.get(i),i+1,player_behaviors.get(i));
+           //Player player = new Player(player_names.get(i),i+1,player_behaviors.get(i));
+            Player player = new Player(player_names.get(i),i+1);
             players.add(player);
         }
         // shuffling the colors of the player

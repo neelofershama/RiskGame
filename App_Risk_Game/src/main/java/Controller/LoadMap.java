@@ -4,6 +4,7 @@ import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -516,6 +517,7 @@ public class LoadMap implements Initializable, Observer {
         static int i = 0;
         static public Boolean gsFlag = false;
         static public Boolean phaseComplete = false;
+        static Player current_player = PlayerCollection.players.get(0);
 
     }
 

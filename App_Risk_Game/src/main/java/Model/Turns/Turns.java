@@ -42,7 +42,7 @@ public class Turns {
 //    }
 
     int defenceplayerid;
-    public String getDefenceplayer() {
+    public Player getDefenceplayer() {
         return defenceplayer;
     }
 
@@ -53,24 +53,24 @@ public class Turns {
         {
             Player p = (Player) it.next();
             if(p.getTerritories().containsKey(defenceterritory)) {
-                defenceplayer = p.getName();
-                defenceplayerid = p.getId();
+                defenceplayer = p;
+                //defenceplayerid = p.getId();
                 break;
             }
         }
 System.out.println(defenceplayer);
     }
 
-    String defenceplayer;
-    public String getCurrent_player() {
+    Player defenceplayer;
+    public Player getCurrent_player() {
         return current_player;
     }
 
-    public void setCurrent_player(String current_player) {
+    public void setCurrent_player(Player current_player) {
         this.current_player = current_player;
     }
 
-    String current_player;
+    Player current_player;
 public static Turns turns = new Turns();
     public boolean mapCreated() {
         return map_created;
