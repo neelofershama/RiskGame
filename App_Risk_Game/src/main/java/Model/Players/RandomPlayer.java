@@ -46,6 +46,7 @@ else {
                        it.remove();
                    }
                }
+
                String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
                Turns.turns.setDefenceplayer(attacking_on);
 

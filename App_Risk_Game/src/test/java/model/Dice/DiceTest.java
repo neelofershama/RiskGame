@@ -2,7 +2,6 @@ package App_Risk_Game.src.test.java.model.Dice;
 
 import App_Risk_Game.src.main.java.Model.Score.Dice;
 import org.junit.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
