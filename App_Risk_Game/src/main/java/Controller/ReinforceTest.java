@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
@@ -13,10 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 // import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 
@@ -92,6 +90,14 @@ public class ReinforceTest implements Initializable {
         if (max_troop != 0) {
             reinforce();
         } else {
+            System.out.println("After Reinforcement phase");
+            List<Player> players = PlayerCollectionTest.players;
+            for (Player p:players
+            ) {
+                System.out.println(p.getName());
+
+                System.out.println(p.getTerritories());
+            }
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
             // Logic to update turn and loading gamescreetest

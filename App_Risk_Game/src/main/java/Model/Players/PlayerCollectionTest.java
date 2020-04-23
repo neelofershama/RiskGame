@@ -46,15 +46,16 @@ public class PlayerCollectionTest implements Observable {
      * @param number_of_players
      * @param player_names
      */
-    public static void createPlayers(int number_of_players, ArrayList<String> player_names) {
-        //,List<PlayerBehaviour> player_behaviors
+    public static void createPlayers(int number_of_players, ArrayList<String> player_names,List<String> player_behaviors) {
+
         PlayerCollectionTest.number_of_players = number_of_players;
         ArrayList<Integer> color_index = new ArrayList<>(); // To generate random number within range of players playing
         for(int i=0;i< player_names.size(); i++)
         {
             color_index.add(i);
-           //Player player = new Player(player_names.get(i),i+1,player_behaviors.get(i));
-            Player player = new Player(player_names.get(i),i+1);
+            PlayerBehaviour playerBehaviour = identifyPlayerBehaviorStrategy(player_behaviors.get(i));
+           Player player = new Player(player_names.get(i),i+1,playerBehaviour);
+           // Player player = new Player(player_names.get(i),i+1);
             players.add(player);
         }
         // shuffling the colors of the player
@@ -113,7 +114,27 @@ public class PlayerCollectionTest implements Observable {
         }
     }
 
-
+private static PlayerBehaviour identifyPlayerBehaviorStrategy(String name){
+        PlayerBehaviour behaviour = null;
+        switch (name){
+            case "Human Player":
+                behaviour = new HumanPlayer();
+                break;
+            case "Aggressive Player":
+                behaviour = new AggressivePlayer();
+                break;
+            case "Cheater Player":
+                behaviour = new CheaterPlayer();
+                break;
+            case "Conservative Player":
+                behaviour = new ConservativePlayer();
+                break;
+            case "Random Player":
+                behaviour = new RandomPlayer();
+                break;
+        }
+        return behaviour;
+}
     @Override
     public void attachObserver(App_Risk_Game.src.interfaces.Observer observer) {
         this.observers.add(observer);

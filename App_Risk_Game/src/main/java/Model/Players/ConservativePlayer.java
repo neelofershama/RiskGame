@@ -8,9 +8,11 @@ public class ConservativePlayer implements PlayerBehaviour {
     }
 
     @Override
-    public void attack() {
-
+    public void attack(Player p) {
+fortify();
     }
+
+
 
     @Override
     public void fortify() {

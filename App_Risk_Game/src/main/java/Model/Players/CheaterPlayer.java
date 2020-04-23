@@ -9,10 +9,10 @@ public class CheaterPlayer implements PlayerBehaviour{
     }
 
     @Override
-    public void attack() {
-
+    public void attack(Player p) {
 
     }
+
 
     @Override
     public void fortify() {

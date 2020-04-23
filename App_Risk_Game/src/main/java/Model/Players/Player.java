@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Model.Players;
 
+import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Player {
     /**
      * Stores the player's profile type
      */
-    private String player_type;
+    private BehaviourStrategies player_type;
 
     /**
      * Stores the player's profile type
@@ -69,6 +70,7 @@ public class Player {
         this.player_name = name;
         this.player_id = id;
         setPlayerBehaviour(behaviour);
+
     }
     public Player(String name, int id) {
         this.player_name = name;
@@ -77,6 +79,7 @@ public class Player {
     }
     private void setPlayerBehaviour(PlayerBehaviour behaviour) {
         player_behaviour = behaviour;
+        identifyPlayerBehaviorStrategy(player_behaviour);
     }
 
     /**
@@ -89,7 +92,7 @@ public class Player {
      */
     public Player(String player_name, String player_type, String player_color, int player_id, HashMap<String, Integer> territories, List<String> continentsOwned) {
         this.player_name = player_name;
-        this.player_type = player_type;
+        //this.player_type = player_type;
         this.player_color = player_color;
         this.player_id = player_id;
         this.territories = territories;
@@ -157,7 +160,7 @@ public class Player {
      *
      * @param type A string representing the player type
      */
-    public void setType(String type) {
+    public void setType(BehaviourStrategies type) {
         this.player_type = type;
     }
 
@@ -166,7 +169,7 @@ public class Player {
      *
      * @return player type
      */
-    public String getType() {
+    public BehaviourStrategies getType() {
         return player_type;
     }
 
@@ -187,18 +190,33 @@ territories = t;
     }
 
     public void attack(){
-        player_behaviour.attack();
+        player_behaviour.attack(this);
     }
 
     public void fortify(){
         player_behaviour.fortify();
     }
 
-    public List<String> getContinents_owned() {
-        return continents_owned;
-    }
+    private  void identifyPlayerBehaviorStrategy(PlayerBehaviour name){
+String v = name.getClass().toString().split("@")[0].split("\\ ")[1].split("\\.")[6];
+        switch (v){
+            case "HumanPlayer":
+                player_type = BehaviourStrategies.HumanPlayer;
+                break;
+            case "AggressivePlayer":
+                player_type = BehaviourStrategies.AggressivePlayer;
+                break;
+            case "CheaterPlayer":
+                player_type = BehaviourStrategies.CheaterPlayer;
+                break;
+            case "ConservativePlayer":
+                player_type = BehaviourStrategies.ConservativePlayer;
 
-    public void setContinents_owned(List<String> continents_owned) {
-        this.continents_owned = continents_owned;
+                break;
+            case "RandomPlayer":
+                player_type = BehaviourStrategies.RandomPlayer;
+                break;
+        }
+
     }
 }

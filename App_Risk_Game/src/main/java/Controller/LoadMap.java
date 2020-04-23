@@ -83,6 +83,7 @@ public class LoadMap implements Initializable, Observer {
 
     /**
      * prompts user to select a map file
+     *
      * @param event
      */
     @FXML
@@ -518,12 +519,13 @@ public class LoadMap implements Initializable, Observer {
         static int i = 0;
         static public Boolean gsFlag = false;
         static public Boolean phaseComplete = false;
-        static Player current_player = PlayerCollectionTest.getTurn();
+       // static Player current_player = PlayerCollection.players.get(0);
+        //static Player current_player = PlayerCollectionTest.getTurn();
 
     }
 
-
 }
+
 
 
 
