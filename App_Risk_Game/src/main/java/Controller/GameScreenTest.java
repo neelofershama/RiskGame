@@ -136,6 +136,8 @@ public class GameScreenTest implements Initializable {
     // Whenever user click on submit button
     @FXML
     void onStart(ActionEvent event) throws IOException {
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
         reinforcementTest();
     }
 
@@ -213,11 +215,17 @@ public class GameScreenTest implements Initializable {
             // NEED TO POP UP THE USER WITH HIS STATISTICS
             getPlayerStatistics();
         } else if (choice.equals("ATTACK")) {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
             attack();
         } else if (choice.equals("FORTIFICATION")) {
             // fortification();
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
             fortificationTest();
         } else if (choice.equals("REINFORCEMENT")) {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
             reinforcementTest();
         } else if (choice.equals("SKIP")) {
             PlayerCollectionTest.updateTurn();
@@ -254,8 +262,7 @@ public class GameScreenTest implements Initializable {
         loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
         loadReinforceStage.setScene(loadReinforceScene);
         loadReinforceStage.show();
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.close();
+
     }
 
     void fortification() {
@@ -285,8 +292,6 @@ public class GameScreenTest implements Initializable {
             loadAttackStage.setTitle("FORTIFICATION PHASE LOADED");
             loadAttackStage.setScene(loadAttackScene);
             loadAttackStage.show();
-            Stage stage = (Stage) root.getScene().getWindow();
-            stage.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
