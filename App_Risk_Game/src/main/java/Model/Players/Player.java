@@ -1,7 +1,6 @@
 package App_Risk_Game.src.main.java.Model.Players;
 
 import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
-import App_Risk_Game.src.main.java.Model.Board.Tile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -181,6 +180,14 @@ territories = t;
         return territories;
     }
 
+    public void setContinents_owned(List<String> continents) {
+        this.continents_owned=continents;
+       // continents_owned.add(continents);
+    }
+
+    public List<String> getContinents_owned() {
+        return continents_owned;
+    }
     public void setTerritory(String t, int i) {
         territories.put(t,i);
     }
