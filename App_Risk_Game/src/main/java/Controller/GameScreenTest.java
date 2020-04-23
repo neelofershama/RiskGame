@@ -137,6 +137,8 @@ public class GameScreenTest implements Initializable {
     // Whenever user click on submit button
     @FXML
     void onStart(ActionEvent event) throws IOException {
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
         reinforcementTest();
     }
 
@@ -214,11 +216,17 @@ public class GameScreenTest implements Initializable {
             // NEED TO POP UP THE USER WITH HIS STATISTICS
             getPlayerStatistics();
         } else if (choice.equals("ATTACK")) {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
             attack();
         } else if (choice.equals("FORTIFICATION")) {
             // fortification();
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
             fortificationTest();
         } else if (choice.equals("REINFORCEMENT")) {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
             reinforcementTest();
         } else if (choice.equals("SKIP")) {
             PlayerCollectionTest.updateTurn();
@@ -255,8 +263,7 @@ public class GameScreenTest implements Initializable {
         loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
         loadReinforceStage.setScene(loadReinforceScene);
         loadReinforceStage.show();
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.close();
+
     }
 
     void fortification() {
@@ -286,8 +293,6 @@ public class GameScreenTest implements Initializable {
             loadAttackStage.setTitle("FORTIFICATION PHASE LOADED");
             loadAttackStage.setScene(loadAttackScene);
             loadAttackStage.show();
-            Stage stage = (Stage) root.getScene().getWindow();
-            stage.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -302,12 +307,13 @@ public class GameScreenTest implements Initializable {
             getContinentsOwned();
 
             List<String> list = new ArrayList<>();
+
             list.add(current_player.getName());
             list.add(current_player.getColor());
             list.add(current_player.getType().toString());
             list.add(String.valueOf(current_player.getId()));
             list.add(current_player.getTerritories().toString());
-
+          
             TableView view = new TableView();
 
 
@@ -336,14 +342,21 @@ public class GameScreenTest implements Initializable {
             makeHeaderWrappable(fiveCol);
             fiveCol.setPrefWidth(500);
 
+            TableColumn sixCol = new TableColumn("Continents Owned");
+            sixCol.setCellValueFactory(new PropertyValueFactory<>("continents_owned"));
+            makeHeaderWrappable(sixCol);
+            sixCol.setPrefWidth(500);
+
             view.getColumns().addAll(firstNameCol);
             view.getColumns().addAll(secCol);
             view.getColumns().addAll(thirdCol);
             view.getColumns().addAll(fourCol);
             view.getColumns().addAll(fiveCol);
+            view.getColumns().addAll(sixCol);
 
 
             view.getItems().add(new Player(current_player.getName(), "", current_player.getColor(), current_player.getId(), current_player.getTerritories()));
+          //  view.getItems().add(new Player(LoadMap.LoadMapGlobalVariables.current_player.getName(), "", LoadMap.LoadMapGlobalVariables.current_player.getColor(), LoadMap.LoadMapGlobalVariables.current_player.getId(), LoadMap.LoadMapGlobalVariables.current_player.getTerritories(), LoadMap.LoadMapGlobalVariables.current_player.getContinents_owned()));
 
             Pane layout = new VBox(10);
             layout.setStyle("-fx-padding: 10;");

@@ -46,7 +46,7 @@ public class Player {
     private Map properties;
 
     // Adding two fields continents owned and percentage of map owned
-    private String continents_owned;
+    private List<String> continents_owned =  new ArrayList<>();
     private float map_controlled;
 
     /**
@@ -90,12 +90,14 @@ public class Player {
      * @param player_id
      * @param territories
      */
-    public Player(String player_name, String player_type, String player_color, int player_id, HashMap<String, Integer> territories) {
+    public Player(String player_name, String player_type, String player_color, int player_id, HashMap<String, Integer> territories, List<String> continentsOwned) {
         this.player_name = player_name;
         //this.player_type = player_type;
         this.player_color = player_color;
         this.player_id = player_id;
         this.territories = territories;
+        this.continents_owned =  continentsOwned;
+
     }
     /**
      * gets the player Id
@@ -215,5 +217,6 @@ String v = name.getClass().toString().split("@")[0].split("\\ ")[1].split("\\.")
                 player_type = BehaviourStrategies.RandomPlayer;
                 break;
         }
+
     }
 }

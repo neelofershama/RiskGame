@@ -16,16 +16,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -41,12 +42,23 @@ public class AttackPhase implements Initializable {
     public static Tile tile = new Tile();
     int troops_in_attacking_country;
     boolean warning_given = false;
+    // Used to check whether the player lost the game or not
+    boolean lost = true;
 
     /**
      * Button for rolling dice
      */
     @FXML
     Button roll;
+
+    @FXML
+    Label territories_owned;
+
+    @FXML
+    Button attackagain;
+
+    @FXML
+    AnchorPane root;
     /**
      * Button for ending attack phase
      */
@@ -103,11 +115,12 @@ ComboBox<Integer> troopstoattack;
      * @param attacking_country
      */
     public void onattackcountryselected(String attacking_country){
-
+        // defendList.clear();
         troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country);
     //System.out.println(troopsinattackingcountry);
-    if (troops_in_attacking_country > 1) {
+  //  if (troops_in_attacking_country > 1) {
         defendList = LoadMap.board.getNeighbourTile(attacking_country);
+        System.out.println(defendList);
         Iterator it = defendList.listIterator();
         while (it.hasNext()) {
             String country = (String) it.next();
@@ -116,6 +129,7 @@ ComboBox<Integer> troopstoattack;
             }
         }
         attackToList.getItems().addAll(defendList);
+//        attackToList.getSelectionModel().selectFirst();
 
 
 
@@ -132,10 +146,10 @@ ComboBox<Integer> troopstoattack;
         troopstoattack.getItems().addAll(nooftroops);
         //System.out.println(troopstoattack.getValue());
 
-    }
-    else{
-       showWarning();
-    }
+    // }
+//    else{
+//       showWarning();
+//    }
 }
 
     /**
@@ -148,7 +162,18 @@ ComboBox<Integer> troopstoattack;
     a.show();
 }
     public List<String> getAttackList() {
-        attackList.addAll(p.getTerritories().keySet());
+        ArrayList<String> attack_list = new ArrayList<>();
+        // attackList.addAll(p.getTerritories().keySet());
+        Iterator iterator = p.getTerritories().entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry)iterator.next();
+            int troops = (int) mapElement.getValue();
+            if(troops > 1)
+                attackList.add((String) mapElement.getKey());
+            // System.out.println(mapElement.getKey());
+        }
+
         return attackList;
     }
 
@@ -156,6 +181,7 @@ ComboBox<Integer> troopstoattack;
     public void initialize(URL location, ResourceBundle resources) {
         p  = PlayerCollectionTest.getTurn();
         current_player.setText(p.getName());
+      
 if(p.getType()== BehaviourStrategies.RandomPlayer){
     p.attack();
 }
@@ -223,7 +249,7 @@ if(attackToList.getValue() == null)
     //System.out.println(f);
    // System.out.println(Turns.turns.getDefenceplayerid());
 
-    int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(defence_country);
+     int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(defence_country);
     t = t-troopsofdfc;
     PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().replace(defence_country,t);
 
@@ -242,6 +268,22 @@ if(attackToList.getValue() == null)
         atkdice = dice.dice_value.toString();
         dfdice = dice.dice_value1.toString();
 atkrdice.setText(atkdice);
+        // getting sum of dice
+        int attack_sum = 0;
+        for(int i=0;i<dice.dice_value.size();i++){
+            attack_sum = attack_sum + dice.dice_value.get(i);
+        }
+
+        int defence_sum = 0;
+        for(int i=0;i<dice.dice_value1.size();i++){
+            defence_sum = defence_sum + dice.dice_value1.get(i);
+        }
+
+        if(defence_sum >= attack_sum){
+            lost = true;
+            root.getChildren().remove(0);
+        }
+
         dfcdice.setText(dfdice);
         DiceValues.setVisible(true);
     }
@@ -251,16 +293,24 @@ atkrdice.setText(atkdice);
      * @param mouseEvent
      */
     public void attackAgain(MouseEvent mouseEvent) {
-
-        defendList.clear();
-        nooftroops.clear();
-        defence_country = null;
-        attackToList.getItems().removeAll(attackToList.getItems());
-        troopstoattack.getItems().removeAll(troopstoattack.getItems());
-
-        DiceValues.setVisible(false);
-System.out.println("Attacking again ");
-        onattackcountryselected(attacking_country);
+        if(lost){
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
+            GameScreenTest gs = new GameScreenTest();
+            gs.fortificationTest();
+        }
+        try {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
+            Parent RootLoad = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/AttackPhase.fxml"));
+            Scene loadAttackScene = new Scene(RootLoad);
+            Stage loadAttackStage = new Stage();
+            loadAttackStage.setTitle("Attack Phase ReLoaded");
+            loadAttackStage.setScene(loadAttackScene);
+            loadAttackStage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -268,9 +318,8 @@ System.out.println("Attacking again ");
      * @param mouseEvent
      */
     public void endAttack(MouseEvent mouseEvent) {
-        Stage stage = (Stage) end.getScene().getWindow();
+        Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
-
         GameScreenTest gs = new GameScreenTest();
         gs.fortificationTest();
     }
