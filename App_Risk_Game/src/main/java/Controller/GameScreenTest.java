@@ -306,6 +306,7 @@ public class GameScreenTest implements Initializable {
             list.add(LoadMap.LoadMapGlobalVariables.current_player.getType());
             list.add(String.valueOf(LoadMap.LoadMapGlobalVariables.current_player.getId()));
             list.add(LoadMap.LoadMapGlobalVariables.current_player.getTerritories().toString());
+            list.add(LoadMap.LoadMapGlobalVariables.current_player.getContinents_owned().toString());
 
             TableView view = new TableView();
 
@@ -335,14 +336,20 @@ public class GameScreenTest implements Initializable {
             makeHeaderWrappable(fiveCol);
             fiveCol.setPrefWidth(500);
 
+            TableColumn sixCol = new TableColumn("Continents Owned");
+            sixCol.setCellValueFactory(new PropertyValueFactory<>("continents_owned"));
+            makeHeaderWrappable(sixCol);
+            sixCol.setPrefWidth(500);
+
             view.getColumns().addAll(firstNameCol);
             view.getColumns().addAll(secCol);
             view.getColumns().addAll(thirdCol);
             view.getColumns().addAll(fourCol);
             view.getColumns().addAll(fiveCol);
+            view.getColumns().addAll(sixCol);
 
 
-            view.getItems().add(new Player(LoadMap.LoadMapGlobalVariables.current_player.getName(), "", LoadMap.LoadMapGlobalVariables.current_player.getColor(), LoadMap.LoadMapGlobalVariables.current_player.getId(), LoadMap.LoadMapGlobalVariables.current_player.getTerritories()));
+            view.getItems().add(new Player(LoadMap.LoadMapGlobalVariables.current_player.getName(), "", LoadMap.LoadMapGlobalVariables.current_player.getColor(), LoadMap.LoadMapGlobalVariables.current_player.getId(), LoadMap.LoadMapGlobalVariables.current_player.getTerritories(), LoadMap.LoadMapGlobalVariables.current_player.getContinents_owned()));
 
             Pane layout = new VBox(10);
             layout.setStyle("-fx-padding: 10;");

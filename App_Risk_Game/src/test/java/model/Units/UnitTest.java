@@ -13,7 +13,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
@@ -43,12 +45,13 @@ public class UnitTest extends Application {
 							String path = "E:\\MACS-SEM1\\APP\\GitHub\\WithTesecases\\RiskGame\\mapinput.txt";
 
 							HashMap<String, Integer> territories = new HashMap<>();
+                            List<String> list =  new ArrayList<>();
 							territories.put("NA1", 2);
 							territories.put("NA2", 2);
 							territories.put("AS2", 5);
 
 							ReinforcePhase rp = new ReinforcePhase();
-							rp.player = new Player("Tanvi", "NA", "blue", 1, territories);
+							rp.player = new Player("Tanvi", "NA", "blue", 1, territories,list);
 							PlayerCollection.players.add(rp.player);
 
 							LoadMap.loadMap(path);
