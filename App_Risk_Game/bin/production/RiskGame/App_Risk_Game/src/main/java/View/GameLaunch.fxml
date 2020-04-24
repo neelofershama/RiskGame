@@ -34,6 +34,11 @@
                         <Cursor fx:constant="HAND"/>
                     </cursor>
                 </Button>
+                <Button  fx:id="tournament_mode" mnemonicParsing="false" text="TOURNAMENT MODE" onAction="#onMouseClickedTournamentMode">
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
                 <Button fx:id="exit_game" mnemonicParsing="false" onAction="#onMouseClickedExitGame" text="EXIT GAME">
                     <cursor>
                         <Cursor fx:constant="HAND"/>

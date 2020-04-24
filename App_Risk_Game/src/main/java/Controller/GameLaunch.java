@@ -53,7 +53,26 @@ public class GameLaunch implements Initializable {
             e.printStackTrace();
         }
     }
+    /**
+     * Starting point for tournament
+     * @param event
+     */
+    @FXML
+    public void onMouseClickedTournamentMode(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/NoOfTournamentPlayer.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("TOURNAMENT");
+            stage.setScene(scene);
+            stage.show();
 
+            Stage stg = (Stage) exit_game.getScene().getWindow();
+            stg.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     public void onMouseClickedExitGame(ActionEvent event) {
         System.out.println("GAME QUITED");
