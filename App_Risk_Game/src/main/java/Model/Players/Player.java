@@ -193,15 +193,15 @@ territories = t;
     }
 
     public void reinforce(){
-        player_behaviour.reinforce();
+        player_behaviour.reinforce(this);
     }
 
     public void attack(){
-        player_behaviour.attack(this);
+        player_behaviour.attack();
     }
 
-    public void fortify(){
-        player_behaviour.fortify();
+    public boolean fortify(){
+        return player_behaviour.fortify();
     }
 
     private  void identifyPlayerBehaviorStrategy(PlayerBehaviour name){

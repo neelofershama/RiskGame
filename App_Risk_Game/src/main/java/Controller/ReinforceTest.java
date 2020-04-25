@@ -3,6 +3,7 @@ package App_Risk_Game.src.main.java.Controller;
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
+import App_Risk_Game.src.main.java.Model.Turns.Turns;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,7 +46,8 @@ public class ReinforceTest implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         max_troop = 3;
-        current_player = PlayerCollectionTest.players.get(0); // Need to get current player turn from TURNS MODULE
+        current_player = PlayerCollectionTest.players.get(0);
+        //current_player = PlayerCollectionTest.players.get(0); // Need to get current player turn from TURNS MODULE
         player_name.setText(current_player.getName());
         player_name.setTextFill(Color.web(current_player.getColor()));
         reinforce();

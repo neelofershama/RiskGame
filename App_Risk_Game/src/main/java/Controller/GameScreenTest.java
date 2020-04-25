@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
@@ -11,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +21,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -27,6 +31,8 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.endgame;
 
 public class GameScreenTest implements Initializable {
 
@@ -67,6 +73,10 @@ public class GameScreenTest implements Initializable {
     @FXML
     HBox hbox_to;
     Player current_player;
+
+    @FXML
+    Text WinnerText;
+
 
     @FXML
     private Button attackButton;
@@ -122,10 +132,71 @@ public class GameScreenTest implements Initializable {
             current_player_name.setText(current_player.getName());
             current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+            startSingleGameMode();
+
+            WinnerText.setVisible(true);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         //layout.setAlignment(Pos.BASELINE_LEFT);
+    }
+
+    /**
+     *
+     */
+    private void startSingleGameMode() throws IOException {
+        boolean is_winner=false;
+        do {
+            current_player = PlayerCollectionTest.getTurn();
+            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
+                submit.setVisible(true);
+                start.setVisible(true);
+
+                //reinforcementTest();
+                humanPlayerTurn();
+            }
+            else{
+                current_player.reinforce();
+            current_player.attack();
+            is_winner = checkWinnerCondition();
+            current_player.fortify();
+                PlayerCollectionTest.updateTurn();
+            }
+
+        }
+        while(!is_winner);
+        WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+        return;
+    }
+
+    private void humanPlayerTurn() throws IOException {
+        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+        Scene loadMapScene = new Scene(loadRoot);
+        Stage loadMapStage = new Stage();
+        loadMapStage.setTitle("Map Loaded");
+        loadMapStage.setScene(loadMapScene);
+        loadMapStage.show();
+        submit.setOnAction(e -> {
+                try {
+                    Stage stage = (Stage) start.getScene().getWindow();
+                    stage.close();
+                    reinforcementTest();
+                } catch (IOException w) {
+                    w.printStackTrace();
+                }
+            }
+        );
+    }
+
+    private boolean checkWinnerCondition() {
+        int total_territories_count = LoadMap.board.getTiles().keySet().size();
+        int currentplayer_territories_count = current_player.territories.keySet().size();
+        if(currentplayer_territories_count == (total_territories_count/(PlayerCollectionTest.players.size()))+1)
+        return true;
+        else
+            return false;
+
     }
 
     /**
@@ -139,7 +210,8 @@ public class GameScreenTest implements Initializable {
     void onStart(ActionEvent event) throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
-        reinforcementTest();
+
+
     }
 
     public TableView addtable(String[][] a) throws IOException {
@@ -257,6 +329,7 @@ public class GameScreenTest implements Initializable {
     }
 
     public void reinforcementTest() throws IOException {
+
         Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
         Scene loadReinforceScene = new Scene(reinforceRoot);
         Stage loadReinforceStage = new Stage();

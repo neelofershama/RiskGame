@@ -5,18 +5,18 @@ private Player p;
 
 
     @Override
-    public void reinforce() {
+    public void reinforce(Player p) {
 
     }
 
     @Override
-    public void attack(Player p) {
+    public void attack() {
 
     }
 
 
     @Override
-    public void fortify() {
-
+    public boolean fortify() {
+return true;
     }
 }

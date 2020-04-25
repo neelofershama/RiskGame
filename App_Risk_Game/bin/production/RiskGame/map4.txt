@@ -1,0 +1,19 @@
+[Continents]
+North America=4
+Asia=3
+Australia=3
+Europe=3
+[Territories]
+Montreal,40,120,North America,Toronto,Detroit,Hyderabad,Melbourne
+Toronto,105,155,North America,Montreal,Chicago,Sydney,Paris
+Detroit,130,130,North America,Montreal,Chicago,Dubai
+Chicago,210,60,North America,Toronto,Detroit,London
+Hyderabad,160,250,Asia,Montreal,Dubai,Melbourne
+Mumbai,215,260,Asia,Sydney,London
+Dubai,185,270,Asia,Detroit,Hyderabad,Barcelona
+Sydney,230,335,Australia,Toronto,Mumbai,Perth
+Melbourne,260,340,Australia,Montreal,Hyderabad,Perth
+Perth,300,335,Australia,Melbourne,Sydney
+London,275,300,Europe,Mumbai,Chicago
+Paris,310,340,Europe,Toronto,Barcelona
+Barcelona,325,360,Europe,Dubai,Paris
