@@ -33,6 +33,7 @@ import java.net.URL;
 import java.util.*;
 
 import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.endgame;
+import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.game_started;
 
 public class GameScreenTest implements Initializable {
 
@@ -80,6 +81,8 @@ public class GameScreenTest implements Initializable {
 
     @FXML
     private Button attackButton;
+
+
 
 
     //Player current_player;
@@ -132,11 +135,14 @@ public class GameScreenTest implements Initializable {
             current_player_name.setText(current_player.getName());
             current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+            submit.setVisible(true);
+            start.setVisible(true);
+            if (!game_started)
             startSingleGameMode();
 
             WinnerText.setVisible(true);
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         //layout.setAlignment(Pos.BASELINE_LEFT);
@@ -145,18 +151,25 @@ public class GameScreenTest implements Initializable {
     /**
      *
      */
-    private void startSingleGameMode() throws IOException {
+    private void startSingleGameMode() throws IOException, InterruptedException {
+        game_started = true;
         boolean is_winner=false;
         do {
             current_player = PlayerCollectionTest.getTurn();
             if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
                 submit.setVisible(true);
                 start.setVisible(true);
-
-                //reinforcementTest();
-                humanPlayerTurn();
+                reinforcementTest();
+//        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+//        Scene loadMapScene = new Scene(loadRoot);
+//        Stage loadMapStage = new Stage();
+//        loadMapStage.setTitle("Map Loaded");
+//        loadMapStage.setScene(loadMapScene);
+//        loadMapStage.show();
             }
             else{
+                submit.setVisible(false);
+                start.setVisible(false);
                 current_player.reinforce();
             current_player.attack();
             is_winner = checkWinnerCondition();
@@ -171,12 +184,12 @@ public class GameScreenTest implements Initializable {
     }
 
     private void humanPlayerTurn() throws IOException {
-        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
-        Scene loadMapScene = new Scene(loadRoot);
-        Stage loadMapStage = new Stage();
-        loadMapStage.setTitle("Map Loaded");
-        loadMapStage.setScene(loadMapScene);
-        loadMapStage.show();
+//        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+//        Scene loadMapScene = new Scene(loadRoot);
+//        Stage loadMapStage = new Stage();
+//        loadMapStage.setTitle("Map Loaded");
+//        loadMapStage.setScene(loadMapScene);
+//        loadMapStage.show();
         submit.setOnAction(e -> {
                 try {
                     Stage stage = (Stage) start.getScene().getWindow();
@@ -211,7 +224,7 @@ public class GameScreenTest implements Initializable {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
 
-
+reinforcementTest();
     }
 
     public TableView addtable(String[][] a) throws IOException {
@@ -330,13 +343,15 @@ public class GameScreenTest implements Initializable {
 
     public void reinforcementTest() throws IOException {
 
+//        Stage stage = (Stage) root.getScene().getWindow();
+//        stage.close();
         Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
         Scene loadReinforceScene = new Scene(reinforceRoot);
         Stage loadReinforceStage = new Stage();
         loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
         loadReinforceStage.setScene(loadReinforceScene);
         loadReinforceStage.show();
-
+return;
     }
 
     void fortification() {
