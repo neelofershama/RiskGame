@@ -313,6 +313,10 @@ public class GameScreenTest implements Initializable {
         try {
             getContinentsOwned();
 
+            // Tesing percentage of map controlled by the player
+            double percentage = getMapPercentage();
+            System.out.println(percentage+"%");
+
             List<String> list = new ArrayList<>();
 
             list.add(current_player.getName());
@@ -426,6 +430,29 @@ public class GameScreenTest implements Initializable {
         System.out.println(selected_country);
     }
 
+    // Getting percentage of map owned by player. Useful in displaying player statistics
+    private double getMapPercentage(){
+        // get all continents and number of countries in the continent
+        HashMap<String, Integer> continents = Board.continents;
+
+        int number_of_territories = 0;
+
+        Iterator iterator = continents.entrySet().iterator();
+
+        // getting number of territories in map
+        while (iterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry) iterator.next();
+            number_of_territories = number_of_territories + (Integer)mapElement.getValue();
+        }
+
+        System.out.println(number_of_territories);
+        // getting territories owned by the player
+        HashMap<String, Integer> player_territories = current_player.getTerritories();
+        int player_owned_territories = player_territories.size();
+
+        System.out.println(player_owned_territories);
+        return (Double.valueOf(player_owned_territories)/number_of_territories)*100;
+    }
     // Adding continents owned and percentage of map owned functionality to statistics module
     private ArrayList<String> getContinentsOwned(){
 
