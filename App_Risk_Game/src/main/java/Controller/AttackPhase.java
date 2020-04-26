@@ -117,8 +117,8 @@ ComboBox<Integer> troopstoattack;
     public void onattackcountryselected(String attacking_country){
         // defendList.clear();
         troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country);
-    //System.out.println(troopsinattackingcountry);
-  //  if (troops_in_attacking_country > 1) {
+        //System.out.println(troopsinattackingcountry);
+        //  if (troops_in_attacking_country > 1) {
         defendList = LoadMap.board.getNeighbourTile(attacking_country);
         System.out.println(defendList);
         Iterator it = defendList.listIterator();
@@ -129,7 +129,7 @@ ComboBox<Integer> troopstoattack;
             }
         }
         attackToList.getItems().addAll(defendList);
-//        attackToList.getSelectionModel().selectFirst();
+        //        attackToList.getSelectionModel().selectFirst();
 
 
 

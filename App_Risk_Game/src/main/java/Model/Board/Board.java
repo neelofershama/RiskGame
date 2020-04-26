@@ -193,7 +193,11 @@ public class Board  implements Observable {
 	public void setNeighbourTile(List<String> neighbour_tile, String tile_name) {
 		List<Tile> tile_list = new ArrayList<Tile>(); //Tile Neighbors
 		List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update
-		Tile tile = tiles.get(tile_name);
+		Tile tile = null;
+		if(tiles.containsKey(tile_name)) {
+			tile = tiles.get(tile_name);
+		}
+		//little clumpsy we have to explain what is exactly being done
 		for(int i=0; i<neighbour_tile.size(); i++) {
 			Tile t = tiles.get(neighbour_tile.get(i));
 			t_list.add(tiles.get(tile_name));

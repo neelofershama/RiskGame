@@ -119,6 +119,7 @@ public class GameScreenTest implements Initializable {
 
             current_player = PlayerCollectionTest.getTurn();
             Turns.turns.setCurrent_player(current_player);
+            //TODO: why do we have two same lines ??
             current_player_name.setText(current_player.getName());
             current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));

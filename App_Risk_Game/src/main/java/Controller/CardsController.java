@@ -6,12 +6,28 @@ import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
+import javafx.fxml.Initializable;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CardsController implements Observer {
+public class CardsController implements Observer, Initializable {
+
+    CardsCollection cardsCollection;
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
+    public void onClickedRedeemCards() {
+        cardsCollection.redeemCards();
+    }
 
     /**
      * controller is responsible for assigning territories to players for phase 0.
@@ -26,7 +42,7 @@ public class CardsController implements Observer {
             String name = (String) iterator.next();
             territories.add(name);
         }
-        CardsCollection cardsCollection = new CardsCollection(territories, 5);
+        cardsCollection = new CardsCollection(territories, 5);
         List<Player> players = PlayerCollectionTest.players;
         CardsCollection.distributeCards(players);
         for (Player p:players

@@ -92,22 +92,22 @@ public class GameScreen implements Initializable {
           });
             list.add(b);
         }
-return list;
+        return list;
     }
 
 
     private void getPlayerterritories(String name) {
-Menu territoriesList = new Menu();
-Player p = null;
-Iterator iterator = PlayerCollection.players.listIterator();
-while (iterator.hasNext()){
-    Player player = (Player)iterator.next();
-    if(player.getName().equals(name))
-    {
-        p = player;
-         break;
-    }
-}
+        Menu territoriesList = new Menu();
+        Player p = null;
+        Iterator iterator = PlayerCollection.players.listIterator();
+        while (iterator.hasNext()){
+            Player player = (Player)iterator.next();
+            if(player.getName().equals(name))
+            {
+                p = player;
+                 break;
+            }
+        }
 //        p.getTerritories().forEach(t-> {
 //            territoriesList.getItems().add(new MenuItem(t));
 //            territoriesList.show();
