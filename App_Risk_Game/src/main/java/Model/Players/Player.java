@@ -39,6 +39,9 @@ public class Player {
      */
     public HashMap<String,Integer> territories = new HashMap<>();
 
+    // Stores player behavior
+    private String player_behavior_type;
+
     /**
      * Store the players properties
      */
@@ -71,10 +74,18 @@ public class Player {
         setPlayerBehaviour(behaviour);
 
     }
+
     public Player(String name, int id) {
         this.player_name = name;
         this.player_id = id;
 
+    }
+    public void setBehaviorType(String behavior_type){
+        this.player_behavior_type = behavior_type;
+    }
+
+    public String getBehaviorType(){
+        return this.player_behavior_type;
     }
     private void setPlayerBehaviour(PlayerBehaviour behaviour) {
         player_behaviour = behaviour;
