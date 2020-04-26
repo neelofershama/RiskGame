@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class PlayerCollectionTest implements Observable {
@@ -22,8 +23,8 @@ public class PlayerCollectionTest implements Observable {
     public static List<Player> players = new ArrayList<Player>();
 
     // To the player index
-    private static int turn_index = 0;
-    private static int number_of_players;
+    public static int turn_index = 0;
+    public static int number_of_players;
 
 
     private int noofPlayers;
@@ -55,6 +56,7 @@ public class PlayerCollectionTest implements Observable {
             color_index.add(i);
             PlayerBehaviour playerBehaviour = identifyPlayerBehaviorStrategy(player_behaviors.get(i));
            Player player = new Player(player_names.get(i),i+1,playerBehaviour);
+           player.setBehaviorType(player_behaviors.get(i));
            // Player player = new Player(player_names.get(i),i+1);
             players.add(player);
         }
@@ -81,6 +83,14 @@ public class PlayerCollectionTest implements Observable {
 
     }
 
+    public static void createPlayersLoadGame(int player_id, String player_name, String player_color, String player_behaviour){
+        PlayerBehaviour playerBehaviour = identifyPlayerBehaviorStrategy(player_behaviour);
+        Player player = new Player(player_name, player_id, playerBehaviour);
+        player.setBehaviorType(player_behaviour);
+        player.setColor(player_color);
+        // Player player = new Player(player_names.get(i),i+1);
+        players.add(player);
+    }
     // returns current player
     public static Player getTurn(){
         System.out.println("Turn index :- " + turn_index);
