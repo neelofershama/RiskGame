@@ -9,7 +9,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -41,27 +40,27 @@ public class UnitTest extends Application {
                     public void run() {
                         try {
 
-							Scanner sc = new Scanner(System.in);
-							String path = "E:\\MACS-SEM1\\APP\\GitHub\\WithTesecases\\RiskGame\\mapinput.txt";
+                            Scanner sc = new Scanner(System.in);
+                            String path = "E:\\MACS-SEM1\\APP\\GitHub\\WithTesecases\\RiskGame\\mapinput.txt";
+                            String percent_map = "50.63";
+                            HashMap<String, Integer> territories = new HashMap<>();
+                            List<String> list = new ArrayList<>();
+                            territories.put("NA1", 2);
+                            territories.put("NA2", 2);
+                            territories.put("AS2", 5);
 
-							HashMap<String, Integer> territories = new HashMap<>();
-                            List<String> list =  new ArrayList<>();
-							territories.put("NA1", 2);
-							territories.put("NA2", 2);
-							territories.put("AS2", 5);
+                            ReinforcePhase rp = new ReinforcePhase();
+                            rp.player = new Player("Tanvi", "blue", 1, territories, list, percent_map);
+                            PlayerCollection.players.add(rp.player);
 
-							ReinforcePhase rp = new ReinforcePhase();
-							rp.player = new Player("Tanvi", "NA", "blue", 1, territories,list);
-							PlayerCollection.players.add(rp.player);
+                            LoadMap.loadMap(path);
 
-							LoadMap.loadMap(path);
+                            GameScreenTest gt = new GameScreenTest();
+                            gt.reinforcement();
 
-							GameScreenTest gt = new GameScreenTest();
-							gt.reinforcement();
+                            Player player = PlayerCollection.players.get(0);
 
-							Player player = PlayerCollection.players.get(0);
-
-							assertEquals(player.getTerritories().toString(), rp.player.getTerritories().toString());
+                            assertEquals(player.getTerritories().toString(), rp.player.getTerritories().toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
