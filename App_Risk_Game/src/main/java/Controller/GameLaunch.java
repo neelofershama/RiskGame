@@ -149,6 +149,8 @@ public class GameLaunch implements Initializable {
             System.out.println(p.getId()+","+p.getName()+","+p.getColor()+","+p.getBehaviorType());
             System.out.println(p.getTerritories().toString());
         }
+        Stage stage = (Stage) new_game.getScene().getWindow();
+        stage.close();
         LoadMap.loadMap("mapinput.txt");
         PlayerCollectionTest.goBackToGameScreen();
 
