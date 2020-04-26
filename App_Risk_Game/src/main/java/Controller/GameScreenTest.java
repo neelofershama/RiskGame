@@ -314,17 +314,10 @@ public class GameScreenTest implements Initializable {
             getContinentsOwned();
 
             // Tesing percentage of map controlled by the player
-            double percentage = getMapPercentage();
-            System.out.println(percentage+"%");
+            String map_owned = String.valueOf(getMapPercentage());
+            current_player.setMap_owned(map_owned+"%");
+            System.out.println(map_owned+"%");
 
-            List<String> list = new ArrayList<>();
-
-            list.add(current_player.getName());
-            list.add(current_player.getColor());
-            list.add(current_player.getType().toString());
-            list.add(String.valueOf(current_player.getId()));
-            list.add(current_player.getTerritories().toString());
-          
             TableView view = new TableView();
 
 
@@ -358,15 +351,21 @@ public class GameScreenTest implements Initializable {
             makeHeaderWrappable(sixCol);
             sixCol.setPrefWidth(500);
 
+            TableColumn sevenCol = new TableColumn("Map Owned");
+            sevenCol.setCellValueFactory(new PropertyValueFactory<>("map_owned"));
+            makeHeaderWrappable(sevenCol);
+            sevenCol.setPrefWidth(500);
+
             view.getColumns().addAll(firstNameCol);
             view.getColumns().addAll(secCol);
             view.getColumns().addAll(thirdCol);
             view.getColumns().addAll(fourCol);
             view.getColumns().addAll(fiveCol);
             view.getColumns().addAll(sixCol);
+            view.getColumns().addAll(sevenCol);
 
 
-            view.getItems().add(new Player(current_player.getName(), "", current_player.getColor(), current_player.getId(), current_player.getTerritories(),current_player.getContinents_owned()));
+            view.getItems().add(new Player(current_player.getName(),  current_player.getColor(), current_player.getId(), current_player.getTerritories(),current_player.getContinents_owned(), current_player.getMap_owned()));
           //  view.getItems().add(new Player(LoadMap.LoadMapGlobalVariables.current_player.getName(), "", LoadMap.LoadMapGlobalVariables.current_player.getColor(), LoadMap.LoadMapGlobalVariables.current_player.getId(), LoadMap.LoadMapGlobalVariables.current_player.getTerritories(), LoadMap.LoadMapGlobalVariables.current_player.getContinents_owned()));
 
             Pane layout = new VBox(10);
