@@ -55,6 +55,7 @@ public class PlayerCollectionTest implements Observable {
             color_index.add(i);
             PlayerBehaviour playerBehaviour = identifyPlayerBehaviorStrategy(player_behaviors.get(i));
            Player player = new Player(player_names.get(i),i+1,playerBehaviour);
+           player.setBehaviorType(player_behaviors.get(i));
            // Player player = new Player(player_names.get(i),i+1);
             players.add(player);
         }

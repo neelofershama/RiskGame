@@ -44,6 +44,9 @@ public class Player {
      */
     private Map properties;
 
+    // To store player behavior type
+    private String behavior_types;
+
     // Adding two fields continents owned and percentage of map owned
     private List<String> continents_owned =  new ArrayList<>();
     private float map_controlled;
@@ -75,6 +78,14 @@ public class Player {
         this.player_name = name;
         this.player_id = id;
 
+    }
+
+    public void setBehaviorType(String behavior_types){
+        this.behavior_types = behavior_types;
+    }
+
+    public String getBehaviorType(){
+        return behavior_types;
     }
     private void setPlayerBehaviour(PlayerBehaviour behaviour) {
         player_behaviour = behaviour;
