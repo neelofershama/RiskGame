@@ -87,13 +87,13 @@ public class Player {
 
     }
 
-    public void setBehaviorType(String behavior_types){
-        this.behavior_types = behavior_types;
-    }
-
-    public String getBehaviorType(){
-        return behavior_types;
-    }
+//    public void setBehaviorType(String behavior_types){
+//        this.behavior_types = behavior_types;
+//    }
+//
+//    public String getBehaviorType(){
+//        return behavior_types;
+//    }
 
     public String getMap_owned() {
         return map_owned;

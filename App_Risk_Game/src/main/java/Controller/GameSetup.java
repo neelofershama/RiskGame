@@ -198,7 +198,7 @@ player_behaviors.add(cb_values_behaviors.get(i));
                 // There will be a bug by creating PlayerCollection and loading map without validating so i made this
                 // change
                 GameScreenTest gameScreenTest = new GameScreenTest();
-                PlayerCollectionTest.playerCollectionTest.attachObserver((Observer)gameScreenTest);
+               // PlayerCollectionTest.playerCollectionTest.attachObserver((Observer)gameScreenTest);
 
                 if(next_scene){
                   //  PlayerCollectionTest.createPlayers(number_of_players, player_names);

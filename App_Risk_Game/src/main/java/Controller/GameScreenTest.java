@@ -643,12 +643,7 @@ return;
         return continent_list;
     }
 
-    @Override
-    public void update(Observable observable) {
-        current_player = PlayerCollectionTest.getTurn();
-        current_player_name.setText(current_player.getName());
-       current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-    }
+
     // When ever user clicks on save and exit button
     @FXML
     public void saveExit(){
