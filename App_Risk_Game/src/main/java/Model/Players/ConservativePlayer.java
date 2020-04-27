@@ -34,7 +34,7 @@ p =player;
     }
 
 
-
+    //Fortifcation phase-shows troops in each territory
     @Override
     public boolean fortify() {
         System.out.println("Conservative Fortify Phase");
