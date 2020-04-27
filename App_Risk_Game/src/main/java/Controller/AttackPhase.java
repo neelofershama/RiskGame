@@ -116,9 +116,9 @@ ComboBox<Integer> troopstoattack;
      */
     public void onattackcountryselected(String attacking_country){
         // defendList.clear();
-        troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country);
-        //System.out.println(troopsinattackingcountry);
-        //  if (troops_in_attacking_country > 1) {
+        troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country)-1;
+    //System.out.println(troopsinattackingcountry);
+    if (troops_in_attacking_country > 1) {
         defendList = LoadMap.board.getNeighbourTile(attacking_country);
         System.out.println(defendList);
         Iterator it = defendList.listIterator();
@@ -129,7 +129,7 @@ ComboBox<Integer> troopstoattack;
             }
         }
         attackToList.getItems().addAll(defendList);
-        //        attackToList.getSelectionModel().selectFirst();
+//        attackToList.getSelectionModel().selectFirst();
 
 
 
@@ -146,10 +146,10 @@ ComboBox<Integer> troopstoattack;
         troopstoattack.getItems().addAll(nooftroops);
         //System.out.println(troopstoattack.getValue());
 
-    // }
-//    else{
-//       showWarning();
-//    }
+     }
+    else{
+       showWarning();
+    }
 }
 
     /**
@@ -256,8 +256,10 @@ if(attackToList.getValue() == null)
        if (t == 0)
        {
            PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().remove(defence_country);
-           PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().put(defence_country,current_troop);
-       }
+           if(current_troop ==0)
+               PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_country, 1);
+           else
+               PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_country, current_troop);}
         for (Player p:players
         ) {
             System.out.println(p.getName());

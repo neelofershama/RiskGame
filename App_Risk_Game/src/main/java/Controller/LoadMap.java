@@ -78,7 +78,9 @@ public class LoadMap implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         CardsController cardsController = new CardsController();
+
         board.attachObserver((App_Risk_Game.src.interfaces.Observer) cardsController);
+
     }
 
     /**
@@ -528,7 +530,8 @@ public class LoadMap implements Initializable, Observer {
         static public boolean endGame = false;
        // static Player current_player = PlayerCollection.players.get(0);
         //static Player current_player = PlayerCollectionTest.getTurn();
-
+static public boolean endgame = false;
+        static     boolean game_started = false;
     }
 
 }

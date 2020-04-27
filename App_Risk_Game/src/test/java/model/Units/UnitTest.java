@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Testcase for Units module, contains the initializeCheck() method.
- *
  * @throws SecurityException, IOException
  */
 public class UnitTest extends Application {
