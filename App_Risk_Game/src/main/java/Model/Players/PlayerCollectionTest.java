@@ -165,7 +165,7 @@ private static PlayerBehaviour identifyPlayerBehaviorStrategy(String name){
             o.update(observable);
         }
     }
-    public void notifyObservers() {
+    public void notifyObservers() throws IOException {
 
         notifyObserver(this);
     }
