@@ -66,7 +66,7 @@ public class Score {
     }
 
     /**
-     * @param points Set the points owned by the player
+     * @param score Set the points owned by the player
      */
     private void setScore(int score) {
         this.score = score;

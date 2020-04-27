@@ -282,7 +282,6 @@ else{
     /**
      * creates a table view for displaying the countries and its neighbors
      * @param event
-     * @return
      * @throws IOException
      */
     // Whenever user click on submit button

@@ -145,7 +145,6 @@ public class Player {
      * sets the player Id
      *
      * @param id A integer for a player Id
-     * @return player Id
      */
     public void setId(int id) {
         this.player_id = id;
