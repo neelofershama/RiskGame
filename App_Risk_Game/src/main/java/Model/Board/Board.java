@@ -8,6 +8,7 @@ import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Units.Unit;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -347,7 +348,7 @@ this.observers.remove(observer);
 	}
 
 	@Override
-	public  void notifyObserver(Observable observable) {
+	public  void notifyObserver(Observable observable) throws IOException {
 		for (Observer o:this.observers
 		) {
 			if(!LoadMap.LoadMapGlobalVariables.phaseComplete)
@@ -355,7 +356,7 @@ this.observers.remove(observer);
 		}
 	}
 
-	public void notifyObservers() {
+	public void notifyObservers() throws IOException {
 		notifyObserver(this);
 	}
 }

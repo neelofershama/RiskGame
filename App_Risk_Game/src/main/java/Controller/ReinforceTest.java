@@ -45,7 +45,16 @@ public class ReinforceTest implements Initializable {
 
     private Player current_player;
     private HashMap<String, Integer> territories;
-    private int max_troop;
+    private static int max_troop;
+
+    public static void setMaxTroop(int wildCardTroops){
+        max_troop += wildCardTroops;
+    }
+
+    public int getMaxTroop(){
+        return max_troop;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

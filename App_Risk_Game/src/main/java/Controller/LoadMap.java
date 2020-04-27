@@ -525,6 +525,7 @@ public class LoadMap implements Initializable, Observer {
         static int i = 0;
         static public Boolean gsFlag = false;
         static public Boolean phaseComplete = false;
+        static public boolean endGame = false;
        // static Player current_player = PlayerCollection.players.get(0);
         //static Player current_player = PlayerCollectionTest.getTurn();
 

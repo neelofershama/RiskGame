@@ -5,23 +5,27 @@ package App_Risk_Game.src.main.java.Model.Cards;
 import App_Risk_Game.src.interfaces.Observable;
 import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Controller.LoadMap;
+import App_Risk_Game.src.main.java.Controller.ReinforceTest;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.interfaces.*;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
+import com.sun.tools.internal.xjc.model.CNonElement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,30 +36,31 @@ import java.util.*;
  */
 public class CardsCollection implements Observable {
 
-    @FXML
-    static Label playerNameLabel;
-
-    @FXML
-    static ComboBox listOfCards;
-
     static int noOfLocations;
     static List<String> locations;
     public static List<Card> cardCollection;
     public static HashMap<String, List<Card>> playersCards;
     public static int remainingCardsCount = 0;
     public static List<Card> remainingCards;
-    public static String[] imagePaths;
     public static Stack<Card> cardStack;
+    public static Label playerNameLabel;
+    public static ComboBox listOfCards;
+    public static Stage window;
+    public static Scene loadMapScene;
     List<Observer> observers = new ArrayList<>();
 
-    public CardsCollection(List<String> loc, int ub){
+
+    public CardsCollection(List<String> loc, int ub, Label playerNameLabel, ComboBox listOfCards){
         locations = loc;
         noOfLocations = locations.size();
-        imagePaths = new String[noOfLocations + 1];
         cardCollection = new ArrayList<Card>();
         playersCards = new HashMap<String, List<Card>>();
         remainingCards = new ArrayList<>();
         cardStack = new Stack<>();
+        window = new Stage();
+        System.out.println("------------------------enterd");
+        this.playerNameLabel = playerNameLabel;
+        this.listOfCards = listOfCards;
         initializeCards(ub);
     }
 
@@ -75,14 +80,22 @@ public class CardsCollection implements Observable {
             card = new Card();
             card.setLocation(locations.get(i));
             //generates random value between zero and maxValue
-            int randomValue = (int) Math.random()*maxValue + 1;
+            int randomValue = (int) (Math.random() * maxValue) + 1;
+            System.out.println(randomValue);
             card.setValue(randomValue); //r.nextInt(ub - lb) + lb;
             card.setCardType(cardType[i%3]);
             cardCollection.add(card);
         }
         // Adding wild card to the cards deck and shuffling the cards
-        cardCollection.add(createCard(null, -1, imagePaths[noOfLocations], " "));
         Collections.shuffle(cardCollection);
+    }
+
+    public HashMap<String, List<Card>>getCardDetails(){
+        return playersCards;
+    }
+
+    public void clickedBack(){
+        window.close();
     }
 
     /**
@@ -90,26 +103,11 @@ public class CardsCollection implements Observable {
      */
     @FXML
     public static void displayCards(Parent loadRoot) throws IOException {
-        Player player = PlayerCollectionTest.getTurn();
-        List<Card> cards = playersCards.get(player.getName());
-        ArrayList<String> imageSource = new ArrayList<String>();
-        System.out.println("********************************************entered!!!");
-
-        //playerNameLabel.setText(player.getName());
-        //playerNameLabel.setTextFill(Color.web(player.getColor()));
-
-        for (Card c: cards){
-            //Todo: update code for displaying cards
-            //imageSource.add(c.getCardImagePath());
-        }
-        Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Display Cards");
-        Scene loadMapScene = new Scene(loadRoot);
-
-        window.setTitle("Players Cards");
+        loadMapScene = new Scene(loadRoot);
         window.setScene(loadMapScene);
-        window.showAndWait();
+        window.show();
     }
 
     public void redeemCards() {
@@ -126,27 +124,29 @@ public class CardsCollection implements Observable {
             if ("Infantry".equals(cards.get(i).getCardType()) && !isInfantry){
                 index[0] = i;
                 isInfantry = true;
+                totalTroopsGet += cards.get(i).getValue();
             }
             else if("Cavalry".equals(cards.get(i).getCardType()) && !isCavalry){
                 index[1] = i;
                 isCavalry = true;
+                totalTroopsGet += cards.get(i).getValue();
             }
             else if("Artillery".equals(cards.get(i).getCardType()) && !isArtillery){
                 index[2] = i;
                 isArtillery = true;
+                totalTroopsGet += cards.get(i).getValue();
             }
             else{
-                continue;
             }
-            totalTroopsGet += cards.get(i).getValue();
         }
 
         if(isInfantry && isCavalry && isArtillery){
-            for(int i =0; i<index.length;i++){
+            for(int i =2; i>=0;i--){
                 playersCards.get(player.getName()).remove(index[i]);
             }
         }
-
+        System.out.println(totalTroopsGet);
+        ReinforceTest.setMaxTroop(totalTroopsGet);
     }
 
     /**
@@ -200,11 +200,15 @@ public class CardsCollection implements Observable {
         playersCards.clear();
         remainingCards.clear();
         remainingCardsCount = 0;
+        cardCollection.add(createCard("None", -1, "ceaseFire"));
         cardStack.addAll(cardCollection);
     }
 
     public static Card pickCard() {
         Card c = cardStack.peek();
+        if (c.getCardType() == "ceaseFire"){
+            LoadMap.LoadMapGlobalVariables.endGame = true;
+        }
         return c;
     }
 
@@ -214,7 +218,7 @@ public class CardsCollection implements Observable {
      * @param v the value
      * @return the new Card object
      */
-    public static Card createCard(String loc, int v, String imagePath, String cardType) {
+    public static Card createCard(String loc, int v, String cardType) {
         Card card = new Card();
         card.setValue(v);
         card.setLocation(loc);
@@ -254,7 +258,7 @@ public class CardsCollection implements Observable {
     }
 
     @Override
-    public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) {
+    public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) throws IOException {
         for (App_Risk_Game.src.interfaces.Observer o:observers
         ) {
             o.update(observable);

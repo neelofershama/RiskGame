@@ -156,7 +156,7 @@ private static PlayerBehaviour identifyPlayerBehaviorStrategy(String name){
     }
 
     @Override
-    public void notifyObserver(Observable observable) {
+    public void notifyObserver(Observable observable) throws IOException {
         for (Observer o:observers
         ) {
             o.update(observable);

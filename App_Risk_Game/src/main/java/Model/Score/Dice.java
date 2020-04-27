@@ -3,6 +3,7 @@ package App_Risk_Game.src.main.java.Model.Score;
 
 import App_Risk_Game.src.interfaces.Observer;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -86,7 +87,7 @@ public class Dice implements App_Risk_Game.src.interfaces.Observable {
 	}
 
 	@Override
-	public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) {
+	public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) throws IOException {
 		for (App_Risk_Game.src.interfaces.Observer o:observers
 		) {
 			o.update(observable);
