@@ -105,7 +105,10 @@ else {
 
                    if (t == 0) {
                        PlayerCollectionTest.players.get(f.getId() - 1).getTerritories().remove(attacking_on);
-                       PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, current_troop);
+                       if(current_troop ==0)
+                       PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, 1);
+                       else
+                           PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, current_troop);
                    }
                    // attack_started = true;
                    List<Player> players = PlayerCollectionTest.players;

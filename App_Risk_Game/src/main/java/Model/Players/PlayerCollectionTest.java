@@ -15,8 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PlayerCollectionTest implements Observable {
-
+public static PlayerCollectionTest playerCollectionTest = new PlayerCollectionTest();
     List<Observer> observers = new ArrayList<>();
+
     /**
      * Store the list of players
      */
@@ -107,7 +108,9 @@ public class PlayerCollectionTest implements Observable {
         else{
             turn_index = turn_index + 1;
         }
+       // notifyObservers();
     }
+
 
     public static void goBackToGameScreen() {
         try {
@@ -146,7 +149,7 @@ private static PlayerBehaviour identifyPlayerBehaviorStrategy(String name){
         return behaviour;
 }
     @Override
-    public void attachObserver(App_Risk_Game.src.interfaces.Observer observer) {
+    public  void attachObserver(App_Risk_Game.src.interfaces.Observer observer) {
         this.observers.add(observer);
     }
 
@@ -162,6 +165,9 @@ private static PlayerBehaviour identifyPlayerBehaviorStrategy(String name){
             o.update(observable);
         }
     }
+    public void notifyObservers() {
 
+        notifyObserver(this);
+    }
 
 }

@@ -86,7 +86,7 @@ public class processTournament {
                 }
 
                 System.out.println("continents: " + continents.toString());
-                board.setContinents(continents);
+                Tournament.board.setContinents(continents);
 
                 if ("[Territories]".equals(data)) {
 
@@ -211,6 +211,23 @@ public class processTournament {
 
             // ---- Depends on the strategy -------
             player.attack();
+
+//            List<String> removeTerr = new ArrayList<>();
+//            Iterator key = player.getTerritories().keySet().iterator();
+//            while (key.hasNext()) {
+//                String country = key.next().toString();
+//                if (player.getTerritories().get(country) == 0)
+//                    removeTerr.add(country);
+//            }
+//
+//            Iterator removeTerrIterator = removeTerr.iterator();
+//            while (removeTerrIterator.hasNext()) {
+//                String country = removeTerrIterator.next().toString();
+//                player.getTerritories().remove(country);
+//            }
+
+            checkContinentsOwned();
+
             player.fortify();
 
             PlayerCollectionTest.updateTurn();
@@ -231,19 +248,39 @@ public class processTournament {
 
     }
 
+    public static void checkContinentsOwned() {
+
+        List<String> countriesOwned = new ArrayList<>();
+        Iterator key = player.getTerritories().keySet().iterator();
+        while (key.hasNext()) {
+            countriesOwned.add(key.next().toString());
+        }
+
+        HashMap<String, List<String>> continentsAndCountries = Tournament.board.getContinentsAndCountries();
+        System.out.println("continentsAndCountries==" + continentsAndCountries.toString());
+        Iterator c = continentsAndCountries.keySet().iterator();
+        while (c.hasNext()) {
+            String continent = c.next().toString();
+            if (countriesOwned.containsAll(continentsAndCountries.get(continent))  && !player.getContinents_owned().contains(continent))
+                player.getContinents_owned().add(continent);
+        }
+
+    }
+
     public static void reinforce() {
 
         int maxTroops = 3;
         HashMap<String, Integer> terr = player.getTerritories();
-        System.out.println("territories : " + terr.toString());
+        System.out.println("Player : " + player.getName() + " territories : " + terr.toString());
         while (maxTroops != 0) {
 
             int troops = getRandomNumber(maxTroops);
             maxTroops = maxTroops - troops;
-            String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
-            String territory = keyArray[getRandomNumber(terr.size() - 1)];
-            player.setTerritory(territory, troops);
-
+            if (terr.size() != 0) {
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[getRandomNumber(terr.size() - 1)];
+                player.setTerritory(territory, troops);
+            }
         }
 
     }
@@ -271,11 +308,11 @@ public class processTournament {
         System.out.println(" ====== SCOREBOARD ===== ");
 
         for (int i = 1; i <= Tournament.col; i++) {
-            Tournament.scoreBoard[0][i] = "Game"+i;
+            Tournament.scoreBoard[0][i] = "Game" + i;
 
         }
-        for (int j = 1; j<= Tournament.row; j++) {
-            Tournament.scoreBoard[j][0] = "Map"+j;
+        for (int j = 1; j <= Tournament.row; j++) {
+            Tournament.scoreBoard[j][0] = "Map" + j;
 
         }
 
@@ -323,9 +360,9 @@ public class processTournament {
 //        Boolean gsFlag = false;
 //        Boolean phaseComplete = false;
         CardsController cardsController = new CardsController();
-        board.attachObserver((App_Risk_Game.src.interfaces.Observer) cardsController);
+        Tournament.board.attachObserver((App_Risk_Game.src.interfaces.Observer) cardsController);
         continents = new HashMap<String, Integer>();
-        board = new Board();
+        Tournament.board = new Board();
         HashMap<String, List<String>> neighborsList = new HashMap<>();
         // int count_turns = 0;
 

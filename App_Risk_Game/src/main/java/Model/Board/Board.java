@@ -37,8 +37,10 @@ public class Board  implements Observable {
 	 */
 	private List<ArrayList<Tile>> board = new ArrayList<>();
 	public static HashMap<String, Integer> continents = new HashMap<String, Integer>();
+	public static HashMap<String, List<String>> continentsAndCountries = new HashMap<String, List<String>>();
 
-    public Board() {
+
+	public Board() {
         // TODO Auto-generated constructor stub
     }
 
@@ -119,11 +121,35 @@ public class Board  implements Observable {
 			tile.setYCoordinate(y);
 			tile.setContinent(continent);
 			tiles.put(tile_name, tile);
+
+			if (continentsAndCountries.containsKey(continent)) {
+				continentsAndCountries.get(continent).add(tile_name);
+			} else {
+				List<String> countries = new ArrayList<>();
+				countries.add(tile_name);
+				continentsAndCountries.put(continent, countries);
+			}
 		}
 
 	//	System.out.println(tiles.toString());
 	}
+	/**
+	 * For getting continents and countries in them.
+	 *
+	 * @return
+	 */
+	public HashMap<String, List<String>> getContinentsAndCountries() {
+		return continentsAndCountries;
+	}
 
+	/**
+	 * For setting continents and countries in them.
+	 *
+	 * @param continentsAndCountries
+	 */
+	public void setContinentsAndCountries(HashMap<String, List<String>> continentsAndCountries) {
+		Board.continentsAndCountries = continentsAndCountries;
+	}
 	/**
 	 *
 	 * @param tile_name
@@ -326,6 +352,7 @@ this.observers.remove(observer);
 	}
 
 	public void notifyObservers() {
+
 		notifyObserver(this);
 	}
 }

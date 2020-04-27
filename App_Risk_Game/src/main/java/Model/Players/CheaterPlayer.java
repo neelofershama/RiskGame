@@ -29,7 +29,7 @@ p = player;
         }
         return;
     }
-
+    //Attacking the other territeries
     @Override
     public void attack() {
         Map.Entry<String, Integer> attacking_from = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
@@ -85,7 +85,10 @@ p = player;
 
                 if (t == 0) {
                     PlayerCollectionTest.players.get(f.getId() - 1).getTerritories().remove(attacking_on);
-                    PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, current_troop);
+                    if(current_troop ==0)
+                        PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, 1);
+                    else
+                        PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, current_troop);
                 }
                 // attack_started = true;
                 List<Player> players = PlayerCollectionTest.players;
@@ -121,16 +124,16 @@ p = player;
                 it.remove();
             }
         }
-//        Optional<Map.Entry<String, Integer>> neighbor_with_highes_troops = p.territories.entrySet().stream().filter(x -> neighboring_territories.contains(x.getKey())).sorted(Map.Entry.<String, Integer>comparingByValue()).findFirst();
-//        if (!neighbor_with_highes_troops.equals(Optional.empty())) {
-//            Map.Entry<String, Integer> neighbours = neighbor_with_highes_troops.get();
-//            int troops = neighbours.getValue() - 1;
-        Map.Entry<String, Integer> territoritory_with_lowest_troops = p.territories.entrySet().stream().filter(x -> neighboring_territories.contains(x.getKey())).sorted(Map.Entry.<String, Integer>comparingByValue()).findFirst().get();
-        int troops_lowest = territoritory_with_lowest_troops.getValue();
+        Optional<Map.Entry<String, Integer>> territoritory_with_lowest_troops = p.territories.entrySet().stream().filter(x -> neighboring_territories.contains(x.getKey())).sorted(Map.Entry.<String, Integer>comparingByValue()).findFirst();
+        if (!territoritory_with_lowest_troops.equals(Optional.empty())) {
+            Map.Entry<String, Integer> neighbours = territoritory_with_lowest_troops.get();
+            int troops = neighbours.getValue() - 1;
+      //  Map.Entry<String, Integer> territoritory_with_lowest_troops = p.territories.entrySet().stream().filter(x -> neighboring_territories.contains(x.getKey())).sorted(Map.Entry.<String, Integer>comparingByValue()).findFirst().get();
+        int troops_lowest = neighbours.getValue();
         int troops_highest = territoritory_with_highest_troops.getValue();
         int average = (int)(troops_highest+troops_lowest)/2;
         p.territories.replace(territoritory_with_highest_troops.getKey(),troops_highest-average);
-        p.territories.replace(territoritory_with_lowest_troops.getKey(),troops_lowest+(average*2));
+        p.territories.replace(neighbours.getKey(),troops_lowest+(average*2));}
         System.out.println("After Fortifying");
         List<Player> players = PlayerCollectionTest.players;
 

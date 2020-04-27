@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerBehaviour;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
@@ -25,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sun.nio.cs.ext.IBM037;
 
 import java.awt.*;
 import java.io.IOException;
@@ -195,6 +197,8 @@ player_behaviors.add(cb_values_behaviors.get(i));
 
                 // There will be a bug by creating PlayerCollection and loading map without validating so i made this
                 // change
+                GameScreenTest gameScreenTest = new GameScreenTest();
+               // PlayerCollectionTest.playerCollectionTest.attachObserver((Observer)gameScreenTest);
 
                 if(next_scene){
                   //  PlayerCollectionTest.createPlayers(number_of_players, player_names);
