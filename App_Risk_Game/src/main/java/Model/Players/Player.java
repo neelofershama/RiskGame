@@ -2,6 +2,7 @@ package App_Risk_Game.src.main.java.Model.Players;
 
 import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -203,7 +204,7 @@ territories = t;
         territories.put(t,i);
     }
 
-    public void reinforce(){
+    public void reinforce() throws IOException {
         player_behaviour.reinforce(this);
     }
 

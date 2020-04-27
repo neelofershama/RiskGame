@@ -6,6 +6,9 @@ public class Common {
     private static Random random = new Random();
 
     public static int generateRandomNumber(int ub){
+        if(ub <= 0)
+            return 1;
+        else
         return random.nextInt(ub)+1;
     }
 }

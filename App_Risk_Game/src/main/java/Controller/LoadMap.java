@@ -78,7 +78,9 @@ public class LoadMap implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         CardsController cardsController = new CardsController();
+
         board.attachObserver((App_Risk_Game.src.interfaces.Observer) cardsController);
+
     }
 
     /**
