@@ -29,7 +29,7 @@ p = player;
         }
         return;
     }
-
+    //Attacking the other territeries
     @Override
     public void attack() {
         Map.Entry<String, Integer> attacking_from = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
