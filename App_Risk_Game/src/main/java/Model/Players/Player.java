@@ -40,8 +40,11 @@ public class Player {
      */
     public HashMap<String,Integer> territories = new HashMap<>();
 
+    // Stores player behavior
+    private String player_behavior_type;
+
     /**
-     * Store the players properties
+     * Store the players properties`
      */
     private Map properties;
 
@@ -49,13 +52,15 @@ public class Player {
     private String behavior_types;
 
     // Adding two fields continents owned and percentage of map owned
-    private List<String> continents_owned =  new ArrayList<>();
+    private List<String> continents_owned = new ArrayList<>();
+    private String map_owned;
     private float map_controlled;
 
     /**
      * Interface defining the player behaviour strategy
      */
- PlayerBehaviour player_behaviour;
+    PlayerBehaviour player_behaviour;
+
     /**
      * Creates a new player
      */
@@ -75,6 +80,7 @@ public class Player {
         setPlayerBehaviour(behaviour);
 
     }
+
     public Player(String name, int id) {
         this.player_name = name;
         this.player_id = id;
@@ -88,27 +94,43 @@ public class Player {
     public String getBehaviorType(){
         return behavior_types;
     }
+
+    public String getMap_owned() {
+        return map_owned;
+    }
+
+    public void setMap_owned(String map_owned) {
+        this.map_owned = map_owned;
+    }
+
+    public void setBehaviorType(String behavior_type) {
+        this.player_behavior_type = behavior_type;
+    }
+
+    public String getBehaviorType() {
+        return this.player_behavior_type;
+    }
+
     private void setPlayerBehaviour(PlayerBehaviour behaviour) {
         player_behaviour = behaviour;
         identifyPlayerBehaviorStrategy(player_behaviour);
     }
 
     /**
-     *  Constructor for player with all attributes
+     * Constructor for player with all attributes
+     *
      * @param player_name
-     * @param player_type
      * @param player_color
      * @param player_id
      * @param territories
      */
-    public Player(String player_name, String player_type, String player_color, int player_id, HashMap<String, Integer> territories, List<String> continentsOwned) {
+    public Player(String player_name, String player_color, int player_id, HashMap<String, Integer> territories, List<String> continents_owned, String map_owned) {
         this.player_name = player_name;
-        //this.player_type = player_type;
         this.player_color = player_color;
         this.player_id = player_id;
         this.territories = territories;
-        this.continents_owned =  continentsOwned;
-
+        this.continents_owned = continents_owned;
+        this.map_owned = map_owned;
     }
     /**
      * gets the player Id
@@ -184,24 +206,25 @@ public class Player {
         return player_type;
     }
 
-    public  void setTerritories(HashMap<String,Integer> t){
-territories = t;
+    public void setTerritories(HashMap<String, Integer> t) {
+        territories = t;
     }
 
-    public  HashMap<String,Integer> getTerritories(){
+    public HashMap<String, Integer> getTerritories() {
         return territories;
     }
 
     public void setContinents_owned(List<String> continents) {
-        this.continents_owned=continents;
-       // continents_owned.add(continents);
+        this.continents_owned = continents;
+        // continents_owned.add(continents);
     }
 
     public List<String> getContinents_owned() {
         return continents_owned;
     }
+
     public void setTerritory(String t, int i) {
-        territories.put(t,i);
+        territories.put(t, i);
     }
 
     public void reinforce() throws IOException {
@@ -216,9 +239,9 @@ territories = t;
         return player_behaviour.fortify();
     }
 
-    private  void identifyPlayerBehaviorStrategy(PlayerBehaviour name){
-String v = name.getClass().toString().split("@")[0].split("\\ ")[1].split("\\.")[6];
-        switch (v){
+    private void identifyPlayerBehaviorStrategy(PlayerBehaviour name) {
+        String v = name.getClass().toString().split("@")[0].split("\\ ")[1].split("\\.")[6];
+        switch (v) {
             case "HumanPlayer":
                 player_type = BehaviourStrategies.HumanPlayer;
                 break;

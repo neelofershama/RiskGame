@@ -30,6 +30,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -37,7 +40,7 @@ import java.util.*;
 import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.endgame;
 import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.game_started;
 
-public class GameScreenTest implements Initializable, Observer {
+public class GameScreenTest implements Initializable {
 
     @FXML
     VBox root;
@@ -47,6 +50,10 @@ public class GameScreenTest implements Initializable, Observer {
 
     @FXML
     GridPane player_details;
+
+    // Saving and Exiting Game
+    @FXML
+    Button save_exit;
 
     @FXML
     ComboBox options;
@@ -85,8 +92,6 @@ public class GameScreenTest implements Initializable, Observer {
     private Button attackButton;
 
 
-
-
     //Player current_player;
 
     Board board = LoadMap.board;
@@ -111,19 +116,14 @@ public class GameScreenTest implements Initializable, Observer {
 //        }
 //    }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-
             options.setPromptText("CHOOSE");
             //options.getItems().addAll("STATISTICS","ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
             options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION");
-
-
             LoadMap.board.notifyObservers();
 
-            //PlayerCollectionTest.playerCollectionTest.notifyObservers();
             if (!LoadMap.LoadMapGlobalVariables.gsFlag)
                 options.setVisible(false);
 
@@ -150,7 +150,6 @@ public class GameScreenTest implements Initializable, Observer {
 else{
            System.out.println(current_player.getBehaviorType());
             Turns.turns.setCurrent_player(current_player);
-
             current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
             submit.setVisible(true);
@@ -411,9 +410,6 @@ reinforcementTest();
     }
 
     public void reinforcementTest() throws IOException {
-
-//        Stage stage = (Stage) root.getScene().getWindow();
-//        stage.close();
         Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
         Scene loadReinforceScene = new Scene(reinforceRoot);
         Stage loadReinforceStage = new Stage();
@@ -464,14 +460,11 @@ return;
         try {
             getContinentsOwned();
 
-            List<String> list = new ArrayList<>();
+            // Tesing percentage of map controlled by the player
+            String map_owned = String.valueOf(getMapPercentage());
+            current_player.setMap_owned(map_owned+"%");
+            System.out.println(map_owned+"%");
 
-            list.add(current_player.getName());
-            list.add(current_player.getColor());
-            list.add(current_player.getType().toString());
-            list.add(String.valueOf(current_player.getId()));
-            list.add(current_player.getTerritories().toString());
-          
             TableView view = new TableView();
 
 
@@ -505,15 +498,21 @@ return;
             makeHeaderWrappable(sixCol);
             sixCol.setPrefWidth(500);
 
+            TableColumn sevenCol = new TableColumn("Map Owned");
+            sevenCol.setCellValueFactory(new PropertyValueFactory<>("map_owned"));
+            makeHeaderWrappable(sevenCol);
+            sevenCol.setPrefWidth(500);
+
             view.getColumns().addAll(firstNameCol);
             view.getColumns().addAll(secCol);
             view.getColumns().addAll(thirdCol);
             view.getColumns().addAll(fourCol);
             view.getColumns().addAll(fiveCol);
             view.getColumns().addAll(sixCol);
+            view.getColumns().addAll(sevenCol);
 
 
-            view.getItems().add(new Player(current_player.getName(), "", current_player.getColor(), current_player.getId(), current_player.getTerritories(),current_player.getContinents_owned()));
+            view.getItems().add(new Player(current_player.getName(),  current_player.getColor(), current_player.getId(), current_player.getTerritories(),current_player.getContinents_owned(), current_player.getMap_owned()));
           //  view.getItems().add(new Player(LoadMap.LoadMapGlobalVariables.current_player.getName(), "", LoadMap.LoadMapGlobalVariables.current_player.getColor(), LoadMap.LoadMapGlobalVariables.current_player.getId(), LoadMap.LoadMapGlobalVariables.current_player.getTerritories(), LoadMap.LoadMapGlobalVariables.current_player.getContinents_owned()));
 
             Pane layout = new VBox(10);
@@ -577,6 +576,29 @@ return;
         System.out.println(selected_country);
     }
 
+    // Getting percentage of map owned by player. Useful in displaying player statistics
+    private double getMapPercentage(){
+        // get all continents and number of countries in the continent
+        HashMap<String, Integer> continents = Board.continents;
+
+        int number_of_territories = 0;
+
+        Iterator iterator = continents.entrySet().iterator();
+
+        // getting number of territories in map
+        while (iterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry) iterator.next();
+            number_of_territories = number_of_territories + (Integer)mapElement.getValue();
+        }
+
+        System.out.println(number_of_territories);
+        // getting territories owned by the player
+        HashMap<String, Integer> player_territories = current_player.getTerritories();
+        int player_owned_territories = player_territories.size();
+
+        System.out.println(player_owned_territories);
+        return (Double.valueOf(player_owned_territories)/number_of_territories)*100;
+    }
     // Adding continents owned and percentage of map owned functionality to statistics module
     private ArrayList<String> getContinentsOwned(){
 
@@ -627,4 +649,42 @@ return;
         current_player_name.setText(current_player.getName());
        current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
     }
+    // When ever user clicks on save and exit button
+    @FXML
+    public void saveExit(){
+        System.out.println("Saving");
+        String file_name = "App_Risk_Game/src/main/java/Resources/game_data.txt";
+        try {
+            // Creating new file if doesn't exit
+            File myObj = new File(file_name);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file_name));
+
+
+            writer.write(PlayerCollectionTest.number_of_players+"\n");
+            for(int i=0;i<PlayerCollectionTest.number_of_players;i++){
+                Player p = PlayerCollectionTest.players.get(i);
+                writer.write(p.getId()+","+p.getName()+","+p.getColor()+","+p.getBehaviorType()+"\n");
+                writer.write(p.getTerritories().toString()+"\n");
+            }
+            System.out.println(PlayerCollectionTest.getTurn().getId());
+            writer.write(String.valueOf(PlayerCollectionTest.getTurn().getId()-1));
+            writer.close();
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
+            // working pretty good
+
+            // Need to close the game
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 }
