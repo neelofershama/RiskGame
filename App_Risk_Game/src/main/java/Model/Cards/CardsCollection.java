@@ -11,15 +11,22 @@ import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.interfaces.*;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
  * The Cards Collection performs all the operations related to Cards
  */
 public class CardsCollection implements Observable {
-    static int noOfLocations;
-    static List<String> locations;
+    public static int noOfLocations;
+    public static List<String> locations;
     public static List<Card> cardCollection;
     public static HashMap<String, List<Card>> playersCards;
     public static int remainingCardsCount = 0;
@@ -43,14 +50,84 @@ public class CardsCollection implements Observable {
     public static void initializeCards(int maxValue) {
         Collections.shuffle(locations);
         Random r = new Random();
+        Card card = null;
+        //Todo: set card types properly
+        String[] cardType = {"Infantry", "Cavalry", "Artillery"};
         for (int i = 0; i < noOfLocations; i++) {
             int ub = maxValue;
             int lb = 1;
-            Card card = new Card();
-            card.location = locations.get(i);
-            card.value = (int) (Math.random() * maxValue) + 1; //r.nextInt(ub - lb) + lb;
+            card = new Card();
+            card.setLocation(locations.get(i));
+            //generates random value between zero and maxValue
+            int randomValue = (int) Math.random()*maxValue + 1;
+            card.setValue(randomValue); //r.nextInt(ub - lb) + lb;
+            card.setCardType(cardType[i%3]);
             cardCollection.add(card);
+//            System.out.println("1"card);
         }
+        // Adding wild card to the cards deck and shuffling the cards
+        cardCollection.add(createCard(" ", 0," "));
+        Collections.shuffle(cardCollection);
+    }
+
+    /**
+     * shows user all the cards acquired
+     *
+     * @param event
+     */
+    @FXML
+    public void displayCards(ActionEvent event) throws IOException {
+        Player player = PlayerCollectionTest.getTurn();
+        List<Card> cards = playersCards.get(player.getName());
+        ArrayList<String> imageSource = new ArrayList<String>();
+        for (Card c: cards){
+            //Todo: update code for displaying cards
+            //imageSource.add(c.getCardImagePath());
+        }
+        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/showCards.fxml"));
+        Scene loadMapScene = new Scene(loadRoot);
+        Stage loadMapStage = new Stage();
+        loadMapStage.setTitle("Players Cards");
+        loadMapStage.setScene(loadMapScene);
+        loadMapStage.show();
+    }
+
+    public void onClickedRedeemCards() {
+        System.out.println("entered !!");
+        Player player = PlayerCollectionTest.getTurn();
+        List<Card> cards = playersCards.get(player.getName());
+        ArrayList<String> imageSource = new ArrayList<String>();
+        int[] index = new int[3];
+        int totalTroopsGet = 0;
+        //Todo: change boolean names according to cardtypes
+        boolean isInfantry = false;
+        boolean isCavalry = false;
+        boolean isArtillery = false;
+        for (int i =0; i<cards.size();i++){
+            if ("Infantry".equals(cards.get(i).getCardType()) && !isInfantry){
+                index[0] = i;
+                isInfantry = true;
+            }
+            else if("Cavalry".equals(cards.get(i).getCardType()) && !isCavalry){
+                index[1] = i;
+                isCavalry = true;
+            }
+            else if("Artillery".equals(cards.get(i).getCardType()) && !isArtillery){
+                index[2] = i;
+                isArtillery = true;
+            }
+            else{
+                continue;
+            }
+            totalTroopsGet += cards.get(i).getValue();
+        }
+
+        if(isInfantry && isCavalry && isArtillery){
+            for(int i =0; i<index.length;i++){
+                playersCards.get(player.getName()).remove(index[i]);
+            }
+        }
+
     }
 
     /**
@@ -62,25 +139,15 @@ public class CardsCollection implements Observable {
         int n = noOfLocations % players.size();
         int noofplayers = players.size();
         int cardsforeachplayer = noOfLocations / noofplayers;
-        if (n == 0) {
-            int y = 0;
-            for (int i = 0; i < noofplayers; i++) {
-                List<Card> lc = new ArrayList<Card>();
-                lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
-                y += cardsforeachplayer;
-                playersCards.put(players.get(i).getName(), lc);
+        int y = 0;
+        for (int i = 0; i < noofplayers; i++) {
+            List<Card> lc = new ArrayList<Card>();
+            lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
+            playersCards.put(players.get(i).getName(), lc);
+            y += cardsforeachplayer;
 
-            }
-        } else {
-            int y = 0;
-            for (int i = 0; i < noofplayers; i++) {
-                List<Card> lc = new ArrayList<Card>();
-                lc.addAll(cardCollection.subList(y, y + cardsforeachplayer));
-                y += cardsforeachplayer;
-                playersCards.put(players.get(i).getName(), lc);
-            }
-
-
+        }
+        if (n != 0) {
             //TODO - assign remaining cards to last 2 players
             remainingCardsCount = noOfLocations % noofplayers;
             //remainingCards.clear();
@@ -91,6 +158,7 @@ public class CardsCollection implements Observable {
             }
             for (int i = 0; i < remainingCards.size(); i++)
            {
+//               System.out.println(playersCards.get(players.get(--noofplayers).getName()).add(cardCollection.get(y)));
              playersCards.get(players.get(--noofplayers).getName()).add(cardCollection.get(y));
              y++;
             }
@@ -101,7 +169,7 @@ public class CardsCollection implements Observable {
             List<Card> cards = playersCards.get(player.getName());
 
                     for (Card t : cards) {
-                        player.territories.put(t.location, t.value);
+                        player.territories.put(t.getLocation(), t.getValue());
                     }
                // LoadMap.board.setPlayer((String) pair.getKey(),t.location);
         });
@@ -128,10 +196,11 @@ public class CardsCollection implements Observable {
      * @param v the value
      * @return the new Card object
      */
-    public static Card createCard(String loc, int v) {
+    public static Card createCard(String loc, int v, String cardType) {
         Card card = new Card();
-        card.value = v;
-        card.location = loc;
+        card.setValue(v);
+        card.setLocation(loc);
+        card.setCardType(cardType);
         cardCollection.add(card);
         return card;
     }

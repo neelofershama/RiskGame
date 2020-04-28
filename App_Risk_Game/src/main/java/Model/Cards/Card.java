@@ -4,7 +4,19 @@ public class Card {
 
     public int value;
     public String location;
+    private String cardType;
 
+    public void setValue(int val){
+        this.value = val;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
+    }
+
+    public void setCardType(String cardType){
+        this.cardType = cardType;
+    }
 
     public int getValue() {
         return value;
@@ -13,5 +25,8 @@ public class Card {
     public String getLocation() {
         return location;
     }
+
+    public String getCardType(){ return cardType; }
+
 }
 
