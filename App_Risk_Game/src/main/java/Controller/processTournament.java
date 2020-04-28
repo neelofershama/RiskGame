@@ -200,14 +200,14 @@ public class processTournament {
 
     }
 
-    public static void processTournament() {
+    public static void processTournament() throws IOException {
 
         for (int i = 0; i < Tournament.num_of_turns; i++) {
 
             System.out.println("Turn = " + i);
             player = PlayerCollectionTest.getTurn();
 
-            reinforce();
+            player.reinforce();
 
             // ---- Depends on the strategy -------
             player.attack();
