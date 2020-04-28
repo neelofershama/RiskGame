@@ -2,11 +2,11 @@ package App_Risk_Game.src.main.java.Model.Players;
 
 import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Player class representing the players and their possessions.
  *
@@ -38,7 +38,7 @@ public class Player {
     /**
      * Store the list of players
      */
-    public HashMap<String, Integer> territories = new HashMap<>();
+    public HashMap<String,Integer> territories = new HashMap<>();
 
     // Stores player behavior
     private String player_behavior_type;
@@ -47,6 +47,9 @@ public class Player {
      * Store the players properties`
      */
     private Map properties;
+
+    // To store player behavior type
+    private String behavior_types;
 
     // Adding two fields continents owned and percentage of map owned
     private List<String> continents_owned = new ArrayList<>();
@@ -83,6 +86,14 @@ public class Player {
         this.player_id = id;
 
     }
+
+//    public void setBehaviorType(String behavior_types){
+//        this.behavior_types = behavior_types;
+//    }
+//
+//    public String getBehaviorType(){
+//        return behavior_types;
+//    }
 
     public String getMap_owned() {
         return map_owned;
@@ -121,7 +132,6 @@ public class Player {
         this.continents_owned = continents_owned;
         this.map_owned = map_owned;
     }
-
     /**
      * gets the player Id
      *
@@ -135,7 +145,6 @@ public class Player {
      * sets the player Id
      *
      * @param id A integer for a player Id
-     * @return player Id
      */
     public void setId(int id) {
         this.player_id = id;
@@ -217,16 +226,16 @@ public class Player {
         territories.put(t, i);
     }
 
-    public void reinforce() {
-        player_behaviour.reinforce();
+    public void reinforce() throws IOException {
+        player_behaviour.reinforce(this);
     }
 
-    public void attack() {
-        player_behaviour.attack(this);
+    public void attack(){
+        player_behaviour.attack();
     }
 
-    public void fortify() {
-        player_behaviour.fortify();
+    public boolean fortify(){
+        return player_behaviour.fortify();
     }
 
     private void identifyPlayerBehaviorStrategy(PlayerBehaviour name) {

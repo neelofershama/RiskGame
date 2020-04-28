@@ -1,5 +1,8 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.interfaces.Observable;
+import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
@@ -11,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +23,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -30,6 +36,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.endgame;
+import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.game_started;
 
 public class GameScreenTest implements Initializable {
 
@@ -74,6 +83,10 @@ public class GameScreenTest implements Initializable {
     @FXML
     HBox hbox_to;
     Player current_player;
+
+    @FXML
+    Text WinnerText;
+
 
     @FXML
     private Button attackButton;
@@ -123,22 +136,152 @@ public class GameScreenTest implements Initializable {
             // This is to show whose turn it is in the game
 
             //current_player = returnPlayerTurn();
+            List<Player> players = PlayerCollectionTest.players;
+            for (Player p:players
+            ) {
+                System.out.println(p.getName());
 
+                System.out.println(p.getTerritories());
+            }
             current_player = PlayerCollectionTest.getTurn();
+            if(checkWinnerCondition()){
+                WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+            System.out.println(current_player.getName()+" ("+ current_player.getType() +") has won the game");}
+else{
+           System.out.println(current_player.getBehaviorType());
             Turns.turns.setCurrent_player(current_player);
             current_player_name.setText(current_player.getName());
-            current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-        } catch (IOException e) {
+            submit.setVisible(true);
+            start.setVisible(true);
+
+            if (current_player.getType() != BehaviourStrategies.HumanPlayer)
+            {
+                submit.setVisible(false);
+                start.setVisible(false);
+            }
+            // Making changes
+            if(!game_started || current_player.getType() != BehaviourStrategies.HumanPlayer){
+                startSingleGameMode();
+                if(current_player.getType() == BehaviourStrategies.HumanPlayer)
+                { current_player = PlayerCollectionTest.getTurn();
+                System.out.println("AFTER START SINGLE GAME MODE");
+                current_player_name.setText(current_player.getName());
+                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+
+                    submit.setVisible(true);
+                    start.setVisible(true);
+
+                    PlayerCollectionTest.goBackToGameScreen();
+            }
+                PlayerCollectionTest.goBackToGameScreen();}
+            if(current_player.getType() == BehaviourStrategies.HumanPlayer){
+
+                //PlayerCollectionTest.updateTurn();
+                current_player = PlayerCollectionTest.getTurn();
+                current_player_name.setText(current_player.getName());
+                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+                submit.setVisible(true);
+                start.setVisible(true);
+                System.out.println("TRUE");
+            }
+            WinnerText.setVisible(true);}
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         //layout.setAlignment(Pos.BASELINE_LEFT);
     }
 
     /**
+     *
+     */
+    private void startSingleGameMode() throws IOException, InterruptedException {
+
+        game_started = true;
+        boolean is_winner=false;
+//        do {
+            current_player = PlayerCollectionTest.getTurn();
+            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
+                submit.setVisible(true);
+                start.setVisible(true);
+                current_player = PlayerCollectionTest.getTurn();
+                current_player_name.setText(current_player.getName());
+                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+                if(checkWinnerCondition())
+                    WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+               PlayerCollectionTest.goBackToGameScreen();
+            }
+            else{
+                submit.setVisible(false);
+                start.setVisible(false);
+                current_player.reinforce();
+            current_player.attack();
+            is_winner = checkWinnerCondition();
+            current_player.fortify();
+                PlayerCollectionTest.updateTurn();
+               current_player = PlayerCollectionTest.getTurn();
+                current_player_name.setText(current_player.getName());
+                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+                 //current_player = PlayerCollectionTest.getTurn();
+//                Stage stage = (Stage) root.getScene().getWindow();
+//                stage.close();
+
+
+            }
+
+//        }
+//        while(!is_winner);
+        if(checkWinnerCondition())
+            WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+        // PlayerCollectionTest.goBackToGameScreen();
+        return;
+    }
+
+//    public void singleGameMode() throws IOException {
+//        boolean is_winner = false;
+//        do {
+//            current_player = PlayerCollectionTest.getTurn();
+//            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
+//                submit.setVisible(true);
+//                start.setVisible(true);
+//current_player.reinforce();
+//current_player.attack();
+//current_player.fortify();
+//
+//            } else {
+//                submit.setVisible(false);
+//                start.setVisible(false);
+//                current_player.reinforce();
+//                current_player.attack();
+//                is_winner = checkWinnerCondition();
+//                current_player.fortify();
+//                PlayerCollectionTest.updateTurn();
+//                current_player = PlayerCollectionTest.getTurn();
+//            }
+//
+//      }
+//       while(!is_winner);
+//            if (is_winner)
+//                WinnerText.setText(current_player.getName() + " (" + current_player.getType() + ") has won the game");
+//            // PlayerCollectionTest.goBackToGameScreen();
+//            return;
+//
+//    }
+
+
+    private boolean checkWinnerCondition() {
+        int total_territories_count = LoadMap.board.getTiles().keySet().size();
+        int currentplayer_territories_count = current_player.territories.keySet().size();
+        if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1)
+        return true;
+        else
+            return false;
+
+    }
+
+    /**
      * creates a table view for displaying the countries and its neighbors
      * @param event
-     * @return
      * @throws IOException
      */
     // Whenever user click on submit button
@@ -146,7 +289,9 @@ public class GameScreenTest implements Initializable {
     void onStart(ActionEvent event) throws IOException {
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
-        reinforcementTest();
+      //  singleGameMode();
+reinforcementTest();
+        start.setVisible(false);
     }
 
     public TableView addtable(String[][] a) throws IOException {
@@ -271,6 +416,7 @@ public class GameScreenTest implements Initializable {
         loadReinforceStage.setScene(loadReinforceScene);
         loadReinforceStage.show();
 
+return;
     }
 
     void fortification() {
@@ -410,7 +556,7 @@ public class GameScreenTest implements Initializable {
     }
 
     private void attack() {
-        System.out.println("Attack");
+        System.out.println(" Human Player Attack");
         try {
 
             Parent RootLoad = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/AttackPhase.fxml"));
@@ -495,6 +641,7 @@ public class GameScreenTest implements Initializable {
         System.out.println(continent_list);
         return continent_list;
     }
+
 
     // When ever user clicks on save and exit button
     @FXML

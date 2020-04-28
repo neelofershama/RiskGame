@@ -1,25 +1,54 @@
 package App_Risk_Game.src.main.java.Model.Players;
 
+import App_Risk_Game.src.main.java.Common.Common;
 import App_Risk_Game.src.main.java.Controller.LoadMap;
 import App_Risk_Game.src.main.java.Model.Score.Dice;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AggressivePlayer implements PlayerBehaviour {
 Player p;
 
 
     @Override
-    public void reinforce() {
+    public void reinforce(Player player) {
+        System.out.println("Aggressive Player Reinforcing Phase");
     //use existing logic
+        p = player;
+        int maxTroops = 3;
+        HashMap<String, Integer> terr = player.getTerritories();
+        System.out.println("territories : " + terr.toString());
+        while (maxTroops != 0) {
+
+
+            int troops = Common.generateRandomNumber(maxTroops);
+            maxTroops = maxTroops - troops;
+            if (terr.size() != 0 && terr.size()!=1) {
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[Common.generateRandomNumber(terr.size() - 1)];
+                player.setTerritory(territory, troops);
+            } else if(terr.size()==1){
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[0];
+                player.setTerritory(territory, troops);
+            }
+
+            /*int troops = Common.generateRandomNumber(maxTroops);
+            maxTroops = maxTroops - troops;
+            String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+            String territory = keyArray[Common.generateRandomNumber(terr.size() - 1)];
+            player.setTerritory(territory, troops);*/
+
+        }
+        return;
     }
 
     @Override
-    public void attack(Player player) {
-        p = player;
+    public void attack() {
+
         Map.Entry<String, Integer> attacking_from = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
                 attackAggresively(attacking_from);
 
@@ -41,8 +70,10 @@ Player p;
 
                 if (defendList.size() > 0) {
                     String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
-                    Turns.turns.setDefenceplayer(attacking_on);
 
+                    Turns.turns.setDefenceplayer(attacking_on);
+                    int troops_defence = Turns.turns.getDefenceplayer().territories.get(attacking_on);
+                    if (troops_defence <=0)return ;
                     int max_troops = 1;
                     if (troops_in_attacking_territory >= 3)
                         max_troops = 3;
@@ -76,9 +107,12 @@ Player p;
                     t = t - troopsofdfc;
                     PlayerCollectionTest.players.get(f.getId() - 1).getTerritories().replace(attacking_on, t);
 
-                    if (t == 0) {
+                    if (t <= 0) {
                         PlayerCollectionTest.players.get(f.getId() - 1).getTerritories().remove(attacking_on);
-                        PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, current_troop);
+                        if(current_troop ==0)
+                            PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, 1);
+                        else
+                            PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_on, current_troop);
                     }
                     // attack_started = true;
                     List<Player> players = PlayerCollectionTest.players;
@@ -92,19 +126,47 @@ Player p;
                     attackAggresively(attacking_from);
                 }
                 else {
-                    fortify();
+                    //fortify();
+                    return;
                 }
             }
 
             else
             {
-                fortify();
+                //fortify();
+                return;
             }
         }
 
 
     @Override
-    public void fortify() {
-    //fortify logic
+    public boolean fortify() {
+        System.out.println("Aggressive Player Fortifying Phase");
+        Map.Entry<String, Integer> territoritory_with_second_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(Collectors.toList()).get(1);
+        List<String> neighboring_territories = LoadMap.board.getNeighbourTile(territoritory_with_second_highest_troops.getKey());
+        Iterator it = neighboring_territories.listIterator();
+        while (it.hasNext()) {
+            String country = (String) it.next();
+            if (!p.getTerritories().containsKey(country)) {
+                it.remove();
+            }
+        }
+        Optional<Map.Entry<String, Integer>> neighbor_with_highes_troops = p.territories.entrySet().stream().filter(x -> neighboring_territories.contains(x.getKey())).sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst();
+         if (!neighbor_with_highes_troops.equals(Optional.empty())) {
+             Map.Entry<String, Integer> neighbours = neighbor_with_highes_troops.get();
+             int troops = neighbours.getValue() - 1;
+             p.territories.replace(territoritory_with_second_highest_troops.getKey(), territoritory_with_second_highest_troops.getValue() + troops);
+             p.territories.replace(neighbours.getKey(), 1);
+         }
+        System.out.println("After Fortifying");
+        List<Player> players = PlayerCollectionTest.players;
+
+        for (Player p : players
+        ) {
+            System.out.println(p.getName());
+
+            System.out.println(p.getTerritories());
+        }
+        return  true;
     }
 }

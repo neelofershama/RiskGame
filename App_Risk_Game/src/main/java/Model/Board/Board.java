@@ -352,6 +352,7 @@ this.observers.remove(observer);
 	}
 
 	public void notifyObservers() {
+
 		notifyObserver(this);
 	}
 }

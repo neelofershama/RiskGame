@@ -20,6 +20,7 @@ public class CardsController implements Observer {
      */
     @Override
     public void update(App_Risk_Game.src.interfaces.Observable observable) {
+        LoadMap.LoadMapGlobalVariables.phaseComplete = true;
         List<String> territories = new ArrayList<>();
         Iterator iterator = ((Board)observable).getTiles().keySet().iterator();
         while (iterator.hasNext()){
