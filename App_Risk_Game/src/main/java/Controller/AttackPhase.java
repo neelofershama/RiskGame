@@ -246,8 +246,8 @@ if(attackToList.getValue() == null)
         int current_troop =troops_in_attacking_country-troopsofatk;
     PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
     Player f =Turns.turns.getDefenceplayer();
-    //System.out.println(f);
-   // System.out.println(Turns.turns.getDefenceplayerid());
+    System.out.println("Defence player"+f.getName());
+  System.out.println("Defence player id"+Turns.turns.getDefenceplayerid());
 
      int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(defence_country);
     t = t-troopsofdfc;

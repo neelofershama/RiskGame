@@ -97,7 +97,7 @@ public class GameScreenTest implements Initializable {
     Board board = LoadMap.board;
     public static int reinforceCount = 3;
     public Stage reinforceStage = new Stage();
-
+int rounds_completed=0;
 
 //    @FXML
 //    void attackButtonClicked(ActionEvent event) throws IOException {
@@ -143,6 +143,25 @@ public class GameScreenTest implements Initializable {
 
                 System.out.println(p.getTerritories());
             }
+
+//            Iterator it = PlayerCollectionTest.players.listIterator();
+//            while (it.hasNext())
+//            {
+//                Player p = (Player) it.next();
+//                if(p.getTerritories().size() <= 0) {
+//                    it.remove();
+//                    PlayerCollectionTest.updateTurn();
+//                    PlayerCollectionTest.goBackToGameScreen();
+//                }
+//            }
+//
+//            List<Player> players1 = PlayerCollectionTest.players;
+//            for (Player p:players1
+//            ) {
+//                System.out.println(p.getName());
+//
+//                System.out.println(p.getTerritories());
+//            }
             current_player = PlayerCollectionTest.getTurn();
             if(checkWinnerCondition()){
                 WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
@@ -154,6 +173,8 @@ else{
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
             submit.setVisible(true);
             start.setVisible(true);
+
+
 
             if (current_player.getType() != BehaviourStrategies.HumanPlayer)
             {
@@ -168,7 +189,6 @@ else{
                 System.out.println("AFTER START SINGLE GAME MODE");
                 current_player_name.setText(current_player.getName());
                 current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-
                     submit.setVisible(true);
                     start.setVisible(true);
 
@@ -212,21 +232,22 @@ else{
                PlayerCollectionTest.goBackToGameScreen();
             }
             else{
-                submit.setVisible(false);
-                start.setVisible(false);
-                current_player.reinforce();
-            current_player.attack();
-            is_winner = checkWinnerCondition();
-            current_player.fortify();
-                PlayerCollectionTest.updateTurn();
-               current_player = PlayerCollectionTest.getTurn();
-                current_player_name.setText(current_player.getName());
-                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-                 //current_player = PlayerCollectionTest.getTurn();
+                if(current_player.territories.size() >0) {
+                    submit.setVisible(false);
+                    start.setVisible(false);
+                    current_player.reinforce();
+                    current_player.attack();
+                    is_winner = checkWinnerCondition();
+                    current_player.fortify();
+                    PlayerCollectionTest.updateTurn();
+                    current_player = PlayerCollectionTest.getTurn();
+                    current_player_name.setText(current_player.getName());
+                    current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+                    //current_player = PlayerCollectionTest.getTurn();
 //                Stage stage = (Stage) root.getScene().getWindow();
 //                stage.close();
 
-
+                }
             }
 
 //        }
@@ -270,11 +291,17 @@ else{
 
 
     private boolean checkWinnerCondition() {
+        rounds_completed++;
         int total_territories_count = LoadMap.board.getTiles().keySet().size();
         int currentplayer_territories_count = current_player.territories.keySet().size();
-        if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1)
+        //if(getMapPercentage() >= 75)
+        double d = ((currentplayer_territories_count*100)/total_territories_count);
+        //if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1)
+        if(d >=75)
         return true;
         else
+            if(rounds_completed == 30)
+                return true;
             return false;
 
     }

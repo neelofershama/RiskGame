@@ -23,13 +23,17 @@ public class RandomPlayer implements PlayerBehaviour {
         HashMap<String, Integer> terr = player.getTerritories();
         System.out.println("territories : " + terr.toString());
         while (maxTroops != 0) {
-
             int troops = Common.generateRandomNumber(maxTroops);
             maxTroops = maxTroops - troops;
-            String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
-            String territory = keyArray[Common.generateRandomNumber(terr.size() - 1)];
-            player.setTerritory(territory, troops);
-
+            if (terr.size() != 0 && terr.size()!=1) {
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[Common.generateRandomNumber(terr.size() - 1)];
+                player.setTerritory(territory, troops);
+            } else if(terr.size()==1){
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[0];
+                player.setTerritory(territory, troops);
+            }
         }
         return;
 

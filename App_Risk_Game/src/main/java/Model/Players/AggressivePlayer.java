@@ -22,12 +22,17 @@ Player p;
         HashMap<String, Integer> terr = player.getTerritories();
         System.out.println("territories : " + terr.toString());
         while (maxTroops != 0) {
-
             int troops = Common.generateRandomNumber(maxTroops);
             maxTroops = maxTroops - troops;
-            String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
-            String territory = keyArray[Common.generateRandomNumber(terr.size() - 1)];
-            player.setTerritory(territory, troops);
+            if (terr.size() != 0 && terr.size()!=1) {
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[Common.generateRandomNumber(terr.size() - 1)];
+                player.setTerritory(territory, troops);
+            } else if(terr.size()==1){
+                String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
+                String territory = keyArray[0];
+                player.setTerritory(territory, troops);
+            }
 
         }
         return;
@@ -129,7 +134,7 @@ Player p;
     @Override
     public boolean fortify() {
         System.out.println("Aggressive Player Fortifying Phase");
-        Map.Entry<String, Integer> territoritory_with_second_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(Collectors.toList()).get(1);
+        Map.Entry<String, Integer> territoritory_with_second_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findAny().get();
         List<String> neighboring_territories = LoadMap.board.getNeighbourTile(territoritory_with_second_highest_troops.getKey());
         Iterator it = neighboring_territories.listIterator();
         while (it.hasNext()) {
