@@ -207,10 +207,12 @@ public class processTournament {
             System.out.println("Turn = " + i);
             player = PlayerCollectionTest.getTurn();
 
-            player.reinforce();
+            if (player.getTerritories().size() != 0)
+                player.reinforce();
 
             // ---- Depends on the strategy -------
-            player.attack();
+            if (player.getTerritories().size() != 0)
+                player.attack();
 
 //            List<String> removeTerr = new ArrayList<>();
 //            Iterator key = player.getTerritories().keySet().iterator();
@@ -228,17 +230,27 @@ public class processTournament {
 
             checkContinentsOwned();
 
-            player.fortify();
-
-            PlayerCollectionTest.updateTurn();
 
             // --------------------------- Winning check ------------------------------------------
-            if (player.getContinents_owned().size() == continents.size()) {
-                String winner = player.getName();
+
+            int total_territories_count = Tournament.board.getTiles().keySet().size();
+            int currentplayer_territories_count = player.territories.keySet().size();
+//            if (currentplayer_territories_count >= (total_territories_count / (PlayerCollectionTest.players.size())) + 1) {
+
+            double d = ((currentplayer_territories_count * 100) / total_territories_count);
+            if (d >= 75) {
+                String winner = player.getBehaviorType();
                 //----------------------------   Storing in scoreboard  -----------------------------------------
                 Tournament.scoreBoard[Tournament.row][Tournament.col] = winner;
                 break;
             }
+
+            if (player.getTerritories().size() != 0)
+                player.fortify();
+
+
+            PlayerCollectionTest.updateTurn();
+
         }
         System.out.println("player = " + player.getName() + " " + player.getContinents_owned());
         System.out.println("ROW= " + Tournament.row + "COLUMN = " + Tournament.col);
@@ -261,7 +273,7 @@ public class processTournament {
         Iterator c = continentsAndCountries.keySet().iterator();
         while (c.hasNext()) {
             String continent = c.next().toString();
-            if (countriesOwned.containsAll(continentsAndCountries.get(continent))  && !player.getContinents_owned().contains(continent))
+            if (countriesOwned.containsAll(continentsAndCountries.get(continent)) && !player.getContinents_owned().contains(continent))
                 player.getContinents_owned().add(continent);
         }
 
