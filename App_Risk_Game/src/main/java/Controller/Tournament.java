@@ -64,6 +64,7 @@ public class Tournament implements Initializable {
     public static int num_of_turns;
     static int num_of_maps;
     ArrayList<String> players;
+    ArrayList<String> player_names = new ArrayList<>();
     static String[][] scoreBoard;
     static int row = 1;
     static int col = 1;
@@ -191,7 +192,11 @@ public class Tournament implements Initializable {
 
         System.out.println(players.toString());
 
-        PlayerCollectionTest.createPlayers(num_of_players, players, players);
+        for(int k=1;k<=num_of_players; k++){
+            player_names.add("Player"+k);
+        }
+
+        PlayerCollectionTest.createPlayers(num_of_players, player_names, players);
 
         // --------------------------------------------------------------------
 

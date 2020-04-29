@@ -36,6 +36,7 @@ Player p;
                 player.setTerritory(territory, troops);
             }
 
+
             /*int troops = Common.generateRandomNumber(maxTroops);
             maxTroops = maxTroops - troops;
             String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
@@ -70,8 +71,11 @@ Player p;
 
                 if (defendList.size() > 0) {
                     String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
-
                     Turns.turns.setDefenceplayer(attacking_on);
+
+                    if(Turns.turns.getDefenceplayer().territories.get(attacking_on)==null)
+                        return;
+
                     int troops_defence = Turns.turns.getDefenceplayer().territories.get(attacking_on);
                     if (troops_defence <=0)return ;
                     int max_troops = 1;
