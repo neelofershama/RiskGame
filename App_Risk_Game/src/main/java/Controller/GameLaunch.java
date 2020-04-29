@@ -92,6 +92,13 @@ public class GameLaunch implements Initializable {
     public void loadGame() throws FileNotFoundException {
         System.out.println("Game Loaded");
         String file_name = "App_Risk_Game/src/main/java/Resources/game_data.txt";
+        File f = new File(file_name);
+        if(!f.exists()) {
+            Alert a = new Alert(Alert.AlertType.WARNING);
+            a.setContentText("OOPS YOU DON'T HAVE ANY SAVED DATA");
+            a.show();
+            return ;
+        }
         Scanner scanner = new Scanner(new File(file_name));
         if(!scanner.hasNextLine()){
             Alert a = new Alert(Alert.AlertType.WARNING);
