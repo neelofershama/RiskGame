@@ -1,0 +1,6 @@
+2
+1,a,RED,Human Player
+{AS2=4, NA4=1, NA3=1, NA5=5, NA2=2, NA1=3}
+2,b,GREEN,Aggressive Player
+{AT3=3, AS3=3, AS4=5, AT1=3, AT2=5, AS1=2}
+0
