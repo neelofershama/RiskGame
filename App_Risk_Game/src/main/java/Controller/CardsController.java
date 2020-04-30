@@ -142,7 +142,7 @@ public class CardsController implements Observer, Initializable {
 
             System.out.println(p.getTerritories());
         }
-        //cardsCollection.rebundleCards();
+        cardsCollection.rebundleCards();
         Turns.turns.setCurrentPlayerID(players.get(0).getId());
         Turns.turns.setCurrent_player(players.get(0));
     }
