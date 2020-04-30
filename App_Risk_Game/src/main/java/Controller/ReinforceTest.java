@@ -1,5 +1,6 @@
 package App_Risk_Game.src.main.java.Controller;
 
+import App_Risk_Game.src.main.java.Model.Cards.Card;
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
@@ -7,7 +8,10 @@ import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -15,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -42,11 +47,20 @@ public class ReinforceTest implements Initializable {
 
     private Player current_player;
     private HashMap<String, Integer> territories;
-    private int max_troop;
+    private static int max_troop = 0;
+
+    public static void setMaxTroop(int wildCardTroops){
+        max_troop = wildCardTroops;
+    }
+
+    public static int getMaxTroop(){
+        return max_troop;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        max_troop = 3;
+        max_troop += 3;
         current_player = PlayerCollectionTest.players.get(0);
         //current_player = PlayerCollectionTest.players.get(0); // Need to get current player turn from TURNS MODULE
         player_name.setText(current_player.getName());
@@ -81,6 +95,17 @@ public class ReinforceTest implements Initializable {
             troops.getItems().add(i);
         }
 
+    }
+
+    /**
+     * shows user all the cards acquired
+     *
+     * @param event
+     */
+    @FXML
+    public void onClickedShowMyCards(ActionEvent event) throws IOException {
+        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/showCards.fxml"));
+        CardsController.onDisplayCards(loadRoot, root);
     }
 
     public void onClicked(ActionEvent actionEvent) {

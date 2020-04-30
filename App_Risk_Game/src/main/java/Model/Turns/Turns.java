@@ -59,7 +59,7 @@ public class Turns {
                 break;
             }
         }
-System.out.println("defence player "+defenceplayer.getName());
+        System.out.println("defence player "+defenceplayer.getName());
     }
 
     Player defenceplayer;
@@ -72,7 +72,7 @@ System.out.println("defence player "+defenceplayer.getName());
     }
 
     Player current_player;
-public static Turns turns = new Turns();
+    public static Turns turns = new Turns();
     public boolean mapCreated() {
         return map_created;
     }

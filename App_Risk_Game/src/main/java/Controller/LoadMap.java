@@ -316,6 +316,7 @@ public class LoadMap implements Initializable, Observer {
 
     }
 
+    //this method can void instead of String for return data type
     /**
      * Method is used to write the map to a text file created by gamer.
      *
@@ -342,7 +343,8 @@ public class LoadMap implements Initializable, Observer {
             String country = i.next().toString();
             Tile country_details = map.get(country);
 
-            printWriter.write(country + "," + country_details.getXCoordinate() + "," + country_details.getYCoordinate() + "," + country_details.getContinent());
+            printWriter.write(country + "," + country_details.getXCoordinate() +
+                    "," + country_details.getYCoordinate() + "," + country_details.getContinent());
             for (int j = 0; j < board.getNeighbourTile(country).size(); j++) {
                 printWriter.write("," + board.getNeighbourTile(country).get(j));
             }
@@ -353,6 +355,7 @@ public class LoadMap implements Initializable, Observer {
         fileWriter.close();
         printWriter.close();
 
+        // if we make it void we can take off next flines and return statement too
         FileReader fir = new FileReader("Map.txt");
         BufferedReader bir = new BufferedReader(fir);
         String toReturn = bir.readLine();
@@ -370,6 +373,8 @@ public class LoadMap implements Initializable, Observer {
         // Initialize matrix
         int i = 1;
         matrix[0][0] = "";
+
+
         while (i <= tiles.keySet().size()) {
             if (tileList.hasNext()) {
                 String tileName = tileList.next();
@@ -423,6 +428,7 @@ public class LoadMap implements Initializable, Observer {
             String filePath = selectedFile.getAbsolutePath();
             System.out.println("File selected: " + filePath);
 
+            //we can just have return loadMap(filePath);
             boolean result = loadMap(filePath);
             return result;
 
@@ -547,6 +553,7 @@ public class LoadMap implements Initializable, Observer {
         static int i = 0;
         static public Boolean gsFlag = false;
         static public Boolean phaseComplete = false;
+        static public boolean endGame = false;
        // static Player current_player = PlayerCollection.players.get(0);
         //static Player current_player = PlayerCollectionTest.getTurn();
 static public boolean endgame = false;

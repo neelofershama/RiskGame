@@ -19,8 +19,8 @@ public class CardsCollectionTest
     CardsCollection cc= new CardsCollection(locations,value);
     List<Card> cards = new ArrayList<Card>();
     HashMap<String, List<Card>> playerDetails = new HashMap<String, List<Card>>();
-    public CardsTest()
-    { }
+    //public CardsTest()
+    //{ }
 
     @Before
     public void setup() throws Exception
@@ -36,8 +36,8 @@ public class CardsCollectionTest
          while (iterator.hasNext())
          {
            Card c = (Card) iterator.next();
-           loc.add(c.location);
-           val.add(c.value);
+           loc.add(c.getLocation());
+           val.add(c.getValue());
          }
 
     }
