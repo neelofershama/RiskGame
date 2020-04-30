@@ -239,7 +239,8 @@ public class processTournament {
 
             double d = ((currentplayer_territories_count * 100) / total_territories_count);
             if (d >= 75) {
-                String winner = player.getBehaviorType();
+                 String winner = player.getBehaviorType() +"-"+
+                            player.getName();
                 //----------------------------   Storing in scoreboard  -----------------------------------------
                 Tournament.scoreBoard[Tournament.row][Tournament.col] = winner;
                 break;

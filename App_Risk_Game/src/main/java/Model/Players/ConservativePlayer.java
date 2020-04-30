@@ -42,7 +42,9 @@ p =player;
     //Fortifcation phase-shows troops in each territory
     @Override
     public boolean fortify() {
+//        p = PlayerCollectionTest.getTurn();
         System.out.println("Conservative Fortify Phase");
+
         Map.Entry<String, Integer> territoritory_with_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
         List<String> neighboring_territories = LoadMap.board.getNeighbourTile(territoritory_with_highest_troops.getKey());
         Iterator it = neighboring_territories.listIterator();

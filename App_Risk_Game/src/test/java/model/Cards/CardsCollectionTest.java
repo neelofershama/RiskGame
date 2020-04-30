@@ -1,3 +1,100 @@
+package App_Risk_Game.src.test.java.model.Cards;
+
+import App_Risk_Game.src.main.java.Model.Cards.Card;
+import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
+import App_Risk_Game.src.main.java.Model.Players.Player;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.*;
+
+
+
+public class CardsCollectionTest
+{
+    List<String> locations = new ArrayList<String>();
+    int value=2;
+    Card card = new Card();
+    CardsCollection cc= new CardsCollection(locations,value);
+    List<Card> cards = new ArrayList<Card>();
+    HashMap<String, List<Card>> playerDetails = new HashMap<String, List<Card>>();
+    public CardsTest()
+    { }
+
+    @Before
+    public void setup() throws Exception
+    {
+         HashMap<String, List<Card>> playersCards = new HashMap<String, List<Card>>();
+         locations.add("America");
+         locations.add("India");
+         locations.add("Nepal");
+         cards = CardsCollection.cardCollection;
+         ListIterator<Card> iterator = cards.listIterator();
+         List<String> loc = new ArrayList<String>();
+         List<Integer> val = new ArrayList<Integer>();
+         while (iterator.hasNext())
+         {
+           Card c = (Card) iterator.next();
+           loc.add(c.location);
+           val.add(c.value);
+         }
+
+    }
+
+
+
+    @Test
+    public void distributeTest() throws Exception
+    {
+        locations.add("America");
+        locations.add("India");
+        locations.add("Nepal");
+        locations.add("Egypt");
+        locations.add("Sri Lanka");
+        locations.add("Japan");
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("abc",1));
+        players.add(new Player("xyz", 2));
+        players.add(new Player("pqr",3));
+        CardsCollection cc = new CardsCollection(locations, value);
+        cards = CardsCollection.cardCollection;
+        CardsCollection.distributeCards(players);
+        playerDetails = CardsCollection.playersCards;
+        Assert.assertNotNull(playerDetails);
+        Assert.assertEquals(playerDetails.get("abc").size(), locations.size() / players.size());
+        Assert.assertEquals(playerDetails.get("xyz").size(), locations.size() / players.size());
+        Assert.assertEquals(playerDetails.get("pqr").size(), locations.size() / players.size());
+
+
+    }
+    @Test
+    public void assignCardToPlayerTest()
+    {
+        locations.add("America");
+        locations.add("India");
+        locations.add("Nepal");
+        locations.add("Egypt");
+        locations.add("Sri Lanka");
+        locations.add("Japan");
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("abc",1));
+        players.add(new Player("xyz", 2));
+        players.add(new Player("pqr",3));
+        HashMap<String, List<Card>> newPlayer = new HashMap<String, List<Card>>();
+        CardsCollection cc = new CardsCollection(locations, value);
+        cards = CardsCollection.cardCollection;
+        Card newCard = CardsCollection.createCard("Connecticut", 2, "Infantry");
+        CardsCollection.assignCardToPlayer("New Player", newCard);
+        List<Card> pclist = new ArrayList<>();
+        pclist = CardsCollection.cardsOfPlayer("New Player");
+        Assert.assertTrue(pclist.contains(newCard));
+
+    }
+
+}
+
+
 //package App_Risk_Game.src.test.java.model.Cards;
 //
 //import App_Risk_Game.src.main.java.Model.Cards.Card;
