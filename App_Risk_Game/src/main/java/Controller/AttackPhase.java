@@ -180,10 +180,10 @@ ComboBox<Integer> troopstoattack;
         p  = PlayerCollectionTest.getTurn();
         current_player.setText(p.getName());
       
-        if(p.getType()== BehaviourStrategies.RandomPlayer){
-            p.attack();
-        }
-        else {
+//        if(p.getType()== BehaviourStrategies.RandomPlayer){
+//            p.attack();
+//        }
+       // else {
             //current_player.setText(Turns.turns.getCurrent_player());
             attackFromList.getItems().addAll(getAttackList());
             attackFromList.valueProperty().addListener(new ChangeListener<String>() {
@@ -201,7 +201,7 @@ ComboBox<Integer> troopstoattack;
                     onattackcountryselected(attacking_country);
                 }
             });
-        }
+        //}
     }
 
     /**
@@ -225,10 +225,10 @@ ComboBox<Integer> troopstoattack;
      */
     @FXML
     public void rolldice(MouseEvent mouseEvent) {
-if(attackToList.getValue() == null)
-{
-    defence_country = defendList.get(0);
-}
+        if(attackToList.getValue() == null)
+        {
+            defence_country = defendList.get(0);
+        }
         Dice dice = new Dice();
         int n=0;
         int m = troopstoattack.getValue();
@@ -239,13 +239,13 @@ if(attackToList.getValue() == null)
         List<Integer> troopslost = dice.rollDice(m,n);
         int troopsofatk = troopslost.get(0);
         int troopsofdfc = troopslost.get(1);
-    System.out.println("Troops lost by attack " + troopsofatk);
-    System.out.println("Troops lost by defence " + troopsofdfc);
+        System.out.println("Troops lost by attack " + troopsofatk);
+        System.out.println("Troops lost by defence " + troopsofdfc);
         int current_troop =troops_in_attacking_country-troopsofatk;
     PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
     Player f =Turns.turns.getDefenceplayer();
     //System.out.println(f);
-   // System.out.println(Turns.turns.getDefenceplayerid());
+    System.out.println(Turns.turns.getDefenceplayerid());
 
      int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(defence_country);
     t = t-troopsofdfc;
@@ -267,7 +267,7 @@ if(attackToList.getValue() == null)
         String dfdice = null;
         atkdice = dice.dice_value.toString();
         dfdice = dice.dice_value1.toString();
-atkrdice.setText(atkdice);
+        atkrdice.setText(atkdice);
         // getting sum of dice
         int attack_sum = 0;
         for(int i=0;i<dice.dice_value.size();i++){

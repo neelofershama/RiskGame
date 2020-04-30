@@ -53,7 +53,7 @@ public class ReinforceTest implements Initializable {
         max_troop = wildCardTroops;
     }
 
-    public int getMaxTroop(){
+    public static int getMaxTroop(){
         return max_troop;
     }
 

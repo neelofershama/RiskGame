@@ -100,7 +100,9 @@ public class CardsCollection implements Observable {
      */
     @FXML
     public static void displayCards(Parent loadRoot) throws IOException {
-        window.initModality(Modality.APPLICATION_MODAL);
+
+        //window.initModality(Modality.APPLICATION_MODAL);
+        window.isAlwaysOnTop();
         window.setTitle("Display Cards");
         loadMapScene = new Scene(loadRoot);
         window.setScene(loadMapScene);
@@ -113,23 +115,24 @@ public class CardsCollection implements Observable {
         List<Card> cards = playersCards.get(player.getName());
         ArrayList<String> imageSource = new ArrayList<String>();
         int[] index = new int[3];
+        int j=0;
         int totalTroopsGet = 0;
         boolean isInfantry = false;
         boolean isCavalry = false;
         boolean isArtillery = false;
         for (int i =0; i<cards.size();i++){
             if ("Infantry".equals(cards.get(i).getCardType()) && !isInfantry){
-                index[0] = i;
+                index[j++] = i;
                 isInfantry = true;
                 totalTroopsGet += cards.get(i).getValue();
             }
             else if("Cavalry".equals(cards.get(i).getCardType()) && !isCavalry){
-                index[1] = i;
+                index[j++] = i;
                 isCavalry = true;
                 totalTroopsGet += cards.get(i).getValue();
             }
             else if("Artillery".equals(cards.get(i).getCardType()) && !isArtillery){
-                index[2] = i;
+                index[j++] = i;
                 isArtillery = true;
                 totalTroopsGet += cards.get(i).getValue();
             }
@@ -139,11 +142,12 @@ public class CardsCollection implements Observable {
 
         if(isInfantry && isCavalry && isArtillery){
             for(int i =2; i>=0;i--){
+                System.out.println(index[i]);
                 playersCards.get(player.getName()).remove(index[i]);
             }
+            return totalTroopsGet;
         }
-        System.out.println(totalTroopsGet);
-        return totalTroopsGet;
+        return 0;
     }
 
     /**

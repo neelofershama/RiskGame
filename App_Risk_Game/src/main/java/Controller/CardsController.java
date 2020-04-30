@@ -43,6 +43,7 @@ public class CardsController implements Observer, Initializable {
     Player currentPlayer;
     HashMap<String, List<Card>> playersCards;
     static VBox displayRoot;
+    public int prevTroopsCount;
 
     /**
      * Initializes the controller class.
@@ -53,6 +54,7 @@ public class CardsController implements Observer, Initializable {
         playerNameLabel.setText(currentPlayer.getName());
         playerNameLabel.setTextFill(Color.web(currentPlayer.getColor()));
         playersCards = cardsCollection.getCardDetails();
+        prevTroopsCount = 0;
         addToListOfCards();
     }
 
@@ -70,17 +72,22 @@ public class CardsController implements Observer, Initializable {
         prevStage.close();
 
         cardsCollection.clickedBack();
-        ReinforceTest.setMaxTroop(troopsAssigned);
+        System.out.println("*****************" + Integer.toString(prevTroopsCount));
+        System.out.println("*****************" + Integer.toString(troopsAssigned));
+
+        if ((prevTroopsCount == 0) && (troopsAssigned != 0)){
+            ReinforceTest.setMaxTroop(troopsAssigned);
+        }
+        else{
+            ReinforceTest.setMaxTroop(prevTroopsCount+troopsAssigned);
+        }
+        prevTroopsCount += troopsAssigned;
         Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
         Scene loadReinforceScene = new Scene(reinforceRoot);
         Stage loadReinforceStage = new Stage();
         loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
         loadReinforceStage.setScene(loadReinforceScene);
         loadReinforceStage.show();
-
-
-        ReinforceTest.setMaxTroop(troopsAssigned);
-
     }
 
     public void onClickedBack(ActionEvent event) {
@@ -135,7 +142,7 @@ public class CardsController implements Observer, Initializable {
 
             System.out.println(p.getTerritories());
         }
-        cardsCollection.rebundleCards();
+        //cardsCollection.rebundleCards();
         Turns.turns.setCurrentPlayerID(players.get(0).getId());
         Turns.turns.setCurrent_player(players.get(0));
     }
