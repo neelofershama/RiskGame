@@ -1,0 +1,52 @@
+package Test.BoardModuleTest;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import Board.Board;
+
+import java.util.*;
+
+    public class BoardModuleTest {
+
+
+    /**
+     * Test the neighbor tiles are associated with the tile
+     */
+    @Test
+        public void neighborTile()
+        {
+            //Arrange
+            int width = 10;
+            int height = 10 ;
+            
+            ArrayList<String> tile_names = new ArrayList<String>();
+            tile_names.add("a");
+            tile_names.add("b");
+            tile_names.add("c");
+            tile_names.add("d");
+            tile_names.add("e");
+            tile_names.add("f");
+       
+            Board b = new Board(width, height);
+            for(int i=0; i<tile_names.size(); i++) {
+            	b.createTile(tile_names.get(i), i+1, i+1);
+            }
+            
+            ArrayList<String> neighbor_tile = new ArrayList<String>();
+            neighbor_tile.add("b");
+            neighbor_tile.add("c");
+            neighbor_tile.add("d");
+            b.setNeighbourTile(neighbor_tile, "a");
+            
+            //Act 
+            ArrayList<String> actual_neighbour_of_tile = (ArrayList<String>) b.getNeighbourTile("a");
+
+            //Assert
+            Assert.assertNotNull(actual_neighbour_of_tile);
+            Assert.assertEquals(neighbor_tile, actual_neighbour_of_tile);
+
+        }
+
+
+    }
