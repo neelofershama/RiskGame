@@ -52,6 +52,7 @@ public class FunctionalTests {
     while (iterator.hasNext()){
         String name = (String) iterator.next();
         territories.add(name);
+        System.out.println(name);
     }
     //CardsCollection cardsCollection = new CardsCollection(territories, 5);
 
@@ -59,7 +60,7 @@ public class FunctionalTests {
  = new ArrayList<>();
     player_names.add("p1");
     player_names.add("p2");
-//    player_names.add("p3");
+    player_names.add("p3");
     int no_of_players = 3;
     PlayerCollectionTest.createPlayers(no_of_players,player_names,new ArrayList<>());
     }

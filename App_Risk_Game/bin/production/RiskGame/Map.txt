@@ -1,0 +1,6 @@
+[Continents]
+Asia=2
+asia=2
+[Territories]
+pakistan,30,100,asia,india
+india,30,40,asia ,pakistan

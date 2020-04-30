@@ -139,10 +139,9 @@ public class CardsController implements Observer, Initializable {
         for (Player p:players
              ) {
             System.out.println(p.getName());
-
             System.out.println(p.getTerritories());
         }
-        //cardsCollection.rebundleCards();
+        cardsCollection.rebundleCards();
         Turns.turns.setCurrentPlayerID(players.get(0).getId());
         Turns.turns.setCurrent_player(players.get(0));
     }

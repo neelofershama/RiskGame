@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0fc4278b-708d-4a80-9f29-ce192793b21a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/App_Risk_Game.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameLaunch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameLaunch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Board/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Board/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Cards/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Cards/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Cards/CardsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Cards/CardsCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Game/properties.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Game/properties.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Players/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Players/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Score/Dice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Score/Dice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Score/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Score/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Turns/TurnPhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Turns/TurnPhase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Turns/Turns.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Turns/Turns.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Units/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Units/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Units/UnitType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Units/UnitType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameLaunch.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameLaunch.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameSetup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameSetup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/View/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/Cards/CardsCollectionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/Cards/CardsCollectionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/Player/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/Player/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/Units/UnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/Units/UnitTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XrsqqXEEVYJAlns0pqBn8EawuK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="View" />
+      <recent name="Controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="All in App_Risk_Game" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="App_Risk_Game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in App_Risk_Game" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0fc4278b-708d-4a80-9f29-ce192793b21a" name="Default Changelist" comment="" />
+      <created>1581815742000</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581815742000</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="339" y="127" key="#Project_Structure" timestamp="1581815965751">
+      <screen x="38" y="23" width="1402" height="877" />
+    </state>
+    <state x="339" y="127" key="#Project_Structure/38.23.1402.877@38.23.1402.877" timestamp="1581815965751" />
+    <state x="137" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586375877497">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1586375877497" />
+    <state x="463" y="108" key="FileChooserDialogImpl" timestamp="1586376005149">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="108" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1586376005149" />
+    <state x="213" y="22" key="Maven.ArtifactSearchDialog" timestamp="1586313524506">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="213" y="22" key="Maven.ArtifactSearchDialog/0.0.1366.728@0.0.1366.728" timestamp="1586313524506" />
+    <state x="351" y="162" key="NewModule_or_Project.wizard" timestamp="1581817524411">
+      <screen x="38" y="23" width="1402" height="877" />
+    </state>
+    <state x="351" y="162" key="NewModule_or_Project.wizard/38.23.1402.877@38.23.1402.877" timestamp="1581817524411" />
+    <state x="197" y="19" key="SettingsEditor" timestamp="1586375643795">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="197" y="19" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1586375643795" />
+    <state x="240" y="100" key="SettingsEditor/38.23.1402.877@38.23.1402.877" timestamp="1581817481558" />
+    <state x="416" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1581815745237">
+      <screen x="38" y="23" width="1402" height="877" />
+    </state>
+    <state x="416" y="294" key="com.intellij.ide.util.TipDialog/38.23.1402.877@38.23.1402.877" timestamp="1581815745237" />
+  </component>
+</project>
