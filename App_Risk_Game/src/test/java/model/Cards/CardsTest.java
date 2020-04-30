@@ -11,7 +11,7 @@ import java.util.*;
 
 
 
-public class CardsCollectionTest
+public class CardsTest
 {
     List<String> locations = new ArrayList<String>();
     int value=2;

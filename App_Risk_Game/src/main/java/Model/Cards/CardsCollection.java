@@ -12,7 +12,6 @@ import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.interfaces.*;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
-import com.sun.tools.internal.xjc.model.CNonElement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
