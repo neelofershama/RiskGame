@@ -91,7 +91,7 @@ public class GameLaunch implements Initializable {
     @FXML
     public void loadGame() throws FileNotFoundException {
         System.out.println("Game Loaded");
-        String file_name = "App_Risk_Game/src/main/java/Resources/game_data.txt";
+        String file_name = "App_Risk_Game/game_data.txt";
         File f = new File(file_name);
         if(!f.exists()) {
             Alert a = new Alert(Alert.AlertType.WARNING);
