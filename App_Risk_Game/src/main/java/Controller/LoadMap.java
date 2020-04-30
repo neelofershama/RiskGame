@@ -42,6 +42,7 @@ public class LoadMap implements Initializable, Observer {
      * Board initialised
      */
     public static Board board = new Board();
+    public static int rounds_completed =0;
 
     @FXML
     Button LoadFile;
@@ -589,6 +590,7 @@ static public boolean endgame = false;
 
             }
             System.out.println(gst.checkWinnerCondition(current_player));
+            rounds_completed++;
         }while(!gst.checkWinnerCondition(current_player) && current_player.getType() != BehaviourStrategies.HumanPlayer);
 
         System.out.println("Game ended");

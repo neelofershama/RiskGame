@@ -116,7 +116,7 @@ ComboBox<Integer> troopstoattack;
      */
     public void onattackcountryselected(String attacking_country){
         // defendList.clear();
-        troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country)-1;
+        troops_in_attacking_country =  p.territories.get(attacking_country)-1;
         //System.out.println(troopsinattackingcountry);
         if (troops_in_attacking_country > 1) {
             defendList = LoadMap.board.getNeighbourTile(attacking_country);
@@ -241,15 +241,15 @@ ComboBox<Integer> troopstoattack;
         int troopsofdfc = troopslost.get(1);
         System.out.println("Troops lost by attack " + troopsofatk);
         System.out.println("Troops lost by defence " + troopsofdfc);
-        int current_troop =troops_in_attacking_country-troopsofatk;
+        int current_troop =troops_in_attacking_country-troopsofatk+1;
     PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
     Player f =Turns.turns.getDefenceplayer();
     //System.out.println(f);
     System.out.println(Turns.turns.getDefenceplayerid());
 
-     int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(defence_country);
+     int t = f.getTerritories().get(defence_country);
     t = t-troopsofdfc;
-    PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().replace(defence_country,t);
+        PlayerCollectionTest.players.get(f.getId()-1).getTerritories().replace(defence_country,t);
 
        if (t == 0)
        {
@@ -257,7 +257,8 @@ ComboBox<Integer> troopstoattack;
            if(current_troop ==0)
                PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_country, 1);
            else
-               PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_country, current_troop);}
+               PlayerCollectionTest.players.get(p.getId() - 1).getTerritories().put(attacking_country, current_troop);
+       }
         for (Player p:players
         ) {
             System.out.println(p.getName());

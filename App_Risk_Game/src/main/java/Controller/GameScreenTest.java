@@ -39,6 +39,7 @@ import java.util.*;
 
 import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.endgame;
 import static App_Risk_Game.src.main.java.Controller.LoadMap.LoadMapGlobalVariables.game_started;
+import static App_Risk_Game.src.main.java.Controller.LoadMap.rounds_completed;
 
 public class GameScreenTest implements Initializable {
 
@@ -147,10 +148,18 @@ public class GameScreenTest implements Initializable {
             current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
             if(checkWinnerCondition(current_player)){
-                System.out.println("WINNER FOUND");
-                WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
-                WinnerText.setVisible(true);
-                System.out.println(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+                if (rounds_completed == 50)
+                {
+                    System.out.println("It's a draw game");
+                    WinnerText.setText("It's a draw game after 50 rounds");
+                    WinnerText.setVisible(true);
+                }
+                else {
+                    System.out.println("WINNER FOUND");
+                    WinnerText.setText(current_player.getName() + " (" + current_player.getType() + ") has won the game");
+                    WinnerText.setVisible(true);
+                    System.out.println(current_player.getName() + " (" + current_player.getType() + ") has won the game");
+                }
                 options.setVisible(false);
                 submit.setVisible(false);
                 start.setVisible(false);
@@ -205,61 +214,13 @@ public class GameScreenTest implements Initializable {
      *
      */
     public void startSingleGameMode() throws IOException, InterruptedException {
-
-
-        boolean is_winner=false;
-//        do {
+            boolean is_winner=false;
             current_player = PlayerCollectionTest.getTurn();
-//            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
-//                submit.setVisible(true);
-//                start.setVisible(true);
-//                current_player = PlayerCollectionTest.getTurn();
-//                current_player_name.setText(current_player.getName());
-//                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-//                if(checkWinnerCondition())
-//                    WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
-//               PlayerCollectionTest.goBackToGameScreen();
-//            }
-//            else{
-//                submit.setVisible(false);
-//                start.setVisible(false);
-                current_player.reinforce();
+            if (current_player.territories.size() !=0){
+            current_player.reinforce();
             current_player.attack();
-//            is_winner = checkWinnerCondition();
             current_player.fortify();
-            // PlayerCollectionTest.updateTurn();
-               //current_player = PlayerCollectionTest.getTurn();
-                //current_player_name.setText(current_player.getName());
-                //current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-                 //current_player = PlayerCollectionTest.getTurn();
-//                Stage stage = (Stage) root.getScene().getWindow();
-//                stage.close();
-
-
-            //}
-
-//        }
-//        while(!is_winner);
-//        if(checkWinnerCondition()){
-//            System.out.println(current_player);
-//            System.out.println(current_player.getName());
-//            System.out.println(current_player.getBehaviorType());
-////            WinnerText.setText(current_player.getName()+" ("+ current_player.getBehaviorType() +") has won the game");
-////            PlayerCollectionTest.goBackToGameScreen();
-//        }
-//        // PlayerCollectionTest.goBackToGameScreen();
-//        else{
-//            if(checkWinnerCondition()){
-//                LoadMap.playGame();
-//            }
-//            else{
-//                PlayerCollectionTest.updateTurn();
-//                LoadMap.playGame();
-//            }
-
-
-//        }
-       // return;
+            }
     }
 
 //    public void singleGameMode() throws IOException {
@@ -297,13 +258,17 @@ public class GameScreenTest implements Initializable {
     public boolean checkWinnerCondition(Player current_player) {
         int total_territories_count = LoadMap.board.getTiles().keySet().size();
         int currentplayer_territories_count = current_player.territories.keySet().size();
-        if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1) {
-            System.out.println(current_player.getName() + " has fucking won the game");
+        int d = (currentplayer_territories_count*100)/total_territories_count;
+//        if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1) {
+//            System.out.println(current_player.getName() + " has won the game");
+//            return true;
+//        }
+        if(d >= 75)
             return true;
-        }
         else
+            if (rounds_completed == 50)
+                return true;
             return false;
-
     }
 
     /**
