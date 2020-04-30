@@ -92,8 +92,10 @@ public class GameScreenTest implements Initializable {
     private Button attackButton;
 
 
-    //Player current_player;
 
+    //Player current_player;
+    // Used to disable start turn option from screen
+    static boolean start_turn;
     Board board = LoadMap.board;
     public static int reinforceCount = 3;
     public Stage reinforceStage = new Stage();
@@ -119,16 +121,20 @@ public class GameScreenTest implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+//
             options.setPromptText("CHOOSE");
             //options.getItems().addAll("STATISTICS","ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
             options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION");
-            LoadMap.board.notifyObservers();
+            // LoadMap.board.notifyObservers();
 
-            if (!LoadMap.LoadMapGlobalVariables.gsFlag)
+            if (start_turn) {
+                start.setVisible(true);
                 options.setVisible(false);
-
+                submit.setVisible(false);
+            }
             else {
                 options.setVisible(true);
+                submit.setVisible(true);
                 start.setVisible(false);
             }
             stack.getChildren().add(addtable(LoadMap.getMapMatrix(board.getTiles())));
@@ -136,57 +142,62 @@ public class GameScreenTest implements Initializable {
             // This is to show whose turn it is in the game
 
             //current_player = returnPlayerTurn();
-            List<Player> players = PlayerCollectionTest.players;
-            for (Player p:players
-            ) {
-                System.out.println(p.getName());
 
-                System.out.println(p.getTerritories());
-            }
             current_player = PlayerCollectionTest.getTurn();
-            if(checkWinnerCondition()){
-                WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
-            System.out.println(current_player.getName()+" ("+ current_player.getType() +") has won the game");}
-else{
-           System.out.println(current_player.getBehaviorType());
             Turns.turns.setCurrent_player(current_player);
             current_player_name.setText(current_player.getName());
+            current_player_name.setText(current_player.getName());
             current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-            submit.setVisible(true);
-            start.setVisible(true);
-
-            if (current_player.getType() != BehaviourStrategies.HumanPlayer)
-            {
+            if(checkWinnerCondition(current_player)){
+                System.out.println("WINNER FOUND");
+                WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+                WinnerText.setVisible(true);
+                System.out.println(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+                options.setVisible(false);
                 submit.setVisible(false);
                 start.setVisible(false);
-            }
-            // Making changes
-            if(!game_started || current_player.getType() != BehaviourStrategies.HumanPlayer){
-                startSingleGameMode();
-                if(current_player.getType() == BehaviourStrategies.HumanPlayer)
-                { current_player = PlayerCollectionTest.getTurn();
-                System.out.println("AFTER START SINGLE GAME MODE");
-                current_player_name.setText(current_player.getName());
-                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
 
-                    submit.setVisible(true);
-                    start.setVisible(true);
-
-                    PlayerCollectionTest.goBackToGameScreen();
             }
-                PlayerCollectionTest.goBackToGameScreen();}
-            if(current_player.getType() == BehaviourStrategies.HumanPlayer){
-
-                //PlayerCollectionTest.updateTurn();
-                current_player = PlayerCollectionTest.getTurn();
-                current_player_name.setText(current_player.getName());
-                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-                submit.setVisible(true);
-                start.setVisible(true);
-                System.out.println("TRUE");
-            }
-            WinnerText.setVisible(true);}
-        } catch (IOException | InterruptedException e) {
+//else{
+////           System.out.println(current_player.getBehaviorType());
+//            Turns.turns.setCurrent_player(current_player);
+//            current_player_name.setText(current_player.getName());
+//            current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+//            submit.setVisible(true);
+//            start.setVisible(true);
+//
+//            if (current_player.getType() != BehaviourStrategies.HumanPlayer)
+//            {
+//                submit.setVisible(false);
+//                start.setVisible(false);
+//            }
+//            // Making changes
+//            if(!game_started || current_player.getType() != BehaviourStrategies.HumanPlayer){
+//                startSingleGameMode();
+//                if(current_player.getType() == BehaviourStrategies.HumanPlayer)
+//                { current_player = PlayerCollectionTest.getTurn();
+//                System.out.println("AFTER START SINGLE GAME MODE");
+//                current_player_name.setText(current_player.getName());
+//                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+//
+//                    submit.setVisible(true);
+//                    start.setVisible(true);
+//
+//                    PlayerCollectionTest.goBackToGameScreen();
+//            }
+//                PlayerCollectionTest.goBackToGameScreen();}
+//            if(current_player.getType() == BehaviourStrategies.HumanPlayer){
+//
+//                //PlayerCollectionTest.updateTurn();
+//                current_player = PlayerCollectionTest.getTurn();
+//                current_player_name.setText(current_player.getName());
+//                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+//                submit.setVisible(true);
+//                start.setVisible(true);
+//                System.out.println("TRUE");
+//            }
+//            WinnerText.setVisible(true);}
+        } catch (IOException e) { //| InterruptedException e
             e.printStackTrace();
         }
         //layout.setAlignment(Pos.BASELINE_LEFT);
@@ -195,46 +206,62 @@ else{
     /**
      *
      */
-    private void startSingleGameMode() throws IOException, InterruptedException {
+    public void startSingleGameMode() throws IOException, InterruptedException {
 
-        game_started = true;
+
         boolean is_winner=false;
 //        do {
             current_player = PlayerCollectionTest.getTurn();
-            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
-                submit.setVisible(true);
-                start.setVisible(true);
-                current_player = PlayerCollectionTest.getTurn();
-                current_player_name.setText(current_player.getName());
-                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
-                if(checkWinnerCondition())
-                    WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
-               PlayerCollectionTest.goBackToGameScreen();
-            }
-            else{
-                submit.setVisible(false);
-                start.setVisible(false);
+//            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
+//                submit.setVisible(true);
+//                start.setVisible(true);
+//                current_player = PlayerCollectionTest.getTurn();
+//                current_player_name.setText(current_player.getName());
+//                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+//                if(checkWinnerCondition())
+//                    WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
+//               PlayerCollectionTest.goBackToGameScreen();
+//            }
+//            else{
+//                submit.setVisible(false);
+//                start.setVisible(false);
                 current_player.reinforce();
             current_player.attack();
-            is_winner = checkWinnerCondition();
+//            is_winner = checkWinnerCondition();
             current_player.fortify();
-                PlayerCollectionTest.updateTurn();
-               current_player = PlayerCollectionTest.getTurn();
-                current_player_name.setText(current_player.getName());
-                current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
+            // PlayerCollectionTest.updateTurn();
+               //current_player = PlayerCollectionTest.getTurn();
+                //current_player_name.setText(current_player.getName());
+                //current_player_name.setTextFill(javafx.scene.paint.Color.web(current_player.getColor()));
                  //current_player = PlayerCollectionTest.getTurn();
 //                Stage stage = (Stage) root.getScene().getWindow();
 //                stage.close();
 
 
-            }
+            //}
 
 //        }
 //        while(!is_winner);
-        if(checkWinnerCondition())
-            WinnerText.setText(current_player.getName()+" ("+ current_player.getType() +") has won the game");
-        // PlayerCollectionTest.goBackToGameScreen();
-        return;
+//        if(checkWinnerCondition()){
+//            System.out.println(current_player);
+//            System.out.println(current_player.getName());
+//            System.out.println(current_player.getBehaviorType());
+////            WinnerText.setText(current_player.getName()+" ("+ current_player.getBehaviorType() +") has won the game");
+////            PlayerCollectionTest.goBackToGameScreen();
+//        }
+//        // PlayerCollectionTest.goBackToGameScreen();
+//        else{
+//            if(checkWinnerCondition()){
+//                LoadMap.playGame();
+//            }
+//            else{
+//                PlayerCollectionTest.updateTurn();
+//                LoadMap.playGame();
+//            }
+
+
+//        }
+       // return;
     }
 
 //    public void singleGameMode() throws IOException {
@@ -269,11 +296,13 @@ else{
 //    }
 
 
-    private boolean checkWinnerCondition() {
+    public boolean checkWinnerCondition(Player current_player) {
         int total_territories_count = LoadMap.board.getTiles().keySet().size();
         int currentplayer_territories_count = current_player.territories.keySet().size();
-        if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1)
-        return true;
+        if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1) {
+            System.out.println(current_player.getName() + " has fucking won the game");
+            return true;
+        }
         else
             return false;
 
@@ -290,8 +319,8 @@ else{
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
       //  singleGameMode();
-reinforcementTest();
-        start.setVisible(false);
+        reinforcementTest();
+
     }
 
     public TableView addtable(String[][] a) throws IOException {

@@ -3,6 +3,7 @@ package App_Risk_Game.src.main.java.Controller;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 // import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -176,14 +177,14 @@ public class FortifyTest implements Initializable {
         submit.setOnAction(e -> {
             try {
                 dynamic(source_territory, to.getValue(), troops.getValue());
-            } catch (IOException ex) {
+            } catch (IOException | InterruptedException ex) {
                 ex.printStackTrace();
             }
         });
 
     }
 
-    void dynamic(String source, String dest, int qant) throws IOException {
+    void dynamic(String source, String dest, int qant) throws IOException, InterruptedException {
 //        GameScreenTest gameScreenTest = new GameScreenTest();
 //        List<Player> players = PlayerCollectionTest.players;
 //        Player player = players.get(0);
@@ -206,9 +207,25 @@ public class FortifyTest implements Initializable {
         System.out.println(current_player.getTerritories().toString());
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
-        PlayerCollectionTest.updateTurn();
-        PlayerCollectionTest.goBackToGameScreen();
+        GameScreenTest gst = new GameScreenTest();
+//        if(gst.checkWinnerCondition(current_player)){
+//            PlayerCollectionTest.goBackToGameScreen();
+//        }
+//        else{
+            PlayerCollectionTest.updateTurn();
+            LoadMap.playGame();
+        // }
 
+        //GameScreenTest gst = new GameScreenTest();
+//        if(gst.checkWinnerCondition()){
+//            PlayerCollectionTest.goBackToGameScreen();
+//        }
+//        else {
+//            PlayerCollectionTest.updateTurn();
+////        PlayerCollectionTest.goBackToGameScreen();
+//            // Multiple window
+//            LoadMap.playGame();
+//        }
     }
 
 

@@ -74,6 +74,10 @@ else {
                if (defendList.size() > 0) {
                    String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
                    Turns.turns.setDefenceplayer(attacking_on);
+                   
+                   if(Turns.turns.getDefenceplayer().territories.get(attacking_on)==null)
+                       return;
+
                    int troops_defence = Turns.turns.getDefenceplayer().territories.get(attacking_on);
                    if (troops_defence <=0)return ;
                    int max_troops = 1;

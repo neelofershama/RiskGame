@@ -36,6 +36,7 @@ Player p;
                 player.setTerritory(territory, troops);
             }
 
+
             /*int troops = Common.generateRandomNumber(maxTroops);
             maxTroops = maxTroops - troops;
             String[] keyArray = terr.keySet().toArray(new String[terr.size()]);
@@ -48,6 +49,7 @@ Player p;
 
     @Override
     public void attack() {
+//        p = PlayerCollectionTest.getTurn();
 
         Map.Entry<String, Integer> attacking_from = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
                 attackAggresively(attacking_from);
@@ -55,6 +57,7 @@ Player p;
     }
 
     private void attackAggresively(Map.Entry<String, Integer> attacking_from) {
+             p = PlayerCollectionTest.getTurn();
             //aggressive play
             System.out.println("Attacking from territory "+attacking_from.getKey());
             int troops_in_attacking_territory = attacking_from.getValue()-1;
@@ -70,8 +73,11 @@ Player p;
 
                 if (defendList.size() > 0) {
                     String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
-
                     Turns.turns.setDefenceplayer(attacking_on);
+
+                    if(Turns.turns.getDefenceplayer().territories.get(attacking_on)==null)
+                        return;
+
                     int troops_defence = Turns.turns.getDefenceplayer().territories.get(attacking_on);
                     if (troops_defence <=0)return ;
                     int max_troops = 1;

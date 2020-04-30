@@ -114,6 +114,13 @@ public static PlayerCollectionTest playerCollectionTest = new PlayerCollectionTe
 
     public static void goBackToGameScreen() {
         try {
+            Parent loadRoot = FXMLLoader.load(PlayerCollectionTest.class.getResource("/App_Risk_Game/src/main/java/View/LoadMap.fxml"));
+
+//            Scene loadMapScene = new Scene(loadRoot);
+//            Stage loadMapStage = new Stage();
+//            loadMapStage.setTitle("Map Loaded");
+//            loadMapStage.setScene(loadMapScene);
+//            loadMapStage.show();
 
             Parent RootLoad = FXMLLoader.load(PlayerCollectionTest.class.getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
             Scene loadAttackScene = new Scene(RootLoad);

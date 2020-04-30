@@ -2,6 +2,7 @@ package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 import javafx.event.ActionEvent;
@@ -107,6 +108,7 @@ public class ReinforceTest implements Initializable {
             GameScreenTest gameScreen = new GameScreenTest();
             LoadMap.LoadMapGlobalVariables.gsFlag = true;
             LoadMap.LoadMapGlobalVariables.phaseComplete = true;
+            GameScreenTest.start_turn = false;
             PlayerCollectionTest.goBackToGameScreen();
         }
     }
