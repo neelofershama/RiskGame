@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,14 +44,12 @@ public class CardsCollection implements Observable {
     public static int remainingCardsCount = 0;
     public static List<Card> remainingCards;
     public static Stack<Card> cardStack;
-    public static Label playerNameLabel;
-    public static ComboBox listOfCards;
     public static Stage window;
     public static Scene loadMapScene;
     List<Observer> observers = new ArrayList<>();
 
 
-    public CardsCollection(List<String> loc, int ub, Label playerNameLabel, ComboBox listOfCards){
+    public CardsCollection(List<String> loc, int ub){
         locations = loc;
         noOfLocations = locations.size();
         cardCollection = new ArrayList<Card>();
@@ -59,8 +58,6 @@ public class CardsCollection implements Observable {
         cardStack = new Stack<>();
         window = new Stage();
         System.out.println("------------------------enterd");
-        this.playerNameLabel = playerNameLabel;
-        this.listOfCards = listOfCards;
         initializeCards(ub);
     }
 
@@ -110,7 +107,7 @@ public class CardsCollection implements Observable {
         window.show();
     }
 
-    public void redeemCards() {
+    public int redeemCards() {
         System.out.println("entered !!");
         Player player = PlayerCollectionTest.getTurn();
         List<Card> cards = playersCards.get(player.getName());
@@ -146,7 +143,7 @@ public class CardsCollection implements Observable {
             }
         }
         System.out.println(totalTroopsGet);
-        ReinforceTest.setMaxTroop(totalTroopsGet);
+        return totalTroopsGet;
     }
 
     /**
@@ -207,6 +204,7 @@ public class CardsCollection implements Observable {
     public static Card pickCard() {
         Card c = cardStack.peek();
         if (c.getCardType() == "ceaseFire"){
+            System.out.println(".....................................................entered");
             LoadMap.LoadMapGlobalVariables.endGame = true;
         }
         return c;

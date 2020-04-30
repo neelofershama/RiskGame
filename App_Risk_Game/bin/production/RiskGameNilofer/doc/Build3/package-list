@@ -1,0 +1,15 @@
+
+App_Risk_Game.src.interfaces
+App_Risk_Game.src.main.java.Common
+App_Risk_Game.src.main.java.Controller
+App_Risk_Game.src.main.java.Model.Board
+App_Risk_Game.src.main.java.Model.Cards
+App_Risk_Game.src.main.java.Model.Players
+App_Risk_Game.src.main.java.Model.Score
+App_Risk_Game.src.main.java.Model.Turns
+App_Risk_Game.src.main.java.Model.Units
+App_Risk_Game.src.test.java.model
+App_Risk_Game.src.test.java.model.Board
+App_Risk_Game.src.test.java.model.Dice
+App_Risk_Game.src.test.java.model.Units
+UI.src.main

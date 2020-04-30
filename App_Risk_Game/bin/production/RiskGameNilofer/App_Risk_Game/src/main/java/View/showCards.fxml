@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.CardsController">
+<VBox id="root" fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.CardsController">
     <children>
         <ImageView fitHeight="150.0" fitWidth="596.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
             <image>

@@ -9,12 +9,14 @@ import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -34,9 +36,13 @@ public class CardsController implements Observer, Initializable {
     @FXML
     public ComboBox listOfCards;
 
+    @FXML
+    VBox root;
+
     public static CardsCollection cardsCollection;
     Player currentPlayer;
     HashMap<String, List<Card>> playersCards;
+    static VBox displayRoot;
 
     /**
      * Initializes the controller class.
@@ -48,12 +54,33 @@ public class CardsController implements Observer, Initializable {
         playerNameLabel.setTextFill(Color.web(currentPlayer.getColor()));
         playersCards = cardsCollection.getCardDetails();
         addToListOfCards();
-
-//        listOfCards.getItems().addAll(new ArrayList<String>());
     }
 
-    public void onClickedRedeemCards(ActionEvent event) {
-        cardsCollection.redeemCards();
+    public static void onDisplayCards(Parent loadRoot, VBox tempRoot) throws IOException {
+        displayRoot = tempRoot;
+        cardsCollection.displayCards(loadRoot);
+
+    }
+
+    public void onClickedRedeemCards(ActionEvent event) throws IOException {
+        int troopsAssigned = cardsCollection.redeemCards();
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.close();
+        Stage prevStage = (Stage) displayRoot.getScene().getWindow();
+        prevStage.close();
+
+        cardsCollection.clickedBack();
+        ReinforceTest.setMaxTroop(troopsAssigned);
+        Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
+        Scene loadReinforceScene = new Scene(reinforceRoot);
+        Stage loadReinforceStage = new Stage();
+        loadReinforceStage.setTitle("REINFORCEMENT PHASE LOADED");
+        loadReinforceStage.setScene(loadReinforceScene);
+        loadReinforceStage.show();
+
+
+        ReinforceTest.setMaxTroop(troopsAssigned);
+
     }
 
     public void onClickedBack(ActionEvent event) {
@@ -99,7 +126,7 @@ public class CardsController implements Observer, Initializable {
             String name = (String) iterator.next();
             territories.add(name);
         }
-        cardsCollection = new CardsCollection(territories, 5, playerNameLabel, listOfCards);
+        cardsCollection = new CardsCollection(territories, 5);
         List<Player> players = PlayerCollectionTest.players;
         CardsCollection.distributeCards(players);
         for (Player p:players
@@ -108,7 +135,7 @@ public class CardsController implements Observer, Initializable {
 
             System.out.println(p.getTerritories());
         }
-        //cardsCollection.rebundleCards();
+        cardsCollection.rebundleCards();
         Turns.turns.setCurrentPlayerID(players.get(0).getId());
         Turns.turns.setCurrent_player(players.get(0));
     }

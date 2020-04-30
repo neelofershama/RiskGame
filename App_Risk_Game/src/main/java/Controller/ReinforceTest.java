@@ -46,10 +46,10 @@ public class ReinforceTest implements Initializable {
 
     private Player current_player;
     private HashMap<String, Integer> territories;
-    private static int max_troop;
+    private static int max_troop = 0;
 
     public static void setMaxTroop(int wildCardTroops){
-        max_troop += wildCardTroops;
+        max_troop = wildCardTroops;
     }
 
     public int getMaxTroop(){
@@ -59,7 +59,7 @@ public class ReinforceTest implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        max_troop = 3;
+        max_troop += 3;
         current_player = PlayerCollectionTest.players.get(0);
         //current_player = PlayerCollectionTest.players.get(0); // Need to get current player turn from TURNS MODULE
         player_name.setText(current_player.getName());
@@ -104,7 +104,7 @@ public class ReinforceTest implements Initializable {
     @FXML
     public void onClickedShowMyCards(ActionEvent event) throws IOException {
         Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/showCards.fxml"));
-        CardsCollection.displayCards(loadRoot);
+        CardsController.onDisplayCards(loadRoot, root);
     }
 
     public void onClicked(ActionEvent actionEvent) {

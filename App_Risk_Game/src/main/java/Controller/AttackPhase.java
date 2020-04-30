@@ -117,40 +117,38 @@ ComboBox<Integer> troopstoattack;
     public void onattackcountryselected(String attacking_country){
         // defendList.clear();
         troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country)-1;
-    //System.out.println(troopsinattackingcountry);
-    if (troops_in_attacking_country > 1) {
-        defendList = LoadMap.board.getNeighbourTile(attacking_country);
-        System.out.println(defendList);
-        Iterator it = defendList.listIterator();
-        while (it.hasNext()) {
-            String country = (String) it.next();
-            if (p.getTerritories().containsKey(country)) {
-                it.remove();
+        //System.out.println(troopsinattackingcountry);
+        if (troops_in_attacking_country > 1) {
+            defendList = LoadMap.board.getNeighbourTile(attacking_country);
+            System.out.println(defendList);
+            Iterator it = defendList.listIterator();
+            while (it.hasNext()) {
+                String country = (String) it.next();
+                if (p.getTerritories().containsKey(country)) {
+                    it.remove();
+                }
             }
-        }
-        attackToList.getItems().addAll(defendList);
+            attackToList.getItems().addAll(defendList);
 //        attackToList.getSelectionModel().selectFirst();
 
+            int max_troops =0;
+            if(troops_in_attacking_country >3)
+                max_troops =3;
+            else if(troops_in_attacking_country == 3)
+                max_troops =2;
+            else if (troops_in_attacking_country == 2)
+                max_troops =1;
+                for (int i = 1; i <= max_troops; i++) {
+                    nooftroops.add(i);
+            }
+            troopstoattack.getItems().addAll(nooftroops);
+            //System.out.println(troopstoattack.getValue());
 
-
-        int max_troops =0;
-        if(troops_in_attacking_country >3)
-            max_troops =3;
-        else if(troops_in_attacking_country == 3)
-            max_troops =2;
-        else if (troops_in_attacking_country == 2)
-            max_troops =1;
-        for (int i = 1; i <= max_troops; i++) {
-            nooftroops.add(i);
+         }
+        else{
+           showWarning();
         }
-        troopstoattack.getItems().addAll(nooftroops);
-        //System.out.println(troopstoattack.getValue());
-
-     }
-    else{
-       showWarning();
     }
-}
 
     /**
      * Showing warning if country selected to attack from has only one 1 troop
@@ -182,28 +180,28 @@ ComboBox<Integer> troopstoattack;
         p  = PlayerCollectionTest.getTurn();
         current_player.setText(p.getName());
       
-if(p.getType()== BehaviourStrategies.RandomPlayer){
-    p.attack();
-}
-else {
-    //current_player.setText(Turns.turns.getCurrent_player());
-    attackFromList.getItems().addAll(getAttackList());
-    attackFromList.valueProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            //TODO
-            //incase of attack can be done from only one country at a time
-            if (oldValue == null || warning_given) {
-                attacking_country = newValue;
-                warning_given = false;
-            } else
-                attacking_country = oldValue;
-            //attacking_country = newValue;
-            System.out.println("Atacking from " + attacking_country);
-            onattackcountryselected(attacking_country);
+        if(p.getType()== BehaviourStrategies.RandomPlayer){
+            p.attack();
         }
-    });
-}
+        else {
+            //current_player.setText(Turns.turns.getCurrent_player());
+            attackFromList.getItems().addAll(getAttackList());
+            attackFromList.valueProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    //TODO
+                    //incase of attack can be done from only one country at a time
+                    if (oldValue == null || warning_given) {
+                        attacking_country = newValue;
+                        warning_given = false;
+                    } else
+                        attacking_country = oldValue;
+                    //attacking_country = newValue;
+                    System.out.println("Atacking from " + attacking_country);
+                    onattackcountryselected(attacking_country);
+                }
+            });
+        }
     }
 
     /**

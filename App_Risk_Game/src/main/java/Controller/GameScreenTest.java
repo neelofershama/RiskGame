@@ -274,7 +274,7 @@ else{
         int total_territories_count = LoadMap.board.getTiles().keySet().size();
         int currentplayer_territories_count = current_player.territories.keySet().size();
         if(currentplayer_territories_count >= (total_territories_count/(PlayerCollectionTest.players.size()))+1)
-        return true;
+            return true;
         else
             return false;
 
