@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="App_Risk_Game.src.main.java.Controller.LoadMap">
+   <children>
+      <TextField fx:id="no_of_continents" layoutX="52.0" layoutY="38.0" text="enter the no of continents" />
+      <Button fx:id="submit_1" layoutX="225.0" layoutY="38.0" mnemonicParsing="false" onAction="#createMap" text="Submit" />
+   </children>
+
+</Pane>

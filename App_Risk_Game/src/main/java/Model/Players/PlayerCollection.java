@@ -8,6 +8,7 @@ import App_Risk_Game.src.main.java.Model.Cards.Card;
 import App_Risk_Game.src.main.java.Model.Cards.CardsCollection;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -82,7 +83,7 @@ public class PlayerCollection implements Observable {
     }
 
     @Override
-    public void notifyObserver(Observable observable) {
+    public void notifyObserver(Observable observable) throws IOException {
         for (Observer o:observers
              ) {
             o.update(observable);

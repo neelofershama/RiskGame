@@ -5,34 +5,50 @@ package App_Risk_Game.src.main.java.Model.Cards;
 import App_Risk_Game.src.interfaces.Observable;
 import App_Risk_Game.src.interfaces.Observer;
 import App_Risk_Game.src.main.java.Controller.LoadMap;
+import App_Risk_Game.src.main.java.Controller.ReinforceTest;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Cards.*;
 import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.interfaces.*;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
+import com.sun.tools.internal.xjc.model.CNonElement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 /**
  * The Cards Collection performs all the operations related to Cards
  */
 public class CardsCollection implements Observable {
-    public static int noOfLocations;
-    public static List<String> locations;
+
+    static int noOfLocations;
+    static List<String> locations;
     public static List<Card> cardCollection;
     public static HashMap<String, List<Card>> playersCards;
     public static int remainingCardsCount = 0;
     public static List<Card> remainingCards;
     public static Stack<Card> cardStack;
+    public static Stage window;
+    public static Scene loadMapScene;
     List<Observer> observers = new ArrayList<>();
+
+
     public CardsCollection(List<String> loc, int ub){
         locations = loc;
         noOfLocations = locations.size();
@@ -40,6 +56,8 @@ public class CardsCollection implements Observable {
         playersCards = new HashMap<String, List<Card>>();
         remainingCards = new ArrayList<>();
         cardStack = new Stack<>();
+        window = new Stage();
+        System.out.println("------------------------enterd");
         initializeCards(ub);
     }
 
@@ -51,7 +69,7 @@ public class CardsCollection implements Observable {
         Collections.shuffle(locations);
         Random r = new Random();
         Card card = null;
-        //Todo: seting the card types
+        //Todo: set card types properly
         String[] cardType = {"Infantry", "Cavalry", "Artillery"};
         for (int i = 0; i < noOfLocations; i++) {
             int ub = maxValue;
@@ -59,75 +77,77 @@ public class CardsCollection implements Observable {
             card = new Card();
             card.setLocation(locations.get(i));
             //generates random value between zero and maxValue
-            int randomValue = (int) Math.random()*maxValue + 1;
+            int randomValue = (int) (Math.random() * maxValue) + 1;
+            System.out.println(randomValue);
             card.setValue(randomValue); //r.nextInt(ub - lb) + lb;
             card.setCardType(cardType[i%3]);
             cardCollection.add(card);
-//            System.out.println("1"card);
         }
         // Adding wild card to the cards deck and shuffling the cards
-        cardCollection.add(createCard(" ", 0," "));
         Collections.shuffle(cardCollection);
+    }
+
+    public HashMap<String, List<Card>>getCardDetails(){
+        return playersCards;
+    }
+
+    public void clickedBack(){
+        window.close();
     }
 
     /**
      * shows user all the cards acquired
-     *
-     * @param event
      */
     @FXML
-    public void displayCards(ActionEvent event) throws IOException {
-        Player player = PlayerCollectionTest.getTurn();
-        List<Card> cards = playersCards.get(player.getName());
-        ArrayList<String> imageSource = new ArrayList<String>();
-        for (Card c: cards){
-            //Todo: update code for displaying cards
-            //imageSource.add(c.getCardImagePath());
-        }
-        Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/showCards.fxml"));
-        Scene loadMapScene = new Scene(loadRoot);
-        Stage loadMapStage = new Stage();
-        loadMapStage.setTitle("Players Cards");
-        loadMapStage.setScene(loadMapScene);
-        loadMapStage.show();
+    public static void displayCards(Parent loadRoot) throws IOException {
+
+        //window.initModality(Modality.APPLICATION_MODAL);
+        window.isAlwaysOnTop();
+        window.setTitle("Display Cards");
+        loadMapScene = new Scene(loadRoot);
+        window.setScene(loadMapScene);
+        window.show();
     }
 
-    public void onClickedRedeemCards() {
+    public int redeemCards() {
         System.out.println("entered !!");
         Player player = PlayerCollectionTest.getTurn();
         List<Card> cards = playersCards.get(player.getName());
         ArrayList<String> imageSource = new ArrayList<String>();
         int[] index = new int[3];
+        int j=0;
         int totalTroopsGet = 0;
-        //Todo: change boolean names according to cardtypes
         boolean isInfantry = false;
         boolean isCavalry = false;
         boolean isArtillery = false;
         for (int i =0; i<cards.size();i++){
             if ("Infantry".equals(cards.get(i).getCardType()) && !isInfantry){
-                index[0] = i;
+                index[j++] = i;
                 isInfantry = true;
+                totalTroopsGet += cards.get(i).getValue();
             }
             else if("Cavalry".equals(cards.get(i).getCardType()) && !isCavalry){
-                index[1] = i;
+                index[j++] = i;
                 isCavalry = true;
+                totalTroopsGet += cards.get(i).getValue();
             }
             else if("Artillery".equals(cards.get(i).getCardType()) && !isArtillery){
-                index[2] = i;
+                index[j++] = i;
                 isArtillery = true;
+                totalTroopsGet += cards.get(i).getValue();
             }
             else{
-                continue;
             }
-            totalTroopsGet += cards.get(i).getValue();
         }
 
         if(isInfantry && isCavalry && isArtillery){
-            for(int i =0; i<index.length;i++){
+            for(int i =2; i>=0;i--){
+                System.out.println(index[i]);
                 playersCards.get(player.getName()).remove(index[i]);
             }
+            return totalTroopsGet;
         }
-
+        return 0;
     }
 
     /**
@@ -158,7 +178,6 @@ public class CardsCollection implements Observable {
             }
             for (int i = 0; i < remainingCards.size(); i++)
            {
-//               System.out.println(playersCards.get(players.get(--noofplayers).getName()).add(cardCollection.get(y)));
              playersCards.get(players.get(--noofplayers).getName()).add(cardCollection.get(y));
              y++;
             }
@@ -182,11 +201,16 @@ public class CardsCollection implements Observable {
         playersCards.clear();
         remainingCards.clear();
         remainingCardsCount = 0;
+        cardCollection.add(createCard("None", -1, "ceaseFire"));
         cardStack.addAll(cardCollection);
     }
 
     public static Card pickCard() {
         Card c = cardStack.peek();
+        if (c.getCardType() == "ceaseFire"){
+            System.out.println(".....................................................entered");
+            LoadMap.LoadMapGlobalVariables.endGame = true;
+        }
         return c;
     }
 
@@ -213,7 +237,6 @@ public class CardsCollection implements Observable {
     public static void assignCardToPlayer(String p, Card c) {
         List<Card> l = new ArrayList();
         l.add(c);
-
         playersCards.put(p, l);
     }
 
@@ -237,10 +260,11 @@ public class CardsCollection implements Observable {
     }
 
     @Override
-    public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) {
+    public void notifyObserver(App_Risk_Game.src.interfaces.Observable observable) throws IOException {
         for (App_Risk_Game.src.interfaces.Observer o:observers
         ) {
             o.update(observable);
         }
     }
+
 }

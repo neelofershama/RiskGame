@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.GameScreen">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <children>
+                <VBox nodeOrientation="LEFT_TO_RIGHT" style="-fx-max-height: 500; -fx-max-width: 500;">
+                    <children>
+                        <StackPane fx:id="root">
+                            <children>
+                                <VBox fx:id="layout" alignment="BASELINE_LEFT" />
+                            </children>
+                        </StackPane>
+                        <HBox fx:id="playerdetails" alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <children>
+                <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label text="Player Details" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="CENTER" text="Attack from" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin></Label>
+                                <ComboBox prefWidth="150.0" promptText="Select" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <Label text="Attack On" wrapText="true" />
+                                <ComboBox prefWidth="150.0" promptText="Select" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <Label text="Troops" wrapText="true" />
+                                <ComboBox prefWidth="150.0" promptText="Select" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                            <children>
+                                <Button mnemonicParsing="false" prefHeight="5.0" prefWidth="38.0" text="Roll" />
+                                <Button mnemonicParsing="false" text="Cards" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </items>
+</SplitPane>

@@ -92,7 +92,6 @@ public class GameScreenTest implements Initializable {
     private Button attackButton;
 
 
-
     //Player current_player;
     // Used to disable start turn option from screen
     static boolean start_turn;
@@ -121,7 +120,6 @@ public class GameScreenTest implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-//
             options.setPromptText("CHOOSE");
             //options.getItems().addAll("STATISTICS","ATTACK", "FORTIFICATION", "SKIP", "REINFORCEMENT");
             options.getItems().addAll("STATISTICS", "ATTACK", "FORTIFICATION");

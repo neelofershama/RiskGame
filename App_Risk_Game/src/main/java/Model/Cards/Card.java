@@ -2,8 +2,8 @@ package App_Risk_Game.src.main.java.Model.Cards;
 
 public class Card {
 
-    public int value;
-    public String location;
+    private int value;
+    private String location;
     private String cardType;
 
     public void setValue(int val){

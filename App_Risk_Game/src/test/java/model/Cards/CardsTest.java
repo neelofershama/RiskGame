@@ -11,7 +11,7 @@ import java.util.*;
 
 
 
-public class CardsTest
+public class CardsCollectionTest
 {
     List<String> locations = new ArrayList<String>();
     int value=2;
@@ -19,8 +19,8 @@ public class CardsTest
     CardsCollection cc= new CardsCollection(locations,value);
     List<Card> cards = new ArrayList<Card>();
     HashMap<String, List<Card>> playerDetails = new HashMap<String, List<Card>>();
-    public CardsTest()
-    { }
+    //public CardsTest()
+    //{ }
 
     @Before
     public void setup() throws Exception
@@ -36,8 +36,8 @@ public class CardsTest
          while (iterator.hasNext())
          {
            Card c = (Card) iterator.next();
-           loc.add(c.location);
-           val.add(c.value);
+           loc.add(c.getLocation());
+           val.add(c.getValue());
          }
 
     }

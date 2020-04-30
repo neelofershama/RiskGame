@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="reinforcePane2" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.ReinforcePhase">
+    <children>
+
+        <TextField fx:id="reinforce_destination" alignment="CENTER" layoutX="368.0" layoutY="44.0"  prefHeight="25.0" prefWidth="160.0" text="Enter Territory" GridPane.rowIndex="5" />
+        <TextField fx:id="no_troops" alignment="CENTER" layoutX="350.0" layoutY="44.0"  prefHeight="25.0" prefWidth="160.0" text="Enter troops" GridPane.rowIndex="7" />
+        <Button fx:id="submit_troops" layoutX="375.0" layoutY="101.0" mnemonicParsing="false" text="submit" onAction="#submit_troops" GridPane.rowIndex="9"  />
+        <Label fx:id="reinforce_troops" alignment="CENTER" prefHeight="17.0" prefWidth="376.0" text="Label" GridPane.rowIndex="4" />
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

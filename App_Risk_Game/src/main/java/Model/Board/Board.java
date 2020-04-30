@@ -8,6 +8,7 @@ import App_Risk_Game.src.main.java.Model.Players.Player;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Units.Unit;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -216,11 +217,14 @@ public class Board  implements Observable {
 	 * @param tile_name
 	 * Associates a list of neighboring tiles to the tile
 	 */
-	public void setNeighbourTile(List<String> neighbour_tile, String tile_name){
+	public void setNeighbourTile(List<String> neighbour_tile, String tile_name) {
 		List<Tile> tile_list = new ArrayList<Tile>(); //Tile Neighbors
 		List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update
-		Tile tile = tiles.get(tile_name);
-		System.out.println(tile);
+		Tile tile = null;
+		if(tiles.containsKey(tile_name)) {
+			tile = tiles.get(tile_name);
+		}
+		//little clumpsy we have to explain what is exactly being done
 		for(int i=0; i<neighbour_tile.size(); i++) {
 			Tile t = tiles.get(neighbour_tile.get(i));
 			t_list.add(tiles.get(tile_name));
@@ -344,7 +348,7 @@ this.observers.remove(observer);
 	}
 
 	@Override
-	public  void notifyObserver(Observable observable) {
+	public  void notifyObserver(Observable observable) throws IOException {
 		for (Observer o:this.observers
 		) {
 			if(!LoadMap.LoadMapGlobalVariables.phaseComplete)
@@ -352,8 +356,7 @@ this.observers.remove(observer);
 		}
 	}
 
-	public void notifyObservers() {
-
+	public void notifyObservers() throws IOException {
 		notifyObserver(this);
 	}
 }
