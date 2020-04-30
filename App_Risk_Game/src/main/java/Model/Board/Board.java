@@ -216,10 +216,11 @@ public class Board  implements Observable {
 	 * @param tile_name
 	 * Associates a list of neighboring tiles to the tile
 	 */
-	public void setNeighbourTile(List<String> neighbour_tile, String tile_name) {
+	public void setNeighbourTile(List<String> neighbour_tile, String tile_name){
 		List<Tile> tile_list = new ArrayList<Tile>(); //Tile Neighbors
 		List<Tile> t_list = new ArrayList<Tile>(); // Neighbor neighbor update
 		Tile tile = tiles.get(tile_name);
+		System.out.println(tile);
 		for(int i=0; i<neighbour_tile.size(); i++) {
 			Tile t = tiles.get(neighbour_tile.get(i));
 			t_list.add(tiles.get(tile_name));

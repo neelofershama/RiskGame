@@ -2,6 +2,7 @@ package App_Risk_Game.src.main.java.Model.Players;
 
 import App_Risk_Game.src.main.java.Common.Common;
 import App_Risk_Game.src.main.java.Controller.LoadMap;
+import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Score.Dice;
 import App_Risk_Game.src.main.java.Model.Turns.Turns;
 
@@ -20,7 +21,7 @@ Player p;
         p = player;
         int maxTroops = 3;
         HashMap<String, Integer> terr = player.getTerritories();
-        System.out.println("territories : " + terr.toString());
+//        System.out.println("territories : " + terr.toString());
         while (maxTroops != 0) {
 
 
@@ -149,7 +150,10 @@ Player p;
     public boolean fortify() {
         System.out.println("Aggressive Player Fortifying Phase");
         Map.Entry<String, Integer> territoritory_with_second_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(Collectors.toList()).get(1);
+        System.out.println(territoritory_with_second_highest_troops);
         List<String> neighboring_territories = LoadMap.board.getNeighbourTile(territoritory_with_second_highest_troops.getKey());
+        // Fortify test unit
+//        List<String> neighboring_territories = Loboard.getNeighbourTile(territoritory_with_second_highest_troops.getKey());
         Iterator it = neighboring_territories.listIterator();
         while (it.hasNext()) {
             String country = (String) it.next();
@@ -161,6 +165,7 @@ Player p;
          if (!neighbor_with_highes_troops.equals(Optional.empty())) {
              Map.Entry<String, Integer> neighbours = neighbor_with_highes_troops.get();
              int troops = neighbours.getValue() - 1;
+             //
              p.territories.replace(territoritory_with_second_highest_troops.getKey(), territoritory_with_second_highest_troops.getValue() + troops);
              p.territories.replace(neighbours.getKey(), 1);
          }

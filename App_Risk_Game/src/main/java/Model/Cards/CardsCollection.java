@@ -51,7 +51,7 @@ public class CardsCollection implements Observable {
         Collections.shuffle(locations);
         Random r = new Random();
         Card card = null;
-        //Todo: set card types properly
+        //Todo: seting the card types
         String[] cardType = {"Infantry", "Cavalry", "Artillery"};
         for (int i = 0; i < noOfLocations; i++) {
             int ub = maxValue;
@@ -213,6 +213,7 @@ public class CardsCollection implements Observable {
     public static void assignCardToPlayer(String p, Card c) {
         List<Card> l = new ArrayList();
         l.add(c);
+
         playersCards.put(p, l);
     }
 
