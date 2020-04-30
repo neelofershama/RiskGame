@@ -43,7 +43,6 @@ public class CardsController implements Observer, Initializable {
     Player currentPlayer;
     HashMap<String, List<Card>> playersCards;
     static VBox displayRoot;
-    public int prevTroopsCount;
 
     /**
      * Initializes the controller class.
@@ -54,7 +53,6 @@ public class CardsController implements Observer, Initializable {
         playerNameLabel.setText(currentPlayer.getName());
         playerNameLabel.setTextFill(Color.web(currentPlayer.getColor()));
         playersCards = cardsCollection.getCardDetails();
-        prevTroopsCount = 0;
         addToListOfCards();
     }
 
@@ -72,16 +70,15 @@ public class CardsController implements Observer, Initializable {
         prevStage.close();
 
         cardsCollection.clickedBack();
-        System.out.println("*****************" + Integer.toString(prevTroopsCount));
         System.out.println("*****************" + Integer.toString(troopsAssigned));
-
-        if ((prevTroopsCount == 0) && (troopsAssigned != 0)){
-            ReinforceTest.setMaxTroop(troopsAssigned);
+        System.out.println("*****************" + Integer.toString(ReinforceTest.getMaxTroop()));
+        if (ReinforceTest.getMaxTroop() > 3){
+            troopsAssigned += ReinforceTest.getMaxTroop();
+            ReinforceTest.setMaxTroop(troopsAssigned -3);
         }
         else{
-            ReinforceTest.setMaxTroop(prevTroopsCount+troopsAssigned);
+            ReinforceTest.setMaxTroop(troopsAssigned);
         }
-        prevTroopsCount += troopsAssigned;
         Parent reinforceRoot = FXMLLoader.load(GameScreenTest.class.getResource("/App_Risk_Game/src/main/java/View/ReinforceTest.fxml"));
         Scene loadReinforceScene = new Scene(reinforceRoot);
         Stage loadReinforceStage = new Stage();
