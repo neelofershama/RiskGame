@@ -36,6 +36,7 @@ p = player;
     //Attacking the other territeries
     @Override
     public void attack() {
+        p = PlayerCollectionTest.getTurn();
         Map.Entry<String, Integer> attacking_from = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
 
         System.out.println("Attacking from territory "+attacking_from.getKey());
@@ -52,6 +53,10 @@ p = player;
             if (defendList.size() > 0) {
                 String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
                 Turns.turns.setDefenceplayer(attacking_on);
+
+                if(Turns.turns.getDefenceplayer().territories.get(attacking_on)==null)
+                    return;
+
                 int troops_defence = Turns.turns.getDefenceplayer().territories.get(attacking_on);
                 if (troops_defence <=0)return ;
                 int max_troops = 1;
@@ -118,6 +123,7 @@ p = player;
 
     @Override
     public boolean fortify() {
+        p = PlayerCollectionTest.getTurn();
         System.out.println("Cheater Fortify Phase");
         Map.Entry<String, Integer> territoritory_with_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findFirst().get();
         List<String> neighboring_territories = LoadMap.board.getNeighbourTile(territoritory_with_highest_troops.getKey());

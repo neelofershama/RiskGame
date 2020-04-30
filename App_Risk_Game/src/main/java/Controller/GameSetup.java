@@ -105,8 +105,8 @@ public class GameSetup implements Initializable {
             Label player_name = new Label("ENTER PLAYER - " + Integer.toString(p + 1));
             HBox hBox = new HBox(5);
             TextField t = new TextField();
-ComboBox cb_behavior = new ComboBox();
-cb_behavior.getItems().removeAll(cb_behavior.getItems());
+            ComboBox cb_behavior = new ComboBox();
+            cb_behavior.getItems().removeAll(cb_behavior.getItems());
 
             cb_behavior.getItems().addAll(player_behaviors);
             cb_behavior.valueProperty().addListener(new ChangeListener<String>() {
@@ -121,14 +121,15 @@ cb_behavior.getItems().removeAll(cb_behavior.getItems());
             // Adding color combobox
             ComboBox<String> color = new ComboBox<>();
 
-hBox.getChildren().addAll(player_name,t,cb_behavior);
+            hBox.getChildren().addAll(player_name,t,cb_behavior);
             vb_text_field.getChildren().addAll(hBox);
             player_text_field.add(t);
 
-            if (p + 1 == number_of_players) {
-                vb_text_field.getChildren().add(submit);
-            }
+//            if (p + 1 == number_of_players) {
+//                vb_text_field.getChildren().add(submit);
+//            }
         }
+        vb_text_field.getChildren().add(submit);
         grid.add(vb_text_field, 0, 2);
 
 
@@ -180,7 +181,7 @@ hBox.getChildren().addAll(player_name,t,cb_behavior);
                     for (int i = 0; i < player_text_field.size(); i++) {
                         // System.out.println(player_text_field.get(i).getText());
                         player_names.add(player_text_field.get(i).getText());
-player_behaviors.add(cb_values_behaviors.get(i));
+                        player_behaviors.add(cb_values_behaviors.get(i));
                         // System.out.println(player_names.size());
                     }
                     next_scene = true;

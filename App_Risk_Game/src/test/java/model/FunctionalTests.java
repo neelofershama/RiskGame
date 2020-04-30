@@ -53,7 +53,7 @@ public class FunctionalTests {
         String name = (String) iterator.next();
         territories.add(name);
     }
-    CardsCollection cardsCollection = new CardsCollection(territories, 5);
+    //CardsCollection cardsCollection = new CardsCollection(territories, 5);
 
      player_names
  = new ArrayList<>();

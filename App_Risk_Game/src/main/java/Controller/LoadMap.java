@@ -1,9 +1,11 @@
 package App_Risk_Game.src.main.java.Controller;
 
 import App_Risk_Game.src.interfaces.Observer;
+import App_Risk_Game.src.main.java.Common.BehaviourStrategies;
 import App_Risk_Game.src.main.java.Model.Board.Board;
 import App_Risk_Game.src.main.java.Model.Board.Tile;
 import App_Risk_Game.src.main.java.Model.Players.Player;
+import App_Risk_Game.src.main.java.Model.Players.PlayerBehaviour;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollection;
 import App_Risk_Game.src.main.java.Model.Players.PlayerCollectionTest;
 import javafx.event.ActionEvent;
@@ -109,12 +111,36 @@ public class LoadMap implements Initializable, Observer {
                 Stage stg = (Stage) LoadFile.getScene().getWindow();
                 stg.close();
                 String[][] matrix = getMapMatrix(board.getTiles());
-                Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
-                Scene loadMapScene = new Scene(loadRoot);
-                Stage loadMapStage = new Stage();
-                loadMapStage.setTitle("Map Loaded");
-                loadMapStage.setScene(loadMapScene);
-                loadMapStage.show();
+                LoadMap.board.notifyObservers();
+                playGame();
+//                Stage stg = (Stage) LoadFile.getScene().getWindow();
+//                stg.close();
+//                String[][] matrix = getMapMatrix(board.getTiles());
+//                LoadMap.board.notifyObservers();
+//
+//                // Getting player behavior and deciding to show them the game screen or not
+//                Player current_player = PlayerCollectionTest.getTurn();
+//                if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
+//                    Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+//                    Scene loadMapScene = new Scene(loadRoot);
+//                    Stage loadMapStage = new Stage();
+//                    loadMapStage.setTitle("Map Loaded");
+//                    loadMapStage.setScene(loadMapScene);
+//                    loadMapStage.show();
+//                }
+//                else{
+//                    System.out.println("LOAD MAP TESTING");
+//                    System.out.println(current_player.territories);
+//                    GameScreenTest gst = new GameScreenTest();
+//                    gst.startSingleGameMode();
+//                }
+
+//                Parent loadRoot = FXMLLoader.load(getClass().getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+//                Scene loadMapScene = new Scene(loadRoot);
+//                Stage loadMapStage = new Stage();
+//                loadMapStage.setTitle("Map Loaded");
+//                loadMapStage.setScene(loadMapScene);
+//                loadMapStage.show();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -290,6 +316,7 @@ public class LoadMap implements Initializable, Observer {
 
     }
 
+    //this method can void instead of String for return data type
     /**
      * Method is used to write the map to a text file created by gamer.
      *
@@ -316,7 +343,8 @@ public class LoadMap implements Initializable, Observer {
             String country = i.next().toString();
             Tile country_details = map.get(country);
 
-            printWriter.write(country + "," + country_details.getXCoordinate() + "," + country_details.getYCoordinate() + "," + country_details.getContinent());
+            printWriter.write(country + "," + country_details.getXCoordinate() +
+                    "," + country_details.getYCoordinate() + "," + country_details.getContinent());
             for (int j = 0; j < board.getNeighbourTile(country).size(); j++) {
                 printWriter.write("," + board.getNeighbourTile(country).get(j));
             }
@@ -327,6 +355,7 @@ public class LoadMap implements Initializable, Observer {
         fileWriter.close();
         printWriter.close();
 
+        // if we make it void we can take off next flines and return statement too
         FileReader fir = new FileReader("Map.txt");
         BufferedReader bir = new BufferedReader(fir);
         String toReturn = bir.readLine();
@@ -344,6 +373,8 @@ public class LoadMap implements Initializable, Observer {
         // Initialize matrix
         int i = 1;
         matrix[0][0] = "";
+
+
         while (i <= tiles.keySet().size()) {
             if (tileList.hasNext()) {
                 String tileName = tileList.next();
@@ -397,6 +428,7 @@ public class LoadMap implements Initializable, Observer {
             String filePath = selectedFile.getAbsolutePath();
             System.out.println("File selected: " + filePath);
 
+            //we can just have return loadMap(filePath);
             boolean result = loadMap(filePath);
             return result;
 
@@ -521,12 +553,49 @@ public class LoadMap implements Initializable, Observer {
         static int i = 0;
         static public Boolean gsFlag = false;
         static public Boolean phaseComplete = false;
+        static public boolean endGame = false;
        // static Player current_player = PlayerCollection.players.get(0);
         //static Player current_player = PlayerCollectionTest.getTurn();
 static public boolean endgame = false;
         static     boolean game_started = false;
     }
 
+    public static void playGame() throws IOException, InterruptedException {
+        GameScreenTest gst = new GameScreenTest();
+        Player current_player;
+        do {
+            current_player = PlayerCollectionTest.getTurn();
+            if (current_player.getType() == BehaviourStrategies.HumanPlayer) {
+                GameScreenTest.start_turn = true;
+                Parent loadRoot = FXMLLoader.load(LoadMap.class.getResource("/App_Risk_Game/src/main/java/View/GameScreenTest.fxml"));
+                Scene loadMapScene = new Scene(loadRoot);
+                Stage loadMapStage = new Stage();
+                loadMapStage.setTitle("Map Loaded");
+                loadMapStage.setScene(loadMapScene);
+                loadMapStage.show();
+                System.out.println("HUMAN PLAYER IS PLAYING");
+            } else {
+                System.out.println("LOAD MAP TESTING");
+                System.out.println(current_player.territories);
+
+
+                gst.startSingleGameMode();
+                if(gst.checkWinnerCondition(current_player)){
+                    // PlayerCollectionTest.goBackToGameScreen();
+                }
+                else{
+                    PlayerCollectionTest.updateTurn();
+                }
+
+            }
+            System.out.println(gst.checkWinnerCondition(current_player));
+        }while(!gst.checkWinnerCondition(current_player) && current_player.getType() != BehaviourStrategies.HumanPlayer);
+
+        System.out.println("Game ended");
+
+        if(current_player.getType() != BehaviourStrategies.HumanPlayer)
+            PlayerCollectionTest.goBackToGameScreen();
+    }
 }
 
 

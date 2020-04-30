@@ -117,40 +117,38 @@ ComboBox<Integer> troopstoattack;
     public void onattackcountryselected(String attacking_country){
         // defendList.clear();
         troops_in_attacking_country = players.get(Turns.turns.getCurrentPlayerID() - 1).territories.get(attacking_country)-1;
-    //System.out.println(troopsinattackingcountry);
-    if (troops_in_attacking_country > 1) {
-        defendList = LoadMap.board.getNeighbourTile(attacking_country);
-        System.out.println(defendList);
-        Iterator it = defendList.listIterator();
-        while (it.hasNext()) {
-            String country = (String) it.next();
-            if (p.getTerritories().containsKey(country)) {
-                it.remove();
+        //System.out.println(troopsinattackingcountry);
+        if (troops_in_attacking_country > 1) {
+            defendList = LoadMap.board.getNeighbourTile(attacking_country);
+            System.out.println(defendList);
+            Iterator it = defendList.listIterator();
+            while (it.hasNext()) {
+                String country = (String) it.next();
+                if (p.getTerritories().containsKey(country)) {
+                    it.remove();
+                }
             }
-        }
-        attackToList.getItems().addAll(defendList);
+            attackToList.getItems().addAll(defendList);
 //        attackToList.getSelectionModel().selectFirst();
 
+            int max_troops =0;
+            if(troops_in_attacking_country >3)
+                max_troops =3;
+            else if(troops_in_attacking_country == 3)
+                max_troops =2;
+            else if (troops_in_attacking_country == 2)
+                max_troops =1;
+                for (int i = 1; i <= max_troops; i++) {
+                    nooftroops.add(i);
+            }
+            troopstoattack.getItems().addAll(nooftroops);
+            //System.out.println(troopstoattack.getValue());
 
-
-        int max_troops =0;
-        if(troops_in_attacking_country >3)
-            max_troops =3;
-        else if(troops_in_attacking_country == 3)
-            max_troops =2;
-        else if (troops_in_attacking_country == 2)
-            max_troops =1;
-        for (int i = 1; i <= max_troops; i++) {
-            nooftroops.add(i);
+         }
+        else{
+           showWarning();
         }
-        troopstoattack.getItems().addAll(nooftroops);
-        //System.out.println(troopstoattack.getValue());
-
-     }
-    else{
-       showWarning();
     }
-}
 
     /**
      * Showing warning if country selected to attack from has only one 1 troop
@@ -182,28 +180,28 @@ ComboBox<Integer> troopstoattack;
         p  = PlayerCollectionTest.getTurn();
         current_player.setText(p.getName());
       
-if(p.getType()== BehaviourStrategies.RandomPlayer){
-    p.attack();
-}
-else {
-    //current_player.setText(Turns.turns.getCurrent_player());
-    attackFromList.getItems().addAll(getAttackList());
-    attackFromList.valueProperty().addListener(new ChangeListener<String>() {
-        @Override
-        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            //TODO
-            //incase of attack can be done from only one country at a time
-            if (oldValue == null || warning_given) {
-                attacking_country = newValue;
-                warning_given = false;
-            } else
-                attacking_country = oldValue;
-            //attacking_country = newValue;
-            System.out.println("Atacking from " + attacking_country);
-            onattackcountryselected(attacking_country);
-        }
-    });
-}
+//        if(p.getType()== BehaviourStrategies.RandomPlayer){
+//            p.attack();
+//        }
+       // else {
+            //current_player.setText(Turns.turns.getCurrent_player());
+            attackFromList.getItems().addAll(getAttackList());
+            attackFromList.valueProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    //TODO
+                    //incase of attack can be done from only one country at a time
+                    if (oldValue == null || warning_given) {
+                        attacking_country = newValue;
+                        warning_given = false;
+                    } else
+                        attacking_country = oldValue;
+                    //attacking_country = newValue;
+                    System.out.println("Atacking from " + attacking_country);
+                    onattackcountryselected(attacking_country);
+                }
+            });
+        //}
     }
 
     /**
@@ -227,10 +225,10 @@ else {
      */
     @FXML
     public void rolldice(MouseEvent mouseEvent) {
-if(attackToList.getValue() == null)
-{
-    defence_country = defendList.get(0);
-}
+        if(attackToList.getValue() == null)
+        {
+            defence_country = defendList.get(0);
+        }
         Dice dice = new Dice();
         int n=0;
         int m = troopstoattack.getValue();
@@ -241,13 +239,13 @@ if(attackToList.getValue() == null)
         List<Integer> troopslost = dice.rollDice(m,n);
         int troopsofatk = troopslost.get(0);
         int troopsofdfc = troopslost.get(1);
-    System.out.println("Troops lost by attack " + troopsofatk);
-    System.out.println("Troops lost by defence " + troopsofdfc);
+        System.out.println("Troops lost by attack " + troopsofatk);
+        System.out.println("Troops lost by defence " + troopsofdfc);
         int current_troop =troops_in_attacking_country-troopsofatk;
     PlayerCollectionTest.players.get(Turns.turns.getCurrentPlayerID()-1).getTerritories().replace(attacking_country,current_troop);
     Player f =Turns.turns.getDefenceplayer();
-    System.out.println("Defence player"+f.getName());
-  System.out.println("Defence player id"+Turns.turns.getDefenceplayerid());
+    //System.out.println(f);
+    System.out.println(Turns.turns.getDefenceplayerid());
 
      int t = PlayerCollectionTest.players.get(Turns.turns.getDefenceplayerid()-1).getTerritories().get(defence_country);
     t = t-troopsofdfc;
@@ -269,7 +267,7 @@ if(attackToList.getValue() == null)
         String dfdice = null;
         atkdice = dice.dice_value.toString();
         dfdice = dice.dice_value1.toString();
-atkrdice.setText(atkdice);
+        atkrdice.setText(atkdice);
         // getting sum of dice
         int attack_sum = 0;
         for(int i=0;i<dice.dice_value.size();i++){

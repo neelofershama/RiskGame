@@ -72,6 +72,10 @@ else {
                if (defendList.size() > 0) {
                    String attacking_on = defendList.get((int) (Math.random() * defendList.size()));
                    Turns.turns.setDefenceplayer(attacking_on);
+                   
+                   if(Turns.turns.getDefenceplayer().territories.get(attacking_on)==null)
+                       return;
+
                    int troops_defence = Turns.turns.getDefenceplayer().territories.get(attacking_on);
                    if (troops_defence <=0)return ;
                    int max_troops = 1;
@@ -146,7 +150,7 @@ else
     }
 
     private boolean fortifyAggressively() {
-        Map.Entry<String, Integer> territoritory_with_second_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(Collectors.toList()).get(1);
+       Map.Entry<String, Integer> territoritory_with_second_highest_troops = p.territories.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).findAny().get();
         List<String> neighboring_territories = LoadMap.board.getNeighbourTile(territoritory_with_second_highest_troops.getKey());
         Iterator it = neighboring_territories.listIterator();
         while (it.hasNext()) {

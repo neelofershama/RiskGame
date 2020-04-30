@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1024.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Risk_Game.src.main.java.Controller.FortifyTest">
+   <children>
+      <Label fx:id="player_name" alignment="CENTER" text="Label" />
+      <Label fx:id="territories_owned" text="Label" />
+      <Label fx:id="label_from" text="Label" />
+      <ComboBox fx:id="from" onAction="#onEnter" prefWidth="150.0" />
+   </children>
+</VBox>
